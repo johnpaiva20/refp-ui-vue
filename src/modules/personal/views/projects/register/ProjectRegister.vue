@@ -18,21 +18,22 @@
           <v-stepper-content step="1">
             <step1></step1>
 
-            <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
+            <v-btn class="btnStep" color="primary" @click="e1 = 2">Continue</v-btn>
 
-            <v-btn flat>Cancel</v-btn>
+            <v-btn flat>Voltar</v-btn>
           </v-stepper-content>
 
           <v-stepper-content step="2">
-            <v-btn color="primary" @click="e1 = 3">Continue</v-btn>
+            <step2></step2>
+            <v-btn class="btnStep" color="primary" @click="e1 = 3">Continue</v-btn>
 
-            <v-btn flat>Cancel</v-btn>
+            <v-btn flat>Voltar</v-btn>
           </v-stepper-content>
 
           <v-stepper-content step="3">
-            <v-btn color="primary">Confirmar</v-btn>
+            <v-btn class="btnStep" color="primary">Confirmar</v-btn>
 
-            <v-btn flat>Cancel</v-btn>
+            <v-btn flat>Voltar</v-btn>
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
@@ -47,14 +48,20 @@
   position: relative;
   top: 50px;
   padding: 30px 5px 15px 5px;
+  
+}
+.btnStep{
+  float: right;
 }
 </style>
 
 <script>
 import step1 from "./components/ProjectRegisterStepBasicInformation";
+import step2 from "./components/ProjectRegisterStepEnterprise";
 export default {
   components: {
-    step1
+    step1,
+    step2
   },
   data() {
     return {

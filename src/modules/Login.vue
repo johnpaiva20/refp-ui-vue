@@ -2,6 +2,9 @@
   <v-app>
     <div class="background">
       <div class="login-form-container">
+        <div class="divLogo">
+          <b-img class="logo" src="https://static.wixstatic.com/media/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.png/v1/fill/w_141,h_36,al_c,q_80,usm_0.66_1.00_0.01/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.webp" fluid alt="Responsive image"></b-img>
+        </div>
         <b-form>
           <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
             <b-form-input
@@ -57,6 +60,15 @@
 
 .version {
   color: #3e8f52;
+}
+.divLogo{
+  margin-left: 25%;
+  margin-top: 20px;
+  height: 100px;
+}
+.logo{
+  height: 50px;
+  width: 180px;
 }
 </style>
 
