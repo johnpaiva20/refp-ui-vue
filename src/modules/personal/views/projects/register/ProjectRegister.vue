@@ -31,6 +31,7 @@
           </v-stepper-content>
 
           <v-stepper-content step="3">
+            <step3></step3>
             <v-btn class="btnStep" color="primary">Confirmar</v-btn>
 
             <v-btn flat>Voltar</v-btn>
@@ -48,6 +49,7 @@
   position: relative;
   top: 50px;
   padding: 30px 5px 15px 5px;
+  background-color: white;
   
 }
 .btnStep{
@@ -58,10 +60,12 @@
 <script>
 import step1 from "./components/ProjectRegisterStepBasicInformation";
 import step2 from "./components/ProjectRegisterStepEnterprise";
+import step3 from "./components/ProjectRegisterStepConfirmation";
 export default {
   components: {
     step1,
-    step2
+    step2,
+    step3,
   },
   data() {
     return {
