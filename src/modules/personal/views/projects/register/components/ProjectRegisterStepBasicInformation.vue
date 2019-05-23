@@ -7,8 +7,8 @@
       <b-row>
         <!-- Inicio Coluna 1 -->
         <b-col md="4">
-          <b-form-group  id="fieldset-1" class="inputFormStyle" label="Código da ANEEL" label-for="input-1">
-            <b-form-input id="input-1" type="text" v-model="codigoAneel" :state="state" trim></b-form-input>
+          <b-form-group ref="form"  id="fieldset-1" class="inputFormStyle" label="Código da ANEEL" label-for="input-1">
+            <b-form-input required id="input-1" type="text" v-model="codigoAneel" :state="state" trim></b-form-input>
           </b-form-group>
        </b-col>
        <!-- Fim coluna 1 -->
@@ -128,7 +128,11 @@ export default {
     return {
       codigoAneel: "",
       dataInicioDoProjeto: "",
-      selected: null,
+      duracaoMeses:"",
+      tituloProjeto:"",
+      ordemServico:"",
+
+        selected: null,
         options: [
           { value: null, text: 'Selecione o tipo do projeto' },
           { value: 'PD', text: 'Pesquisa e Desenvolvimento' },
@@ -144,7 +148,7 @@ export default {
           { value: 'LP', text: 'Lote Pioneiro' },
           { value: 'IM', text: 'Inserção no Mercado' },
         ],
-          selected3: null,
+        selected3: null,
         options3: [
           { value: null, text: 'Tipo de Produto' },
           { value: 'CM', text: 'Conceito ou Metodologia' },
@@ -154,7 +158,7 @@ export default {
           { value: 'CD', text: 'Componente ou Dispositivo' },
           { value: 'ME', text: 'Máquina ou Equipamento' },
         ],
-          selected4: null,
+        selected4: null,
         options4: [
           { value: null, text: 'Segmento' },
           { value: 'G', text: 'Geração' },
@@ -162,7 +166,7 @@ export default {
           { value: 'D', text: 'Distribuição' },
           { value: 'C', text: 'Comercialização' },
         ],
-         selected5: null,
+        selected5: null,
         options5: [
           { value: null, text: 'Escolha o Tema do Projeto' },
           { value: 'FAGEE', text: 'Fontes Alternativas de Geração de Energia Elétrica' },
@@ -178,7 +182,7 @@ export default {
           { value: 'MFCPC', text: 'Medição, Faturamento e Combate a Perdas Comerciais' },
           
         ],
-         selected6: null,
+        selected6: null,
         options6: [
           { value: null, text: 'Escolha o Subtema do Projeto' },
           { value: 'G', text: 'Geração' },

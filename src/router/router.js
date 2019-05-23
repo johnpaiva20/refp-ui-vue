@@ -8,7 +8,8 @@ import Login from '../modules/Login.vue';
 import PersonalArea from '../modules/personal/layout/PersonalArea.vue';
 import ProjectList from '../modules/personal/views/projects/list/ProjectList.vue';
 import ProjectRegister from '../modules/personal/views/projects/register/ProjectRegister.vue';
-import EnterpriseList from '../modules/personal/views/enterprises/EnterpriseList.vue';
+import EnterpriseList from '../modules/personal/views/enterprises/list/EnterpriseList.vue';
+import EnterpriseRegister from '../modules/personal/views/enterprises/register/components/EnterpriseRegister.vue';
 import MemberList from '../modules/personal/views/members/MemberList';
 
 //-------------------Project Modules-----------------------------
@@ -32,6 +33,7 @@ export default new Router({
         { path: 'projects', component: ProjectList },
         { path: 'projects/register', component: ProjectRegister },
         { path: 'enterprises', component: EnterpriseList },
+        { path: 'enterprises/register', component: EnterpriseRegister },
         { path: 'members', component: MemberList }
       ]
     },

@@ -19,7 +19,7 @@
         </div>
 
         <div class="btn-new">
-          <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
+          <v-btn color="primary" to="../register/components">Novo</v-btn>
         </div>
       </v-layout>
 
@@ -72,6 +72,7 @@
 
 
 <script>
+import router from "../../../../../router/router";
 export default {
   data() {
     return {
@@ -93,6 +94,12 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    goToEnterprise() {
+      const id = router.currentRoute.params.id;
+      router.push({ path: `/enterprise/${id}/info`});
+    }
   }
 };
 </script>
