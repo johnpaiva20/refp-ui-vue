@@ -1,5 +1,5 @@
  <template>
-  <v-navigation-drawer class="primary" width="200px" app fixed clipped permanent>
+  <v-navigation-drawer class="primary mt-5" width="200px"  style="top: 24px" app fixed clipped permanent>
     <v-list>
       <v-list-tile v-for="item in menuItens" v-bind:key="item.id" v-on:click="goToPage(item.path)">
         <v-list-tile-action>
