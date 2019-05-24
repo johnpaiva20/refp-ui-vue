@@ -9,8 +9,9 @@ import PersonalArea from '../modules/personal/layout/PersonalArea.vue';
 import ProjectList from '../modules/personal/views/projects/list/ProjectList.vue';
 import ProjectRegister from '../modules/personal/views/projects/register/ProjectRegister.vue';
 import EnterpriseList from '../modules/personal/views/enterprises/list/EnterpriseList.vue';
-import EnterpriseRegister from '../modules/personal/views/enterprises/register/components/EnterpriseRegister.vue';
-import MemberList from '../modules/personal/views/members/MemberList';
+import EnterpriseRegister from '../modules/personal/views/enterprises/register/EnterpriseRegister.vue';
+import MemberList from '../modules/personal/views/members/list/MemberList';
+import MemberRegister from '../modules/personal/views/members/register/MemberRegister.vue';
 
 //-------------------Project Modules-----------------------------
 import ProjectArea from '../modules/project/layout/ProjectArea.vue';
@@ -34,6 +35,7 @@ export default new Router({
         { path: 'projects/register', component: ProjectRegister },
         { path: 'enterprises', component: EnterpriseList },
         { path: 'enterprises/register', component: EnterpriseRegister },
+        { path: 'members/register', component: MemberRegister },
         { path: 'members', component: MemberList }
       ]
     },
