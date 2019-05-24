@@ -19,7 +19,7 @@
         </div>
 
         <div class="btn-new">
-          <v-btn color="primary">Novo</v-btn>
+          <v-btn color="primary" to="/personal/members/register">Novo</v-btn>
         </div>
       </v-layout>
 
