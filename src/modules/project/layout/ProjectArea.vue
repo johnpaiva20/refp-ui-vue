@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <Toolbar/>
     <ProjectsSideBar/>
     <v-content>
@@ -9,7 +9,7 @@
         </v-fade-transition>
       </v-container>
     </v-content>
-  </v-app>
+  </div>
 </template>
 
 

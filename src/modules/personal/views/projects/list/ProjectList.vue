@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <div class="project-table">
       <v-layout row>
         <div class="search-field">
@@ -24,15 +23,23 @@
       </v-layout>
 
       <v-card class="project-table-card">
-        <v-data-table :headers="headers" :items="projects" :search="search">
+        <v-data-table
+          :headers="headers"
+          :items="projects"
+          :search="search"
+          hide-actions
+          :pagination.sync="pagination"
+          loading="isLoading"
+        >
           <template v-slot:items="props">
-            <tr @click="goToProject(props.item.id)">
+            <tr @click="goToProject(props.item)">
               <td>{{ props.item.aneelId }}</td>
+              <td>{{ props.item.title }}</td>
               <td>{{ props.item.type }}</td>
               <td>{{ props.item.startDate }}</td>
               <td>{{ props.item.duration }}</td>
               <td>{{ props.item.serviceOrder }}</td>
-              <td>{{ props.item.iron }}</td>
+              <td>{{ props.item.principalEnterprise }}</td>
               <td>{{ props.item.status }}</td>
             </tr>
           </template>
@@ -44,15 +51,16 @@
             >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
           </template>
         </v-data-table>
+        <div class="text-xs-right pt-2">
+          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+        </div>
       </v-card>
     </div>
-  </v-app>
 </template>
 
 <style>
 .project-table {
   position: relative;
-  top: 50px;
   padding: 30px 5px 15px 5px;
 }
 
@@ -76,12 +84,15 @@
 
 
 <script>
-import router from "../../../../../router/router";
-import api from "@/api/ProjectApi";
+import { RepositoryFactory } from "../../../../../repositories/RepositoryFactory";
+const ProjectsRepository = RepositoryFactory.get("projects");
+
 export default {
   data() {
     return {
       search: "",
+      pagination: {},
+      isLoading: false,
       headers: [
         { text: "Código ANEEL", value: "aneelId" },
         { text: "Titulo", value: "title" },
@@ -89,27 +100,42 @@ export default {
         { text: "Data de Inicio", value: "startDate" },
         { text: "Duração(meses)", value: "duration" },
         { text: "Ordem de Serviço(ODS)", value: "serviceOrder" },
-        { text: "Empresa Proponente", value: "iron" },
+        { text: "Empresa Proponente", value: "principalEnterprise" },
         { text: "Status", value: "status" }
       ],
       projects: []
     };
   },
+  created() {
+    this.fetch();
+  },
   methods: {
-    goToProject() {
-      const id = router.currentRoute.params.id;
-      router.push({ path: `/project/${id}/info`});
+    async fetch() {
+      this.isLoading = true;
+      const { data } = await ProjectsRepository.get();
+      this.isLoading = false;
+      this.projects = data;
+    },
+    goToProject(project) {
+      this.$router.push({
+        path: `/project/${project.id}/info`,
+        params: { id: project.id }
+      });
     }
   },
-  mounted() {
-    api
-      .listAllProjects()
-      .then(response => {
-        this.projects = response;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  mounted() {},
+  computed: {
+    pages() {
+      if (
+        this.pagination.rowsPerPage == null ||
+        this.pagination.totalItems == null
+      )
+        return 0;
+
+      return Math.ceil(
+        this.pagination.totalItems / this.pagination.rowsPerPage
+      );
+    }
   }
 };
 </script>

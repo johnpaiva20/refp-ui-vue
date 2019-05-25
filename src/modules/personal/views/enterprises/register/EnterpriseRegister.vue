@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <div class="divPrincipal">
       <h1 class="tituloTelaCadastro">Cadastro de Empresa</h1>
       <b-row>
@@ -45,7 +44,6 @@
 
 
     </div>
-  </v-app>
 </template>
 
 <style>

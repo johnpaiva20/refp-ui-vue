@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <div class="project-table">
       <v-layout row>
         <div class="search-field">
@@ -24,7 +23,13 @@
       </v-layout>
 
       <v-card class="project-table-card">
-        <v-data-table :headers="headers" :items="enterprises" :search="search">
+        <v-data-table
+          :headers="headers"
+          :items="enterprises"
+          :search="search"
+          hide-actions
+          :pagination.sync="pagination"
+        >
           <template v-slot:items="props">
             <td>{{ props.item.id }}</td>
             <td>{{ props.item.trade }}</td>
@@ -40,9 +45,11 @@
             >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
           </template>
         </v-data-table>
+        <div class="text-xs-right pt-2">
+          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+        </div>
       </v-card>
     </div>
-  </v-app>
 </template>
 
 <style>
@@ -72,11 +79,11 @@
 
 
 <script>
-import router from "../../../../../router/router";
 export default {
   data() {
     return {
       search: "",
+      pagination: {},
       headers: [
         { text: "Código da Empresa", value: "id" },
         { text: "Nome Fantasia", value: "trade" },
@@ -97,8 +104,21 @@ export default {
   },
   methods: {
     goToEnterprise() {
-      const id = router.currentRoute.params.id;
-      router.push({ path: `/enterprise/${id}/info`});
+      const id = this.$router.currentRoute.params.id;
+      this.$router.push({ path: `/enterprise/${id}` });
+    }
+  },
+  computed: {
+    pages() {
+      if (
+        this.pagination.rowsPerPage == null ||
+        this.pagination.totalItems == null
+      )
+        return 0;
+
+      return Math.ceil(
+        this.pagination.totalItems / this.pagination.rowsPerPage
+      );
     }
   }
 };

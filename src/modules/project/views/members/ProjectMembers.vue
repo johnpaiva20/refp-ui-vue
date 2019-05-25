@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <div class="enterprise-table">
       <v-layout row>
         <div class="search-field">
@@ -43,7 +42,6 @@
         </v-data-table>
       </v-card>
     </div>
-  </v-app>
 </template>
 
 <style>

@@ -24,7 +24,13 @@
       </v-layout>
 
       <v-card class="project-table-card">
-        <v-data-table :headers="headers" :items="desserts" :search="search">
+        <v-data-table
+          :headers="headers"
+          :items="members"
+          :search="search"
+          hide-actions
+          :pagination.sync="pagination"
+        >
           <template v-slot:items="props">
             <td>{{ props.item.name }}</td>
             <td>{{ props.item.calories }}</td>
@@ -41,6 +47,9 @@
             >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
           </template>
         </v-data-table>
+        <div class="text-xs-right pt-2">
+          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+        </div>
       </v-card>
     </div>
   </v-app>
@@ -77,6 +86,7 @@ export default {
   data() {
     return {
       search: "",
+      pagination: {},
       headers: [
         { text: "Código do Membro", align: "left", value: "name" },
         { text: "Nome", value: "calories" },
@@ -84,17 +94,22 @@ export default {
         { text: "Titulação", value: "carbs" },
         { text: "CPF", value: "protein" }
       ],
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: "1%"
-        }
+      members: [
       ]
     };
+  },
+  computed: {
+    pages() {
+      if (
+        this.pagination.rowsPerPage == null ||
+        this.pagination.totalItems == null
+      )
+        return 0;
+
+      return Math.ceil(
+        this.pagination.totalItems / this.pagination.rowsPerPage
+      );
+    }
   }
 };
 </script>

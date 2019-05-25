@@ -1,5 +1,4 @@
 <template>
-    <v-app>
       <div class="divConfirmation">
         <b-row>
             <b-col md="5">
@@ -35,7 +34,6 @@
            </b-col>
         </b-row>
     </div>
-    </v-app>
 </template>
 
 <style>

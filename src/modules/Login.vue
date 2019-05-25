@@ -1,38 +1,41 @@
 <template>
-  <v-app>
-    <div class="background">
-      <div class="login-form-container">
-        <div class="divLogo">
-          <b-img class="logo" src="https://static.wixstatic.com/media/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.png/v1/fill/w_141,h_36,al_c,q_80,usm_0.66_1.00_0.01/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.webp" fluid alt="Responsive image"></b-img>
-        </div>
-        <b-form>
-          <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
-            <b-form-input
-              id="input-1"
-              v-model="form.email"
-              type="email"
-              required
-              placeholder="Enter email"
-            ></b-form-input>
-          </b-form-group>
+  <div class="background">
+    <div class="login-form-container">
+      <div class="divLogo">
+        <b-img
+          class="logo"
+          src="https://static.wixstatic.com/media/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.png/v1/fill/w_141,h_36,al_c,q_80,usm_0.66_1.00_0.01/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.webp"
+          fluid
+          alt="Responsive image"
+        ></b-img>
+      </div>
+      <b-form>
+        <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
+          <b-form-input
+            id="input-1"
+            v-model="form.email"
+            type="email"
+            required
+            placeholder="Enter email"
+          ></b-form-input>
+        </b-form-group>
 
-          <b-form-group id="input-group-2" label="Senha" label-for="input-2">
-            <b-form-input
-              id="input-2"
-              v-model="form.password"
-              type="password"
-              required
-              placeholder="Senha"
-            ></b-form-input>
-          </b-form-group>
-        </b-form>
-        <v-btn block color="#3e8f52" class="white--text" v-on:click="login()">Entrar</v-btn>
-        <div>
-          <h6 class="version">Versão 0.0.0</h6>
-        </div>
+        <b-form-group id="input-group-2" label="Senha" label-for="input-2">
+          <b-form-input
+            id="input-2"
+            v-model="form.password"
+            type="password"
+            required
+            placeholder="Senha"
+          ></b-form-input>
+        </b-form-group>
+      </b-form>
+      <v-btn block color="#3e8f52" class="white--text" v-on:click="login()">Entrar</v-btn>
+      <div>
+        <h6 class="version">Versão 0.0.0</h6>
       </div>
     </div>
-  </v-app>
+  </div>
 </template>
 
 <style>
@@ -61,12 +64,12 @@
 .version {
   color: #3e8f52;
 }
-.divLogo{
+.divLogo {
   margin-left: 25%;
   margin-top: 20px;
   height: 100px;
 }
-.logo{
+.logo {
   height: 50px;
   width: 180px;
 }
