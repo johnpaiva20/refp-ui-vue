@@ -5,14 +5,14 @@
       <b-row>
         <!-- Inicio Coluna 1 -->
         <b-col md="3">
-          <v-radio-group v-model="radioGroup" row>
+          <v-radio-group v-model="type" row @change="typeChanged()">
             <v-radio
-              v-for="option in options"
-              :key="option"
-              :label="`${option.text}`"
-              :value="option.value"
+              v-for="type in types"
+              :key="type.id"
+              :label="`${type.name}`"
+              :value="type.value"
+              :disabled="type.active"
               color="primary"
-              :disabled="option.disabled"
             ></v-radio>
           </v-radio-group>
         </b-col>
@@ -25,40 +25,21 @@
             label="Código da ANEEL"
             label-for="input-1"
           >
-            <b-form-input
-              required
-              id="input-1"
-              type="text"
-              v-model="codigoAneel"
-              :state="state"
-              trim
-            ></b-form-input>
+            <b-form-input required id="input-1" type="text" v-model="aneelId" trim></b-form-input>
           </b-form-group>
         </b-col>
         <!-- Fim coluna 1 -->
         <!-- Inicio Coluna 2 na linha 1 -->
         <b-col md="2">
           <b-form-group id="fieldset-1" label="Data Início do Projeto" label-for="input-2">
-            <b-form-input
-              id="input-2"
-              type="date"
-              v-model="dataInicioDoProjeto"
-              :state="state"
-              trim
-            ></b-form-input>
+            <b-form-input id="input-2" type="date" v-model="start" trim></b-form-input>
           </b-form-group>
         </b-col>
         <!--Fim da coluna 2 na linha 1 -->
         <!-- Inicio da coluna 3 na linha 1 -->
         <b-col md="2">
           <b-form-group id="fieldset-1" label="Duração (Em meses)" label-for="input-3">
-            <b-form-input
-              id="input-3"
-              placeholder="Ex: 12 meses"
-              v-model="duracaoMeses"
-              :state="state"
-              trim
-            ></b-form-input>
+            <b-form-input id="input-3" placeholder="Ex: 12 meses" v-model="duration" trim></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="3">
@@ -68,7 +49,7 @@
             label="Ordem de Serviço (ODS)"
             label-for="input-6"
           >
-            <b-form-input id="input-6" type="text" v-model="ordemServico" :state="state" trim></b-form-input>
+            <b-form-input id="input-6" type="text" v-model="serviceOrder" trim></b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
@@ -79,7 +60,7 @@
         <!-- Inicio Coluna Central -->
         <b-col md="12">
           <b-form-group id="fieldset-1" label="Título do Projeto" label-for="input-5">
-            <b-form-input id="input-5" type="text" v-model="tituloProjeto" :state="state" trim></b-form-input>
+            <b-form-input id="input-5" type="text" v-model="title" trim></b-form-input>
           </b-form-group>
         </b-col>
         <!-- Fim Coluna Central -->
@@ -92,28 +73,37 @@
         <!-- Fim coluna 1 -->
         <!-- Inicio Coluna 2 na linha 3 -->
 
-        <b-col md="3">
+        <b-col md="2">
           <b-form-group id="fieldset-1" label="Segmento" label-for="input-9">
-            <b-form-select id="input-9" v-model="selected4" :options="options4"></b-form-select>
+            <b-form-select id="input-9" v-model="segment">
+              <option :value="null" disabled>Segmentos</option>
+              <option v-for="segment in segments" v-bind:key="segment.value">{{segment.name}}</option>
+            </b-form-select>
           </b-form-group>
         </b-col>
         <b-col md="3">
           <b-form-group id="fieldset-1" label="Fase de Cadeia" label-for="input-7">
-            <b-form-select id="input-7" v-model="selected2" :options="options2"></b-form-select>
+            <b-form-select id="input-7" v-model="innovationPhase">
+              <option :value="null" disabled>Fase de Cadeia</option>
+              <option v-for="phase in innovationPhases" v-bind:key="phase.value">{{phase.name}}</option>
+            </b-form-select>
           </b-form-group>
         </b-col>
         <!--Fim da coluna 2 na linha 3 -->
         <!-- Inicio da coluna 3 na linha 3 -->
         <b-col md="3">
           <b-form-group id="fieldset-1" label="Tipo do Produto" label-for="input-8">
-            <b-form-select id="input-8" v-model="selected3" :options="options3"></b-form-select>
+            <b-form-select id="input-8" v-model="product">
+              <option :value="null" disabled>Tipo de Produto</option>
+              <option v-for="product in products" v-bind:key="product.value">{{product.name}}</option>
+            </b-form-select>
           </b-form-group>
         </b-col>
         <!-- Fim da coluna 3 na linha 3 -->
         <!-- Inicio da coluna 4 na linha 3 -->
-        <b-col md="3">
+        <b-col md="4">
           <b-form-group id="fieldset-1" label="Tipo de Compartilhamento" label-for="input-8">
-            <b-form-select id="input-8" v-model="selected3" :options="options3"></b-form-select>
+            <b-form-select id="input-8" v-model="sharingType" :options="sharingTypes"></b-form-select>
           </b-form-group>
         </b-col>
         <!--Fim da coluna 4 na linha 3 -->
@@ -125,7 +115,14 @@
         <!-- Inicio Coluna Central -->
         <b-col md="12">
           <b-form-group id="fieldset-1" label="Escolha o Tema do Projeto" label-for="input-10">
-            <b-form-select id="input-10" v-model="selected5" :options="options5"></b-form-select>
+            <b-form-select id="input-10" v-model="topic" @change="topicChanged()">
+              <option :value="null" disabled>Tema</option>
+              <option
+                v-for="topic in topics"
+                v-bind:key="topic.id"
+                :value="topic.id"
+              >{{topic.description}}</option>
+            </b-form-select>
           </b-form-group>
         </b-col>
         <!-- Fim Coluna Central -->
@@ -133,11 +130,18 @@
       <!-- Fim linha 4  -->
 
       <!-- Inicio Linha 5 -->
-      <b-row>
+      <b-row v-if="false">
         <!-- Inicio Coluna Central -->
         <b-col md="12">
           <b-form-group id="fieldset-1" label="Escolha o Subtema do Projeto" label-for="input-11">
-            <b-form-select id="input-11" v-model="selected6" :options="options6"></b-form-select>
+            <b-form-select id="input-11" v-model="subtopic">
+              <option :value="null" disabled>Subtema</option>
+              <option
+                v-for="subtopic in subtopics"
+                v-bind:key="subtopic.value"
+                :value="subtopic.id"
+              >{{subtopic.description}}</option>
+            </b-form-select>
           </b-form-group>
         </b-col>
         <!-- Fim Coluna Central -->
@@ -153,85 +157,74 @@
 
 
 <script>
+import { RepositoryFactory } from "@/repositories/RepositoryFactory";
+const ProjectsRepository = RepositoryFactory.get("projects");
 export default {
   data() {
     return {
-      codigoAneel: "",
-      dataInicioDoProjeto: "",
-      duracaoMeses: "",
-      tituloProjeto: "",
-      ordemServico: "",
-
-      selected: null,
-      options: [
-        { value: "PD", text: "Pesquisa e Desenvolvimento", disabled: false },
-        { value: "EE", text: "Eficiência Energética", disabled: true }
-      ],
-      selected2: null,
-      options2: [
-        { value: null, text: "Fase de Cadeia" },
-        { value: "PB", text: "Pesquisa Básica Dirigida" },
-        { value: "PA", text: "Pesquisa Aplicada" },
-        { value: "DE", text: "Desenvolvimento Experimental" },
-        { value: "CS", text: "Cabeça-de-Série" },
-        { value: "LP", text: "Lote Pioneiro" },
-        { value: "IM", text: "Inserção no Mercado" }
-      ],
-      selected3: null,
-      options3: [
-        { value: null, text: "Tipo de Produto" },
-        { value: "CM", text: "Conceito ou Metodologia" },
-        { value: "SW", text: "Software" },
-        { value: "SM", text: "Sistema" },
-        { value: "MS", text: "Material ou Substância" },
-        { value: "CD", text: "Componente ou Dispositivo" },
-        { value: "ME", text: "Máquina ou Equipamento" }
-      ],
-      selected4: null,
-      options4: [
-        { value: null, text: "Segmento" },
-        { value: "G", text: "Geração" },
-        { value: "T", text: "Transmissão" },
-        { value: "D", text: "Distribuição" },
-        { value: "C", text: "Comercialização" }
-      ],
-      selected5: null,
-      options5: [
-        { value: null, text: "Escolha o Tema do Projeto" },
+      aneelId: "",
+      title: "",
+      start: "",
+      duration: "",
+      serviceOrder: "",
+      type: "",
+      types: [],
+      innovationPhase: null,
+      innovationPhases: [],
+      product: null,
+      products: [],
+      segment: null,
+      segments: [],
+      topic: null,
+      topics: [],
+      subtopic: null,
+      subtopics: [],
+      sharingType: null,
+      sharingTypes: [
+        { value: null, text: "Tipo de Compartilhamento" },
+        { value: "DP", text: "Domínio Público " },
         {
-          value: "FAGEE",
-          text: "Fontes Alternativas de Geração de Energia Elétrica"
+          value: "EE",
+          text: "Exclusivo da(s) empresa(s) de energia elétrica  "
         },
-        { value: "GT", text: "Geração Termelétrica" },
-        { value: "GBR", text: "Gestão de Bacias e Reservatórios" },
-        { value: "MB", text: "Meio Ambiente" },
-        { value: "S", text: "Segurança" },
-        { value: "EE", text: "Eficiência Energética" },
-        { value: "PSEE", text: "Planejamento de Sistemas de Energia Elétrica" },
-        { value: "OSEE", text: "Operação de Sistemas de Energia Elétrica" },
+        { value: "EX", text: "Exclusivo da(s) entidade(s) executora(s)" },
         {
-          value: "SCPSEE",
+          value: "CE",
           text:
-            "Supervisão, Controle e Proteção de Sistemas de Energia Elétrica"
-        },
-        {
-          value: "QCSEE",
-          text: "Qualidade e Confiabilidade dos Serviços de Energia Elétrica"
-        },
-        {
-          value: "MFCPC",
-          text: "Medição, Faturamento e Combate a Perdas Comerciais"
+            "Compartilhado  entre  as  empresa(s)  de  energia  elétrica e entidade(s) executora(s)"
         }
-      ],
-      selected6: null,
-      options6: [
-        { value: null, text: "Escolha o Subtema do Projeto" },
-        { value: "G", text: "Geração" },
-        { value: "T", text: "Transmissão" },
-        { value: "D", text: "Distribuição" },
-        { value: "C", text: "Comercialização" }
       ]
     };
+  },
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      await ProjectsRepository.getTypes().then(
+        response => (this.types = response.data)
+      );
+
+      await ProjectsRepository.getProducts().then(
+        response => (this.products = response.data)
+      );
+      await ProjectsRepository.getSegments().then(
+        response => (this.segments = response.data)
+      );
+      await ProjectsRepository.getInnovationPhases().then(
+        response => (this.innovationPhases = response.data)
+      );
+    },
+    typeChanged() {
+      ProjectsRepository.getTopics(this.type).then(
+        response => (this.topics = response.data)
+      );
+    },
+    topicChanged() {
+      ProjectsRepository.getSubtopics(this.topic).then(
+        response => (this.topics = response.data)
+      );
+    },
   }
 };
 </script>

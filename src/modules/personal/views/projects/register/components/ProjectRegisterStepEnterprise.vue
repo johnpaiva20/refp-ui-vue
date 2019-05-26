@@ -4,20 +4,28 @@
       <v-btn color="primary" @click="dialog = true">Adicionar</v-btn>
     </div>
 
-    <div class="divTable">
-      <v-data-table :headers="headers" :items="enterprises" class="elevation-1">
+    <div>
+      <v-data-table
+        :headers="headers"
+        :items="enterprises"
+        :pagination.sync="pagination"
+        hide-actions
+        class="elevation-1"
+      >
         <template v-slot:items="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
+          <td>{{ props.item.id }}</td>
+          <td>{{ props.item.company }}</td>
+          <td>{{ props.item.cnpj }}</td>
+          <td>{{ props.item.trade }}</td>
+          <td>{{ props.item.initals }}</td>
+          <td>{{ props.item.type }}</td>
         </template>
       </v-data-table>
+      <div class="text-xs-right pt-2">
+        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+      </div>
     </div>
-
-    <!-- Inicio modal -->
+    <!-- Dialog -->
     <v-dialog v-model="dialog" persistent width="800px">
       <v-card>
         <v-card-title class="header-color">Selecionar Empresas</v-card-title>
@@ -31,7 +39,7 @@
           ></v-text-field>
 
           <v-data-table
-            v-model="selectedDialog"
+            v-model="selected"
             :headers="headersDialog"
             :items="enterprisesDialog"
             :search="search"
@@ -71,7 +79,7 @@
             </template>
           </v-data-table>
           <div class="text-xs-right pt-2">
-            <v-pagination v-model="paginationDialog.page" :length="dialogPages"></v-pagination>
+            <v-pagination v-model="paginationDialog.page" :length="pagesDialog"></v-pagination>
           </div>
         </div>
         <v-card-actions>
@@ -112,6 +120,7 @@ export default {
     return {
       pagination: {},
       selected: [],
+      search: "",
       headers: [
         { text: "Código da Empresa", value: "id" },
         { text: "CNPJ", value: "cnpj" },
@@ -121,11 +130,10 @@ export default {
         { text: "Tipo Empresa", value: "type" }
       ],
       enterprises: [],
+      //Dialog
       dialog: false,
-      // dialog
       paginationDialog: {},
       selectedDialog: [],
-      search: "",
       headersDialog: [
         { text: "Código da Empresa", value: "id" },
         { text: "CNPJ", value: "cnpj" },
@@ -133,22 +141,10 @@ export default {
         { text: "Nome Fantasia", value: "trade" },
         { text: "Sigla", value: "initials" }
       ],
-      enterprisesDialog: [
-        {
-          id: 1,
-          company: "CELPE",
-          trade: "CELPE",
-          cnpj: "83.564.577/0001-53",
-          initials: "CELPE"
-        }
-      ]
+      enterprisesDialog: []
     };
   },
-  methods: {
-    toggleAllModal() {
-      if (this.selectedDialog.length) this.selectedDialog = [];
-      else this.selectedDialog = this.enterprisesDialog.slice();
-    },
+  computed: {
     pages() {
       if (
         this.pagination.rowsPerPage == null ||
@@ -160,7 +156,7 @@ export default {
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
     },
-    dialogPages() {
+    pagesDialog() {
       if (
         this.paginationDialog.rowsPerPage == null ||
         this.paginationDialog.totalItems == null
