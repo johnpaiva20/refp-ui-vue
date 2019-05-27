@@ -28,12 +28,14 @@
           <template v-slot:items="props">
             <tr @click="goToProject(props.item.id)">
               <td>{{ props.item.aneelId }}</td>
+              <td>{{ props.item.title }}</td>
               <td>{{ props.item.type }}</td>
               <td>{{ props.item.startDate }}</td>
               <td>{{ props.item.duration }}</td>
               <td>{{ props.item.serviceOrder }}</td>
               <td>{{ props.item.iron }}</td>
-              <td>{{ props.item.status }}</td>
+              <td v-if="props.item.status === 'Aberto'" class="statusAberto">{{ props.item.status }}</td>
+              <td v-else class="statusFechado">{{ props.item.status }}</td>
             </tr>
           </template>
           <template v-slot:no-results>
@@ -50,6 +52,14 @@
 </template>
 
 <style>
+.statusAberto{
+  color: green;
+  font-weight: bold;
+}
+.statusFechado{
+  color: red;
+  font-weight: bold;
+}
 .project-table {
   position: relative;
   top: 50px;
@@ -92,7 +102,17 @@ export default {
         { text: "Empresa Proponente", value: "iron" },
         { text: "Status", value: "status" }
       ],
-      projects: []
+      projects: [{
+        aneelId: "515616512",
+        title: "Titulo Teste",
+        type: "Tipo Teste",
+        startDate: "27/05/2019",
+        duration: "6 meses",
+        serviceOrder: "123456",
+        iron: "Empresa Teste",
+        status: "Aberto"
+      }
+      ]
     };
   },
   methods: {

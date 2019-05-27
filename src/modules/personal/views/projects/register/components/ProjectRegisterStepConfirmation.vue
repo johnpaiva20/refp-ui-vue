@@ -41,7 +41,7 @@
 <style>
 .labelConfirmation{
    color: #43a047;
-   font-size: 18px; 
+   font-size: 16px; 
 }
 .divConfirmation{
     margin-top: 25px;
