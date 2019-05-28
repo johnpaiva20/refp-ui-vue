@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <div>     
     <b-container width="200px" fluid="">
      
@@ -104,15 +104,9 @@
       <!-- Fim Coluna Central -->
        </b-row> 
       <!-- Fim linha 5  -->
-
-
-
-
-
-      
     </b-container>  
     </div>
-  </v-app>
+  </div>
 </template>
 
 <style>

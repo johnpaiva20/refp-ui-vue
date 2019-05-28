@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <div class="divBtn">
        <v-btn class="btnAddEnterprise" v-b-modal.modal-1 absolute dark fab right color="green">
              <v-icon>add</v-icon>
@@ -10,10 +10,10 @@
       <v-data-table
       :headers="headers"
       :items="desserts"
-      :loading="true"
+      
       class="elevation-1"
     >
-      <v-progress-linear v-slot:progress color="green" indeterminate></v-progress-linear>
+     
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td class="text-xs-right">{{ props.item.calories }}</td>
@@ -89,7 +89,7 @@
     </b-modal>
     
 
-  </v-app>
+  </div>
 </template>
 
 <style>
