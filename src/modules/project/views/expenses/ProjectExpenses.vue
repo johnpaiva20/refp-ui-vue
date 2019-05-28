@@ -3,14 +3,14 @@
       <div class="project-expanses-container"> 
 
         <div class="widget">
-            <div class="header">Categoria Contábil</div>
+            <div class="header">Categoria Contábil (%)</div>
              <div id="chart1" class="chart-container">
                 <chartjs-doughnut :width="mywidth" :height="myheight" :labels="labels" :datasets="datasets" :option="option"></chartjs-doughnut>
              </div>
         </div>     
 
        <div class="widget" id="widget2">
-            <div class="header">Categoria Contábil</div>
+            <div class="header">Categoria Contábil (Reais)</div>
              <div id="chart2" class="chart-container">
                 <chartjs-bar  :labels="mylabels" :datasets="mydatasets"></chartjs-bar>
             </div>

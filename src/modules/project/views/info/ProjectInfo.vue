@@ -16,60 +16,74 @@
             </v-flex>
             <!-- Project Info  -->
             <div class="divStatusProject">
-
               <b-row>
-              <b-col md="4">
-                <label class="labelConfirmation">Código ANEEL</label>
-                <h6>Não Informado</h6>
-        
-                <label id="tituloProjeto" class="labelConfirmation">Título do Projeto</label>
-                <h6 id="tituloProjeto">Não Informado</h6>
-                <label class="labelConfirmation"></label>
-                <h6></h6>
-                
-                <label class="labelConfirmation">Data Inico</label>
-                <h6>Não Informado</h6>
-                
+                <b-col md="4">
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Código ANEEL</label>
+                    <h6>Não Informado</h6>
+                  </div>
+                  <div class="divLabel">
+                    <label id="tituloProjeto" class="labelConfirmation">Título do Projeto</label>
+                    <h6 id="tituloProjeto">Não Informado</h6>
+                  </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Data Iníco</label>
+                    <h6>Não Informado</h6>
+                  </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Ordem de Serviço (ODS)</label>
+                    <h6>Não Informado</h6>
+                  </div>  
+                   <div class="divLabel">
+                    <label class="labelConfirmation">Tema</label>
+                    <h6>Não Informado</h6>
+                  </div> 
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Produto</label>
+                    <h6>Não Informado</h6>
+                  </div>                    
+                </b-col>
 
-                <label class="labelConfirmation">Segmento</label>
-                <h6>Não Informado</h6>
+                <b-col md="4">
+                   <div id="divLabelVazia" class="divLabel">                   
+                   </div>  
+                   <div id="divLabelVazia" class="divLabel">                    
+                   </div>  
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Duração</label>
+                    <h6>Não Informado</h6>
+                  </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Segmento</label>
+                    <h6>Não Informado</h6>
+                  </div>                    
+                </b-col>
 
-                <label class="labelConfirmation">Fase da Cadeia de Inovação</label>
-                <h6>Não Informado</h6>
-            </b-col>
-            <b-col md="4">
-                <label class="labelConfirmation"></label>
-                <h6></h6>
-                 <label class="labelConfirmation"></label>
-                <h6></h6> 
-                <label class="labelConfirmation"></label>
-                <h6></h6>               
-                <label class="labelConfirmation"></label>
-                <h6></h6>
-                <label class="labelConfirmation"></label>
-                <h6></h6>
-
-                <label class="labelConfirmation">Duração</label>
-                <h6>Não Informado</h6>
-
-                <label class="labelConfirmation">Produto</label>
-                <h6>Não Informado</h6>
-           </b-col>
-           <b-col md="4">
-                <label class="labelConfirmation">Empresa Proponente</label>
-                <h6>Não Informado</h6>
-
-                <label></label>
-                <h6></h6> 
-
-                <label></label>
-                <h6></h6> 
-             <label class="labelConfirmation">Data Prevista de conclusão</label>
-             <h6>Não Informado</h6>
-           </b-col>
-        </b-row>
-
-        
+                <b-col md="4">
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Empresa Proponente</label>
+                    <h6>Não Informado</h6>
+                  </div>
+                  <div id="divLabelVazia" class="divLabel">                    
+                  </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Data prevista de conclusão</label>
+                    <h6>Não Informado</h6>
+                  </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Fase da cadeia de inovação</label>
+                    <h6>Não Informado</h6>
+                  </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Subtema</label>
+                    <h6>Não Informado</h6>
+                  </div> 
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Descrição Produto</label>
+                    <h6>Não Informado</h6>
+                  </div>                     
+                </b-col>
+              </b-row>
             </div>
           </v-layout>
         </v-container>
@@ -97,11 +111,17 @@
   padding: 30px 5px 15px 5px;
 }
 .divStatusProject{
-  margin-left: 30px;
-  margin-top: 20px;
+  margin-left: 40px;
+  margin-top: 10px;
 }
 #tituloProjeto{
-  width: 800px;
+  width: 700px;
+}
+.divLabel{
+  margin-top: 5px;
+}
+#divLabelVazia{
+  height: 58px;
 }
 </style>
 

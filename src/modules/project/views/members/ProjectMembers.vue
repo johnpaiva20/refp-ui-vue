@@ -19,7 +19,7 @@
         </div>
 
         <div class="btn-new">
-          <v-btn color="primary">Adiconar</v-btn>
+          <v-btn color="primary">Adicionar</v-btn>
         </div>
       </v-layout>
 
