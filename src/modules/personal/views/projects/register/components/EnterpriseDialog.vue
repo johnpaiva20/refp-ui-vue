@@ -1,10 +1,8 @@
 <template>
-  <v-dialog v-model="dialog" persistent width="800px">
+  <v-dialog v-model="show" persistent width="800px">
     <v-card>
       <v-card-title class="header-color">Selecionar Empresas</v-card-title>
       <div style="padding:5px 5px 5px 5px;">
-        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-
         <v-data-table
           v-model="selected"
           :headers="headers"
@@ -13,7 +11,6 @@
           :pagination.sync="pagination"
           select-all
           hide-actions
-          item-key="id"
         >
           <template v-slot:headers="props">
             <tr>
@@ -30,15 +27,18 @@
             </tr>
           </template>
           <template v-slot:items="props">
-            <tr :active="props.selected" @click="props.selected = !props.selected">
+            <tr
+              :active="props.selectedDialog"
+              @click="props.selectedDialog = !props.selectedDialog"
+            >
               <td>
-                <v-checkbox :input-value="props.selected" color="primary" hide-details></v-checkbox>
+                <v-checkbox :input-value="props.selectedDialog" color="primary" hide-details></v-checkbox>
               </td>
               <td>{{ props.item.id }}</td>
-              <td class="text-xs-right">{{ props.item.cnpj }}</td>
-              <td class="text-xs-right">{{ props.item.company }}</td>
-              <td class="text-xs-right">{{ props.item.trade }}</td>
-              <td class="text-xs-right">{{ props.item.initials }}</td>
+              <td>{{ props.item.cnpj }}</td>
+              <td>{{ props.item.company }}</td>
+              <td>{{ props.item.trade }}</td>
+              <td>{{ props.item.initials }}</td>
             </tr>
           </template>
         </v-data-table>
@@ -49,9 +49,9 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn flat="flat" @click="dialog = false">Cancelar</v-btn>
+        <v-btn flat="flat" @click="show = false">Cancelar</v-btn>
 
-        <v-btn color="primary" @click="dialog = false">Adicionar</v-btn>
+        <v-btn color="primary" @click="add">Adicionar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -69,17 +69,17 @@
 
 
 <script>
+import { RepositoryFactory } from "@/repositories/RepositoryFactory";
+const EnterprisesRepository = RepositoryFactory.get("enterprises");
 export default {
-  props: { show: Boolean },
-  created() {
-    this.dialog = this.show;
+  props: {
+    value: Boolean
   },
   data() {
     return {
       pagination: {},
       selected: [],
       search: "",
-      dialog: false,
       headers: [
         { text: "Código da Empresa", value: "id" },
         { text: "CNPJ", value: "cnpj" },
@@ -87,27 +87,36 @@ export default {
         { text: "Nome Fantasia", value: "trade" },
         { text: "Sigla", value: "initials" }
       ],
-      enterprises: [
-        {
-          id: 1,
-          company: "CELPE",
-          trade: "CELPE",
-          cnpj: "83.564.577/0001-53",
-          initials: "CELPE"
-        }
-      ]
+      enterprises: []
     };
   },
   methods: {
+    async fetchData() {
+      await EnterprisesRepository.get()
+        .then(response => (this.enterprises = response.data))
+        .catch(error => console.log(error));
+    },
     toggleAllModal() {
       if (this.selected.length) this.selected = [];
       else this.selected = this.enterprises.slice();
     },
+    add() {
+      this.$emit("onEnterpriseSelected", this.selected);
+      this.show = false;
+    },
     close() {
-      this.$emit("onDialogClose", this.selected);
+      this.show = false;
     }
   },
   computed: {
+    show: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      }
+    },
     pages() {
       if (
         this.pagination.rowsPerPage == null ||
