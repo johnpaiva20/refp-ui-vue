@@ -30,13 +30,13 @@
       <v-card>
         <v-card-title class="header-color">Selecionar Empresas</v-card-title>
         <div style="padding:5px 5px 5px 5px;">
-          <v-text-field
+          <!-- <v-text-field
             v-model="search"
             append-icon="search"
             label="Search"
             single-line
             hide-details
-          ></v-text-field>
+          ></v-text-field>-->
 
           <v-data-table
             v-model="selected"
@@ -87,7 +87,7 @@
 
           <v-btn flat="flat" @click="dialog = false">Cancelar</v-btn>
 
-          <v-btn color="primary" @click="dialog = false">Adicionar</v-btn>
+          <v-btn color="primary" @click="add">Adicionar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -115,7 +115,12 @@
 
 
 <script>
+import { RepositoryFactory } from "@/repositories/RepositoryFactory";
+const EnterprisesRepository = RepositoryFactory.get("enterprises");
 export default {
+  created() {
+    this.fetchData();
+  },
   data() {
     return {
       pagination: {},
@@ -143,6 +148,18 @@ export default {
       ],
       enterprisesDialog: []
     };
+  },
+  methods: {
+    async fetchData() {
+      await EnterprisesRepository.get()
+        .then(response => (this.enterprisesDialog = response.data))
+        .catch(error => console.log(error));
+    },
+    add(){
+      this.dialog=false
+      this.enterprises=this.selected;
+      this.$emit("onAddEnterprise",this.selected);
+    }
   },
   computed: {
     pages() {

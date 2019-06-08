@@ -77,7 +77,7 @@
           <b-form-group id="fieldset-1" label="Segmento" label-for="input-9">
             <b-form-select id="input-9" v-model="project.segment">
               <option :value="null" disabled>Segmentos</option>
-              <option v-for="segment in segments" v-bind:key="segment.value">{{segment.name}}</option>
+              <option v-for="segment in segments" v-bind:key="segment.value" :value="segment.value">{{segment.name}}</option>
             </b-form-select>
           </b-form-group>
         </b-col>
@@ -85,7 +85,7 @@
           <b-form-group id="fieldset-1" label="Fase de Cadeia" label-for="input-7">
             <b-form-select id="input-7" v-model="project.innovationPhase">
               <option :value="null" disabled>Fase de Cadeia</option>
-              <option v-for="phase in innovationPhases" v-bind:key="phase.value">{{phase.name}}</option>
+              <option v-for="phase in innovationPhases" v-bind:key="phase.value" :value="phase.value">{{phase.name}}</option>
             </b-form-select>
           </b-form-group>
         </b-col>
@@ -95,7 +95,7 @@
           <b-form-group id="fieldset-1" label="Tipo do Produto" label-for="input-8">
             <b-form-select id="input-8" v-model="project.product">
               <option :value="null" disabled>Tipo de Produto</option>
-              <option v-for="product in products" v-bind:key="product.value">{{product.name}}</option>
+              <option v-for="product in products" v-bind:key="product.value" :value="product.value">{{product.name}}</option>
             </b-form-select>
           </b-form-group>
         </b-col>
@@ -120,7 +120,7 @@
               <option
                 v-for="topic in topics"
                 v-bind:key="topic.id"
-                :value="topic.id"
+                :value="topic.initials"
               >{{topic.description}}</option>
             </b-form-select>
           </b-form-group>
@@ -139,7 +139,7 @@
               <option
                 v-for="subtopic in subtopics"
                 v-bind:key="subtopic.value"
-                :value="subtopic.id"
+                :value="subtopic.initials"
               >{{subtopic.description}}</option>
             </b-form-select>
           </b-form-group>
@@ -153,8 +153,6 @@
 
 <style>
 </style>
-
-
 
 <script>
 import { RepositoryFactory } from "@/repositories/RepositoryFactory";
@@ -221,14 +219,22 @@ export default {
       );
     },
     typeChanged() {
-      ProjectsRepository.getTopics(this.type).then(
+      ProjectsRepository.getTopics(this.project.type).then(
         response => (this.topics = response.data)
       );
     },
     topicChanged() {
-      ProjectsRepository.getSubtopics(this.topic).then(
-        response => (this.topics = response.data)
+      ProjectsRepository.getTopicSubtopic(this.project.topic).then(
+        response => (this.subtopics=response.data)
       );
+    },
+  },
+  watch: {
+    project: {
+      handler: function(val) {
+        this.$emit("onProjectChange",val);
+      },
+      deep: true
     }
   }
 };

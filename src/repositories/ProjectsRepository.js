@@ -1,5 +1,9 @@
 import Repository from './Repository';
 const resource = 'projects';
+export class Project{
+  
+}
+
 export default {
 
   get() {
@@ -43,6 +47,9 @@ export default {
   },
   getMembers(id){
     return Repository.get(`${resource}/${id}/members`);
+  },
+  save(project){
+    return Repository.post(`${resource}`,project);
   }
 
 

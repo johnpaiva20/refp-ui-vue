@@ -118,8 +118,8 @@ export default {
         startDate: "27/05/2019",
         duration: "6 meses",
         serviceOrder: "123456",
-        iron: "Empresa Teste",
-        status: "Aberto"
+        principalEnterprise: "Empresa Teste",
+        status: "Em Andamento"
       }
       ]
     };

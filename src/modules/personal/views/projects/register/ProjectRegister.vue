@@ -10,7 +10,7 @@
 
         <v-divider></v-divider>
 
-        <v-stepper-step editable step="3">Categorias Coontabeis</v-stepper-step>
+        <v-stepper-step :type="project.type" editable step="3">Categorias Coontabeis</v-stepper-step>
 
         <v-divider></v-divider>
 
@@ -19,7 +19,7 @@
 
       <v-stepper-items>
         <v-stepper-content step="1">
-          <step1></step1>
+          <step1 @onProjectChange="onProjectChange"></step1>
 
           <v-btn class="btnStep" color="primary" @click="e1 = 2">Continue</v-btn>
 
@@ -41,9 +41,11 @@
         </v-stepper-content>
 
         <v-stepper-content step="4">
-          <step4></step4>
-          <v-btn class="btnStep" color="primary">Confirmar</v-btn>
-
+          <step4 :project="project"></step4>
+          <div>
+            <v-btn class="btnStep" color="primary" @click="save">Confirmar</v-btn>
+            <v-btn class="btnStep" @click="cancel()">Cancelar</v-btn>
+          </div>
           <v-btn flat @click="e1 = 3">Voltar</v-btn>
         </v-stepper-content>
       </v-stepper-items>
@@ -70,6 +72,10 @@ import step1 from "./components/ProjectRegisterStepBasicInformation";
 import step2 from "./components/ProjectRegisterStepEnterprise";
 import step3 from "./components/ProjectAccountCategories";
 import step4 from "./components/ProjectRegisterStepConfirmation";
+
+import { RepositoryFactory } from "../../../../../repositories/RepositoryFactory";
+const ProjectsRepository = RepositoryFactory.get("projects");
+
 export default {
   components: {
     step1,
@@ -79,12 +85,34 @@ export default {
   },
   data() {
     return {
-      e1: 0
+      e1: 0,
+      project: {},
+      enterpises: []
     };
   },
   methods: {
+    save() {
+      ProjectsRepository.save(this.project)
+        .then(response => {
+          
+          let id = response.data.id
+          
+          this.$router.push({
+            path: `/project/${id}/info`,
+            params: { id:  id }
+          });
+        
+        })
+        .catch(error => console.log("Error: "+error));
+    },
     cancel() {
       this.$router.push("/personal/projects");
+    },
+    onProjectChange(val) {
+      this.project = val;
+    },
+    onEnterprisesSelected(val) {
+      this.enterpises = val;
     }
   }
 };

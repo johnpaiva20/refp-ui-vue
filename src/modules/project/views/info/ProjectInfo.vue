@@ -48,15 +48,17 @@
                     <h6>{{project.duration||"Não Informado"}}</h6>
                   </div>
                   <div class="divLabel">
-                    <label class="labelConfirmation">Segmento</label>
+                    <label style="color: #43a047;">Segmento</label>
                     <h6>Não Informado</h6>
                   </div>                    
 
                 <b-col md="4">
                   <div class="divLabel">
-                    <label class="labelConfirmation">Empresa Proponente</label>
+                    <label style="color: #43a047;">Empresa Proponente</label>
                     <h6>Não Informado</h6>
                   </div>
+                </b-col>
+
                 </v-flex>
               </v-layout>
             </v-flex>
