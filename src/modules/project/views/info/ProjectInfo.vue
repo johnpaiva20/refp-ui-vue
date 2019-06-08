@@ -47,11 +47,15 @@
                     <label style="color: #43a047;">Duração</label>
                     <h6>{{project.duration||"Não Informado"}}</h6>
                   </div>
-                </v-flex>
-                <v-flex grow pa-1>
-                  <div class="col-5" style="margin-top: 10px">
-                    <label style="color: #43a047;">Data prevista de conclusão</label>
-                    <h6>{{"Não Informado"}}</h6>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Segmento</label>
+                    <h6>Não Informado</h6>
+                  </div>                    
+
+                <b-col md="4">
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Empresa Proponente</label>
+                    <h6>Não Informado</h6>
                   </div>
                 </v-flex>
               </v-layout>
@@ -114,7 +118,7 @@
             >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</v-card-text>
           </v-card>
         </v-expansion-panel-content>
-      </v-expansion-panel>-->
+      </v-expansion-panel> -->
     </div>
 </template>
 
@@ -123,6 +127,19 @@
   position: relative;
   top: 50px;
   padding: 30px 5px 15px 5px;
+}
+.divStatusProject{
+  margin-left: 40px;
+  margin-top: 10px;
+}
+#tituloProjeto{
+  width: 700px;
+}
+.divLabel{
+  margin-top: 5px;
+}
+#divLabelVazia{
+  height: 58px;
 }
 </style>
 

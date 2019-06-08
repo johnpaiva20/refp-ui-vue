@@ -7,6 +7,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
 
+import "chart.js";
+import "hchs-vue-charts";
+Vue.use(window.VueCharts);
 
 import Vuetify from 'vuetify/lib';
 import 'vuetify/src/stylus/app.styl';

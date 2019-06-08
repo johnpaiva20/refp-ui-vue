@@ -59,6 +59,14 @@
 </template>
 
 <style>
+.statusAberto{
+  color: green;
+  font-weight: bold;
+}
+.statusFechado{
+  color: red;
+  font-weight: bold;
+}
 .project-table {
   position: relative;
   padding: 30px 5px 15px 5px;
@@ -103,7 +111,17 @@ export default {
         { text: "Empresa Proponente", value: "principalEnterprise" },
         { text: "Status", value: "status" }
       ],
-      projects: []
+      projects: [{
+        aneelId: "515616512",
+        title: "Titulo Teste",
+        type: "Tipo Teste",
+        startDate: "27/05/2019",
+        duration: "6 meses",
+        serviceOrder: "123456",
+        iron: "Empresa Teste",
+        status: "Aberto"
+      }
+      ]
     };
   },
   created() {
