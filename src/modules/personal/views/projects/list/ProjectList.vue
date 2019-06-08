@@ -36,7 +36,7 @@
               <td>{{ props.item.aneelId }}</td>
               <td>{{ props.item.title }}</td>
               <td>{{ props.item.type }}</td>
-              <td>{{ props.item.startDate }}</td>
+              <td>{{ props.item.start }}</td>
               <td>{{ props.item.duration }}</td>
               <td>{{ props.item.serviceOrder }}</td>
               <td>{{ props.item.principalEnterprise }}</td>
@@ -105,7 +105,7 @@ export default {
         { text: "Código ANEEL", value: "aneelId" },
         { text: "Titulo", value: "title" },
         { text: "Tipo do Projeto", value: "type" },
-        { text: "Data de Inicio", value: "startDate" },
+        { text: "Data de Inicio", value: "start" },
         { text: "Duração(meses)", value: "duration" },
         { text: "Ordem de Serviço(ODS)", value: "serviceOrder" },
         { text: "Empresa Proponente", value: "principalEnterprise" },

@@ -42,7 +42,7 @@ export default {
   getSharingTypes() {
     return Repository.get(`${resource}/sharing-types`);
   },
-  getEnterprise(id){
+  getEnterprises(id){
     return Repository.get(`${resource}/${id}/enterprises`);
   },
   getMembers(id){

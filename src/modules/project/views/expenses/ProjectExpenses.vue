@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  
       <div class="project-expanses-container"> 
 
         <div class="widget">
@@ -16,7 +16,7 @@
             </div>
         </div>   
      </div>   
-  </v-app>
+  
 </template>
 
 <style>

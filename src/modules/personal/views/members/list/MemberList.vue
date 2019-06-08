@@ -32,12 +32,10 @@
           :pagination.sync="pagination"
         >
           <template v-slot:items="props">
+            <td>{{ props.item.id }}</td>
             <td>{{ props.item.name }}</td>
-            <td>{{ props.item.calories }}</td>
-            <td>{{ props.item.fat }}</td>
-            <td>{{ props.item.carbs }}</td>
-            <td>{{ props.item.protein }}</td>
-            <td>{{ props.item.iron }}</td>
+            <td>{{ props.item.degree }}</td>
+            <td>{{ props.item.role }}</td>
           </template>
           <template v-slot:no-results>
             <v-alert
@@ -82,21 +80,38 @@
 
 
 <script>
+import { RepositoryFactory } from "@/repositories/RepositoryFactory";
+const MmebersRepository = RepositoryFactory.get("members");
 export default {
+  created() {
+    this.fetch();
+  },
   data() {
     return {
       search: "",
       pagination: {},
       headers: [
-        { text: "Código do Membro", align: "left", value: "name" },
-        { text: "Nome", value: "calories" },
-        { text: "Função", value: "fat" },
-        { text: "Titulação", value: "carbs" },
-        { text: "CPF", value: "protein" }
+        { text: "Código do Membro", value: "id" },
+        { text: "Nome", value: "name" },
+        { text: "Função", value: "degree" },
+        { text: "Titulação", value: "role" },
+        { text: "CPF", value: "cpf" }
       ],
       members: [
       ]
     };
+  },
+  methods: {
+    async fetch() {
+      this.isLoading = true;
+      const { data } = await MmebersRepository.getMembers();
+      this.isLoading = false;
+      this.enterprises = data;
+    },
+    goToMember() {
+      const id = this.$router.currentRoute.params.id;
+      this.$router.push({ path: `/member/${id}` });
+    }
   },
   computed: {
     pages() {
