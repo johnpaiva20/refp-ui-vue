@@ -10,12 +10,21 @@
     <b-button @click="clearFiles" class="btnFile">Limpar</b-button>
     <b-button class="btnFile">Adicionar</b-button>
 
-    <v-data-table :headers="headers" :items="desserts" class="tableArch">
+    <v-data-table
+      :headers="headers"
+      :items="files"
+      class="tableArch"
+      hide-actions
+      :pagination.sync="pagination"
+    >
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
-        <td class="text-xs-left">{{ props.item.calories }}</td>
+        <td class="text-xs-left">{{ props.item.extension }}</td>
       </template>
     </v-data-table>
+    <div class="text-xs-right pt-2">
+      <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+    </div>
   </div>
 </template>
 <style>
@@ -36,27 +45,32 @@
 export default {
   data() {
     return {
+      pagination: {},
       file: null,
       headers: [
-        {
-          text: "Nome do Arquivo",
-          align: "left",
-          sortable: false,
-          value: "nomeArquivo"
-        },
-        { text: "Extensão", value: "extensao" }
+        {text: "Nome do Arquivo",value: "name"},
+        { text: "Extensão", value: "extension" }
       ],
-      desserts: [
-        {
-          name: "",
-          calories: ""
-        }
+      files: [
       ]
     };
   },
   methods: {
     clearFiles() {
       this.$refs["file-input"].reset();
+    }
+  },
+  computed: {
+    pages() {
+      if (
+        this.pagination.rowsPerPage == null ||
+        this.pagination.totalItems == null
+      )
+        return 0;
+
+      return Math.ceil(
+        this.pagination.totalItems / this.pagination.rowsPerPage
+      );
     }
   }
 };

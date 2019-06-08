@@ -1,69 +1,69 @@
 <template>
-    <div class="project-table">
-      <v-layout row>
-        <div class="search-field">
-          <v-text-field
-            v-model="search"
-            append-icon="search"
-            label="Pesquisar"
-            box
-            single-line
-            hide-details
-          ></v-text-field>
-        </div>
-        <div>
-          <v-btn flat icon color="primary">
-            <v-icon>filter_list</v-icon>
-          </v-btn>
-        </div>
+  <div class="project-table">
+    <v-layout row>
+      <div class="search-field">
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Pesquisar"
+          box
+          single-line
+          hide-details
+        ></v-text-field>
+      </div>
+      <div>
+        <v-btn flat icon color="primary">
+          <v-icon>filter_list</v-icon>
+        </v-btn>
+      </div>
 
-        <div class="btn-new">
-          <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
-        </div>
-      </v-layout>
+      <div class="btn-new">
+        <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
+      </div>
+    </v-layout>
 
-      <v-card class="project-table-card">
-        <v-data-table
-          :headers="headers"
-          :items="projects"
-          :search="search"
-          hide-actions
-          :pagination.sync="pagination"
-          loading="isLoading"
-        >
-          <template v-slot:items="props">
-            <tr @click="goToProject(props.item)">
-              <td>{{ props.item.aneelId }}</td>
-              <td>{{ props.item.title }}</td>
-              <td>{{ props.item.type }}</td>
-              <td>{{ props.item.start }}</td>
-              <td>{{ props.item.duration }}</td>
-              <td>{{ props.item.serviceOrder }}</td>
-              <td>{{ props.item.principalEnterprise }}</td>
-              <td>{{ props.item.status }}</td>
-            </tr>
-          </template>
-          <template v-slot:no-results>
-            <v-alert
-              :value="true"
-              color="error"
-              icon="warning"
-            >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
-          </template>
-        </v-data-table>
-        <div class="text-xs-right pt-2">
-          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-        </div>
-      </v-card>
-    </div>
+    <v-card class="project-table-card">
+      <v-data-table
+        :headers="headers"
+        :items="projects"
+        :search="search"
+        hide-actions
+        :pagination.sync="pagination"
+        loading="isLoading"
+      >
+        <template v-slot:items="props">
+          <tr @click="goToProject(props.item)">
+            <td>{{ props.item.aneelId }}</td>
+            <td>{{ props.item.title }}</td>
+            <td>{{ props.item.type }}</td>
+            <td>{{ props.item.start }}</td>
+            <td>{{ props.item.duration }}</td>
+            <td>{{ props.item.serviceOrder }}</td>
+            <td>{{ props.item.principalEnterprise }}</td>
+            <td>{{ props.item.status }}</td>
+          </tr>
+        </template>
+        <template v-slot:no-results>
+          <v-alert
+            :value="true"
+            color="error"
+            icon="warning"
+          >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
+        </template>
+      </v-data-table>
+      <div class="text-xs-right pt-2">
+        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+      </div>
+    </v-card>
+  </div>
 </template>
 
 <style>
-.statusAberto{
+.statusAberto {
   color: green;
   font-weight: bold;
 }
-.statusFechado{
+.statusFechado {
   color: red;
   font-weight: bold;
 }
@@ -92,7 +92,7 @@
 
 
 <script>
-import { RepositoryFactory } from "../../../../../repositories/RepositoryFactory";
+import { RepositoryFactory } from "@/repositories/RepositoryFactory";
 const ProjectsRepository = RepositoryFactory.get("projects");
 
 export default {
@@ -111,17 +111,7 @@ export default {
         { text: "Empresa Proponente", value: "principalEnterprise" },
         { text: "Status", value: "status" }
       ],
-      projects: [{
-        aneelId: "515616512",
-        title: "Titulo Teste",
-        type: "Tipo Teste",
-        startDate: "27/05/2019",
-        duration: "6 meses",
-        serviceOrder: "123456",
-        principalEnterprise: "Empresa Teste",
-        status: "Em Andamento"
-      }
-      ]
+      projects: []
     };
   },
   created() {

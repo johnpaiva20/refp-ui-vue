@@ -97,8 +97,7 @@ export default {
         { text: "Titulação", value: "role" },
         { text: "CPF", value: "cpf" }
       ],
-      members: [
-      ]
+      members: []
     };
   },
   methods: {

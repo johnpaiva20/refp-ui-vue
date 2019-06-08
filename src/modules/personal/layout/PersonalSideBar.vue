@@ -36,13 +36,13 @@ export default {
         { id: 1, title: "Projetos", icon: "assignment", path: "projects" },
         { id: 2, title: "Empresas", icon: "business", path: "enterprises" },
         { id: 3, title: "Membros", icon: "people", path: "members" },
-        { id: 4, title: "Auditoria", icon: " inbox ", path: "members" },
-        {
-          id: 5,
-          title: "Contabilidade",
-          icon: "monetization_on",
-          path: "members"
-        }
+        // { id: 4, title: "Auditoria", icon: " inbox ", path: "members" },
+        // {
+        //   id: 5,
+        //   title: "Contabilidade",
+        //   icon: "monetization_on",
+        //   path: "members"
+        // }
       ]
     };
   },

@@ -23,7 +23,13 @@
     </v-layout>
 
     <v-card class="project-table-card">
-      <v-data-table :headers="headers" :items="desserts" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="desserts"
+        :search="search"
+        hide-actions
+        :pagination.sync="pagination"
+      >
         <template v-slot:items="props">
           <td>{{ props.item.id }}</td>
           <td>{{ props.item.name }}</td>
@@ -38,6 +44,9 @@
           >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
         </template>
       </v-data-table>
+      <div class="text-xs-right pt-2">
+        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+      </div>
     </v-card>
   </div>
 </template>
@@ -77,6 +86,7 @@ export default {
   },
   data() {
     return {
+      pagination: {},
       search: "",
       headers: [
         { text: "Código do Membro", value: "id" },
@@ -91,7 +101,7 @@ export default {
   methods: {
     async fetch() {
       this.isLoading = true;
-       let id = this.$router.currentRoute.params.id;
+      let id = this.$router.currentRoute.params.id;
       const { data } = await ProjectsRepository.get(id);
       this.isLoading = false;
       this.enterprises = data;
@@ -99,6 +109,19 @@ export default {
     goToMember() {
       const id = this.$router.currentRoute.params.id;
       this.$router.push({ path: `/member/${id}` });
+    }
+  },
+  computed: {
+    pages() {
+      if (
+        this.pagination.rowsPerPage == null ||
+        this.pagination.totalItems == null
+      )
+        return 0;
+
+      return Math.ceil(
+        this.pagination.totalItems / this.pagination.rowsPerPage
+      );
     }
   }
 };
