@@ -8,23 +8,42 @@
       <v-data-table
         :headers="headers"
         :items="enterprises"
+        select-all
         :pagination.sync="pagination"
         hide-actions
       >
+        <template v-slot:headers="props">
+          <tr>
+            <th v-for="header in props.headers" :key="header.text">{{ header.text }}</th>
+          </tr>
+        </template>
         <template v-slot:items="props">
-          <td>{{ props.item.id }}</td>
-          <td>{{ props.item.company }}</td>
-          <td>{{ props.item.cnpj }}</td>
-          <td>{{ props.item.trade }}</td>
-          <td>{{ props.item.initals }}</td>
-          <td>{{ props.item.type }}</td>
+          <tr>
+            <td>{{ props.item.id }}</td>
+            <td>{{ props.item.cnpj }}</td>
+            <td>{{ props.item.company }}</td>
+            <td>{{ props.item.trade }}</td>
+            <td>
+              <b-form-select id="input-11">
+                <option :value="null" disabled>Tipo Empresa</option>
+                <option
+                  v-for="role in enterpriseRoles"
+                  v-bind:key="role.value"
+                  :value="role.value"
+                >{{role.text}}</option>
+              </b-form-select>
+            </td>
+            <td class="justify-center">
+              <v-icon @click="deleteItem(props.item)">delete</v-icon>
+            </td>
+          </tr>
         </template>
       </v-data-table>
       <div class="text-xs-right pt-2">
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
       </div>
     </div>
-    <EnterpriseDialog v-model="dialog" />
+    <EnterpriseDialog v-model="dialog" @onEnterpriseSelected="onEnterpriseSelected"/>
   </div>
 </template>
 
@@ -57,23 +76,29 @@ export default {
   data() {
     return {
       pagination: {},
-      selected: [],
       headers: [
         { text: "Código da Empresa", value: "id" },
         { text: "CNPJ", value: "cnpj" },
         { text: "Razão Social", value: "company" },
         { text: "Nome Fantasia", value: "trade" },
-        { text: "Sigla", value: "initials" },
         { text: "Tipo Empresa", value: "type" }
       ],
       enterprises: [],
-      dialog: false
+      dialog: false,
+      enterpriseRoles: [
+        { text: "Proponente", value: "P" },
+        { text: "Cooperada", value: "C" }
+      ]
     };
   },
   methods: {
-    onDialogClose(enterprises) {
-      console.log(enterprises);
-    }
+    onEnterpriseSelected(enterprises) {
+      this.enterprises = this.enterprises.concat(enterprises);
+    },
+    deleteItem (item) {
+        const index = this.enterprises.indexOf(item)
+        this.enterprises.splice(index, 1)
+      },
   },
   computed: {
     pages() {

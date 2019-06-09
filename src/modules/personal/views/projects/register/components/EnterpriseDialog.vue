@@ -28,11 +28,11 @@
           </template>
           <template v-slot:items="props">
             <tr
-              :active="props.selectedDialog"
-              @click="props.selectedDialog = !props.selectedDialog"
+              :active="props.selected"
+              @click="props.selected = !props.selected"
             >
               <td>
-                <v-checkbox :input-value="props.selectedDialog" color="primary" hide-details></v-checkbox>
+                <v-checkbox :input-value="props.selected" color="primary" hide-details></v-checkbox>
               </td>
               <td>{{ props.item.id }}</td>
               <td>{{ props.item.cnpj }}</td>
@@ -74,6 +74,9 @@ const EnterprisesRepository = RepositoryFactory.get("enterprises");
 export default {
   props: {
     value: Boolean
+  },
+  created() {
+    this.fetchData();
   },
   data() {
     return {
