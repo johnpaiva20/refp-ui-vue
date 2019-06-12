@@ -73,7 +73,8 @@ import { RepositoryFactory } from "@/repositories/RepositoryFactory";
 const EnterprisesRepository = RepositoryFactory.get("enterprises");
 export default {
   props: {
-    value: Boolean
+    value: Boolean,
+    enterprisesSelected:Array
   },
   created() {
     this.fetchData();
@@ -95,6 +96,7 @@ export default {
   },
   methods: {
     async fetchData() {
+      console.log(this.enterprisesSelected)
       await EnterprisesRepository.get()
         .then(response => (this.enterprises = response.data))
         .catch(error => console.log(error));

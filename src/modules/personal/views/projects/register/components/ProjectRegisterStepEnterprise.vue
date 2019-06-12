@@ -43,7 +43,7 @@
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
       </div>
     </div>
-    <EnterpriseDialog v-model="dialog" @onEnterpriseSelected="onEnterpriseSelected"/>
+    <EnterpriseDialog v-model="dialog" v-bind:enterprises-selected="enterprises" @onEnterpriseSelected="onEnterpriseSelected"/>
   </div>
 </template>
 
