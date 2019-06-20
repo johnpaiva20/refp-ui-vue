@@ -6,9 +6,10 @@
           v-model="search"
           append-icon="search"
           label="Pesquisar"
-          box
+          outline
           single-line
-          hide-details
+          hide-details 
+          class="labelSearch"         
         ></v-text-field>
       </div>
       <div>

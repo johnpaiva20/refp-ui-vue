@@ -6,16 +6,12 @@
           v-model="search"
           append-icon="search"
           label="Pesquisar"
-          box
+          outline
           single-line
-          hide-details
+          hide-details 
+          class="labelSearch"         
         ></v-text-field>
-      </div>
-      <div>
-        <v-btn flat icon color="primary">
-          <v-icon>filter_list</v-icon>
-        </v-btn>
-      </div>
+      </div>   
 
       <div class="btn-new">
         <v-btn color="primary" to="/personal/enterprises/register">Novo</v-btn>
