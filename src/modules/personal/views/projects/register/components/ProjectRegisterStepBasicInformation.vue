@@ -40,7 +40,7 @@
         <!-- Inicio da coluna 3 na linha 1 -->
         <b-col md="2">
           <b-form-group id="fieldset-1" label="Duração (Em meses)" label-for="input-3">
-            <b-form-input id="input-3" placeholder="Ex: 12 meses" v-model="project.duration" trim></b-form-input>
+            <b-form-input id="input-3" type="number" placeholder="Ex: 12" v-model="project.duration" trim></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="3">
@@ -131,7 +131,7 @@
       <!-- Fim linha 4  -->
 
       <!-- Inicio Linha 5 -->
-      <b-row v-if="false">
+      <b-row >
         <!-- Inicio Coluna Central -->
         <b-col md="12">
           <b-form-group id="fieldset-1" label="Escolha o Subtema do Projeto" label-for="input-11">
