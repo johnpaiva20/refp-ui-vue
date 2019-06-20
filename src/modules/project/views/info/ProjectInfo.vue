@@ -14,101 +14,80 @@
               >{{ project.progress }}%</v-progress-circular>
             </v-flex>
             <!-- Project Info  -->
-            <v-flex grow pa-1>
-              <v-layout row>
-                <v-flex grow pa-1>
-                  <div class="col-5" style="margin-top: 10px">
-                    <label style="color: #43a047;">Código ANEEL</label>
+           <div class="divStatusProject">
+              <b-row>
+                <b-col md="4">
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Código ANEEL</label>
                     <h6>{{project.aneelId||"Não Informado"}}</h6>
                   </div>
-                </v-flex>
-                <v-flex grow pa-1>
-                  <div class="col-5" style="margin-top: 10px">
-                    <label style="color: #43a047;">Empresa Proponente</label>
-                    <h6>{{project.proponentCompany||"Não Informado"}}</h6>
+                  <div class="divLabel">
+                    <label id="tituloProjeto" class="labelConfirmation">Título do Projeto</label>
+                    <h6>{{project.title||"Não Informado"}}</h6>                   
                   </div>
-                </v-flex>
-              </v-layout>
-              <v-layout row>
-                <div class="col-5" style="margin-top: 10px">
-                  <label style="color: #43a047;">Titulo do Projeto</label>
-                  <h6>{{project.title||"Não Informado"}}</h6>
-                </div>
-              </v-layout>
-              <v-layout row>
-                <v-flex grow pa-1>
-                  <div class="col-5" style="margin-top: 10px">
-                    <label style="color: #43a047;">Data inicio</label>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Data Iníco</label>
                     <h6>{{project.startDate||"Não Informado"}}</h6>
                   </div>
-                </v-flex>
-                <v-flex grow pa-1>
-                  <div class="col-4" style="margin-top: 10px">
-                    <label style="color: #43a047;">Duração</label>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Ordem de Serviço (ODS)</label>
+                    <h6>{{project.serviceOrder||"Não Informado"}}</h6>
+                  </div>  
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Tema</label>
+                    <h6>{{project.topic||"Não Informado"}}</h6>
+                  </div> 
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Produto</label>
+                    <h6>{{project.product||"Não Informado"}}</h6>
+                  </div>                    
+                </b-col>
+
+                <b-col md="4">
+                   <div id="divLabelVazia" class="divLabel">                   
+                   </div>  
+                   <div id="divLabelVazia" class="divLabel">                    
+                   </div>  
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Duração</label>
                     <h6>{{project.duration||"Não Informado"}}</h6>
                   </div>
                   <div class="divLabel">
-                    <label style="color: #43a047;">Segmento</label>
-                    <h6>Não Informado</h6>
+                    <label class="labelConfirmation">Segmento</label>
+                    <h6>{{project.segment||"Não Informado"}}</h6>
                   </div>                    
-
+                </b-col>
                 <b-col md="4">
                   <div class="divLabel">
-                    <label style="color: #43a047;">Empresa Proponente</label>
+                    <label class="labelConfirmation">Empresa Proponente</label>
+                   <h6>{{project.proponentCompany||"Não Informado"}}</h6>
+                  </div>
+                  <div id="divLabelVazia" class="divLabel">                    
+                  </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Data prevista de conclusão</label>
                     <h6>Não Informado</h6>
                   </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Fase da cadeia de inovação</label>
+                   <h6>{{project.innovationPhase||"Não Informado"}}</h6>
+                  </div>
+                  <div class="divLabel">
+                    <label class="labelConfirmation">Subtema</label>
+                    <h6>{{project.subtopic||"Não Informado"}}</h6>
+                  </div> 
+                  <div class="divLabel" v-if="project.description">
+                    <label class="labelConfirmation">Descrição Produto</label>
+                     <h6>{{project.description||"Não Informado"}}</h6>
+                  </div>                     
                 </b-col>
-
-                </v-flex>
-              </v-layout>
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex grow>
-              <div class="col-12" style="margin-top: 10px">
-                <label style="color: #43a047;">Ordem de Serviço(ODS)</label>
-                <h6>{{project.serviceOrder||"Não Informado"}}</h6>
-              </div>
-            </v-flex>
-            <v-flex grow>
-              <div class="col-5" style="margin-top: 10px">
-                <label style="color: #43a047;">Segmento</label>
-                <h6>{{project.segment||"Não Informado"}}</h6>
-              </div>
-            </v-flex>
-            <v-flex grow>
-              <div class="col-5" style="margin-top: 10px">
-                <label style="color: #43a047;">Fase da Cadeia de Inovação</label>
-                <h6>{{project.innovationPhase||"Não Informado"}}</h6>
-              </div>
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <div class="col-5" style="margin-top: 10px">
-              <label style="color: #43a047;">Tema</label>
-              <h6>{{project.topic||"Não Informado"}}</h6>
-            </div>
-          </v-layout>
-          <v-layout row>
-            <div class="col-5" style="margin-top: 10px">
-              <label style="color: #43a047;">Subtema</label>
-              <h6>{{project.subtopic||"Não Informado"}}</h6>
-            </div>
-          </v-layout>
-          <v-layout row>
-            <div class="col-5" style="margin-top: 10px">
-              <label style="color: #43a047;">Produto</label>
-              <h6>{{project.product||"Não Informado"}}</h6>
-            </div>
-          </v-layout>
-          <v-layout row v-if="project.description">
-            <div class="col-5" style="margin-top: 10px">
-              <label style="color: #43a047;">Descrição Produto</label>
-              <h6>{{project.description||"Não Informado"}}</h6>
-            </div>
+              </b-row>
+           </div>
           </v-layout>
         </v-container>
-      </v-card>
+      </v-card>        
+           
+          
       <!-- <v-expansion-panel>
         <v-expansion-panel-content v-for="(item,i) in 1" :key="i" >
           <template v-slot:header>

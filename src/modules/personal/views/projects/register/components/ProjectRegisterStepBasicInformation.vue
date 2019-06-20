@@ -5,7 +5,7 @@
       <b-row>
         <!-- Inicio Coluna 1 -->
         <b-col md="3">
-          <v-radio-group v-model="project.type" row @change="typeChanged()">
+          <v-radio-group class = "radioBox" v-model="project.type" row @change="typeChanged()">
             <v-radio
               v-for="type in types"
               :key="type.id"
@@ -13,6 +13,7 @@
               :value="type.value"
               :disabled="type.active"
               color="primary"
+              class="radiosOnly"
             ></v-radio>
           </v-radio-group>
         </b-col>
@@ -152,6 +153,19 @@
 </template>
 
 <style>
+.radioBox{
+  border: 2px solid green;
+  border-radius: 20px;
+  padding: 20px;  
+  height: 120px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+.radiosOnly{
+  align-items: center;
+  margin-top: 10px;
+}
+
 </style>
 
 <script>

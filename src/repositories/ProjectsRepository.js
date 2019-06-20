@@ -1,5 +1,5 @@
 import Repository from './Repository';
-const resource = 'projetoes';
+const resource = 'projects';
 export class Project{
   
 }
