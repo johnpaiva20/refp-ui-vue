@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <b-container width="200px" fluid>
-      <!-- Inicio Linha 1 -->
-      <b-row>
-        <!-- Inicio Coluna 1 -->
-        <b-col md="3">
-          <v-radio-group class = "radioBox" v-model="project.type" row @change="typeChanged()">
+  <v-container>
+    <v-layout row>
+        <v-flex sm2>
+          <v-radio-group v-model="project.type" label="Tipo de Projeto" @change="typeChanged()" row>
             <v-radio
               v-for="type in types"
               :key="type.id"
@@ -13,159 +10,139 @@
               :value="type.value"
               :disabled="type.active"
               color="primary"
-              class="radiosOnly"
             ></v-radio>
           </v-radio-group>
-        </b-col>
+        </v-flex>
+      <v-layout row>
+        <v-container>
+          <v-layout row>
+            <v-flex xs12 sm6 md3>
+              <v-text-field v-model="project.aneelId" label="Código da ANEEL" required></v-text-field>
+            </v-flex>
+            <v-flex xs5 md4>
+              <v-text-field
+                type="date"
+                v-model="project.start"
+                label="Data de Início do Projeto"
+                required
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 md4>
+              <v-text-field
+                type="number"
+                v-model="project.duration"
+                label="Duração"
+                suffix="meses"
+                required
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 md4>
+              <v-text-field v-model="project.serviceOrder" label="Ordem de Serviço (ODS)" required></v-text-field>
+            </v-flex>
+          </v-layout>
 
-        <b-col md="2">
-          <b-form-group
-            ref="form"
-            id="fieldset-1"
-            class="inputFormStyle"
-            label="Código da ANEEL"
-            label-for="input-1"
-          >
-            <b-form-input required id="input-1" type="text" v-model="project.aneelId" trim></b-form-input>
-          </b-form-group>
-        </b-col>
-        <!-- Fim coluna 1 -->
-        <!-- Inicio Coluna 2 na linha 1 -->
-        <b-col md="2">
-          <b-form-group id="fieldset-1" label="Data Início do Projeto" label-for="input-2">
-            <b-form-input id="input-2" type="date" v-model="project.start" trim></b-form-input>
-          </b-form-group>
-        </b-col>
-        <!--Fim da coluna 2 na linha 1 -->
-        <!-- Inicio da coluna 3 na linha 1 -->
-        <b-col md="2">
-          <b-form-group id="fieldset-1" label="Duração (Em meses)" label-for="input-3">
-            <b-form-input id="input-3" type="number" placeholder="Ex: 12" v-model="project.duration" trim></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col md="3">
-          <b-form-group
-            id="fieldset-1"
-            class="inputFormStyle"
-            label="Ordem de Serviço (ODS)"
-            label-for="input-6"
-          >
-            <b-form-input id="input-6" type="text" v-model="project.serviceOrder" trim></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <!-- Fim linha 1 -->
-
-      <!-- Inicio Linha 2 -->
-      <b-row>
-        <!-- Inicio Coluna Central -->
-        <b-col md="12">
-          <b-form-group id="fieldset-1" label="Título do Projeto" label-for="input-5">
-            <b-form-input id="input-5" type="text" v-model="project.title" trim></b-form-input>
-          </b-form-group>
-        </b-col>
-        <!-- Fim Coluna Central -->
-      </b-row>
-      <!-- Fim linha 2  -->
-
-      <!-- Inicio Linha 3 -->
-      <b-row>
-        <!-- Inicio Coluna 1 -->
-        <!-- Fim coluna 1 -->
-        <!-- Inicio Coluna 2 na linha 3 -->
-
-        <b-col md="2">
-          <b-form-group id="fieldset-1" label="Segmento" label-for="input-9">
-            <b-form-select id="input-9" v-model="project.segment">
-              <option :value="null" disabled>Segmentos</option>
-              <option v-for="segment in segments" v-bind:key="segment.value" :value="segment.value">{{segment.name}}</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col>
-        <b-col md="3">
-          <b-form-group id="fieldset-1" label="Fase de Cadeia" label-for="input-7">
-            <b-form-select id="input-7" v-model="project.innovationPhase">
-              <option :value="null" disabled>Fase de Cadeia</option>
-              <option v-for="phase in innovationPhases" v-bind:key="phase.value" :value="phase.value">{{phase.name}}</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col>
-        <!--Fim da coluna 2 na linha 3 -->
-        <!-- Inicio da coluna 3 na linha 3 -->
-        <b-col md="3">
-          <b-form-group id="fieldset-1" label="Tipo do Produto" label-for="input-8">
-            <b-form-select id="input-8" v-model="project.product">
-              <option :value="null" disabled>Tipo de Produto</option>
-              <option v-for="product in products" v-bind:key="product.value" :value="product.value">{{product.name}}</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col>
-        <!-- Fim da coluna 3 na linha 3 -->
-        <!-- Inicio da coluna 4 na linha 3 -->
-        <b-col md="4">
-          <b-form-group id="fieldset-1" label="Tipo de Compartilhamento" label-for="input-8">
-            <b-form-select id="input-8" v-model="project.sharingType" :options="sharingTypes"></b-form-select>
-          </b-form-group>
-        </b-col>
-        <!--Fim da coluna 4 na linha 3 -->
-      </b-row>
-      <!-- Fim linha 3 -->
-
-      <!-- Inicio Linha 4 -->
-      <b-row>
-        <!-- Inicio Coluna Central -->
-        <b-col md="12">
-          <b-form-group id="fieldset-1" label="Escolha o Tema do Projeto" label-for="input-10">
-            <b-form-select id="input-10" v-model="project.topic" @change="topicChanged()">
-              <option :value="null" disabled>Tema</option>
-              <option
-                v-for="topic in topics"
-                v-bind:key="topic.id"
-                :value="topic.initials"
-              >{{topic.description}}</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col>
-        <!-- Fim Coluna Central -->
-      </b-row>
-      <!-- Fim linha 4  -->
-
-      <!-- Inicio Linha 5 -->
-      <b-row >
-        <!-- Inicio Coluna Central -->
-        <b-col md="12">
-          <b-form-group id="fieldset-1" label="Escolha o Subtema do Projeto" label-for="input-11">
-            <b-form-select id="input-11" v-model="project.subtopic">
-              <option :value="null" disabled>Subtema</option>
-              <option
-                v-for="subtopic in subtopics"
-                v-bind:key="subtopic.value"
-                :value="subtopic.initials"
-              >{{subtopic.description}}</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col>
-        <!-- Fim Coluna Central -->
-      </b-row>
-      <!-- Fim linha 5  -->
-    </b-container>
-  </div>
+          <v-layout row>
+            <v-flex xs12>
+              <v-text-field
+                v-model="project.title"
+                label="Título do Projeto"
+                counter="200"
+                required
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-layout>
+    </v-layout>
+    <v-layout row>
+      <v-flex sm2>
+        <v-select
+          v-model="project.segment"
+          :items="segments"
+          value="value"
+          item-text="description"
+          label="Segmento"
+        ></v-select>
+      </v-flex>
+      <v-flex sm6>
+        <v-select
+          v-model="project.innovationPhase"
+          :items="innovationPhases"
+          value="value"
+          item-text="description"
+          label="Fase da Cadeia de Inovação"
+        ></v-select>
+      </v-flex>
+      <v-flex sm5>
+        <v-select
+          v-model="project.product"
+          :items="products"
+          value="value"
+          item-text="description"
+          label="Tipo do Produto"
+        ></v-select>
+      </v-flex>
+      <v-flex xs5 sm6>
+        <v-select
+          v-model="project.sharingType"
+          :items="sharingTypes"
+          value="value"
+          item-text="description"
+          label="Tipo de Compartilhamento"
+        ></v-select>
+      </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex xs12>
+        <v-select
+          v-model="project.topic"
+          :items="topics"
+          item-value="initials"
+          item-text="description"
+          label="Tema do Projeto"
+          @change="topicChanged()"
+        ></v-select>
+      </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex xs12 v-if="true">
+        <v-textarea v-model="project.othertopic" label="Sugestão de Tema" auto-grow counter="1000"></v-textarea>
+      </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex xs12>
+        <v-select
+          v-model="project.subtopic"
+          :items="subtopics"
+          value="initials"
+          item-text="description"
+          label="Subtema do Projeto"
+        ></v-select>
+      </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex xs12 v-if="true">
+        <v-textarea
+          v-model="project.othersubtopic"
+          label="Sugestão de Subtema"
+          auto-grow
+          counter="1000"
+        ></v-textarea>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <style>
-.radioBox{
-  border: 2px solid green;
-  border-radius: 20px;
-  padding: 20px;  
+.radioBox {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 20px;
   height: 120px;
   margin-bottom: 10px;
   margin-top: 0px;
+  width: 200px;
 }
-.radiosOnly{
-  align-items: center;
-  margin-top: 10px;
-}
-
 </style>
 
 <script>
@@ -189,22 +166,43 @@ export default {
         sharingType: null
       },
       types: [],
-      innovationPhases: [],
-      products: [],
-      segments: [],
+      innovationPhases: [
+        { value: "PB", description: "Pesquisa Básica Dirigida" },
+        { value: "PA", description: "Pesquisa Aplicada" },
+        { value: "DE", description: "Desenvolvimento Experimental" },
+        { value: "CS", description: "Cabeça-de-série" },
+        { value: "LP", description: "Lote Pioneiro" },
+        { value: "IM", description: "Inserção no Mercado" }
+      ],
+      products: [
+        { value: "CM", description: "Conceito ou Metodologia" },
+        { value: "SW", description: "Software" },
+        { value: "SM", description: "Sistema" },
+        { value: "MS", description: "Material ou Substância" },
+        { value: "CD", description: "Componente ou Dispositivo" },
+        { value: "ME", description: "Máquina ou Equipamento" }
+      ],
+      segments: [
+        { value: "G", description: "Geração" },
+        { value: "T", description: "Transmissão" },
+        { value: "D", description: "Distribuição" },
+        { value: "C", description: "Comercialização" }
+      ],
       topics: [],
       subtopics: [],
       sharingTypes: [
-        { value: null, text: "Tipo de Compartilhamento" },
-        { value: "DP", text: "Domínio Público " },
+        { value: "DP", description: "Domínio Público" },
         {
           value: "EE",
-          text: "Exclusivo da(s) empresa(s) de energia elétrica  "
+          description: "Exclusivo da(s) empresa(s) de energia elétrica"
         },
-        { value: "EX", text: "Exclusivo da(s) entidade(s) executora(s)" },
+        {
+          value: "EX",
+          description: "Exclusivo da(s) entidade(s) executora(s)"
+        },
         {
           value: "CE",
-          text:
+          description:
             "Compartilhado  entre  as  empresa(s)  de  energia  elétrica e entidade(s) executora(s)"
         }
       ]
@@ -218,19 +216,6 @@ export default {
       await ProjectsRepository.getTypes()
         .then(response => (this.types = response.data))
         .catch(error => console.log(error));
-
-      await ProjectsRepository.getProducts().then(
-        response => (this.products = response.data)
-      );
-      await ProjectsRepository.getSegments().then(
-        response => (this.segments = response.data)
-      );
-      await ProjectsRepository.getInnovationPhases().then(
-        response => (this.innovationPhases = response.data)
-      );
-      await ProjectsRepository.getSharingTypes().then(
-        response => (this.sharingTypes = response.data)
-      );
     },
     typeChanged() {
       ProjectsRepository.getTopics(this.project.type).then(
@@ -239,14 +224,14 @@ export default {
     },
     topicChanged() {
       ProjectsRepository.getTopicSubtopic(this.project.topic).then(
-        response => (this.subtopics=response.data)
+        response => (this.subtopics = response.data)
       );
-    },
+    }
   },
   watch: {
     project: {
       handler: function(val) {
-        this.$emit("onProjectChange",val);
+        this.$emit("onProjectChange", val);
       },
       deep: true
     }
