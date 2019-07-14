@@ -1,23 +1,20 @@
 <template>
-  <div class="project-table">
-    <v-layout row>
-      <div class="search-field">
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          label="Pesquisar"
-          outline
-          single-line
-          hide-details 
-          class="labelSearch"         
-        ></v-text-field>
-      </div>
-      
+  <div>
+    <div class="search-field">
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Pesquisar"
+        outline
+        single-line
+        hide-details
+        class="labelSearch"
+      ></v-text-field>
+    </div>
 
-      <div class="btn-new">
-        <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
-      </div>
-    </v-layout>
+    <div class="btn-new">
+      <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
+    </div>
 
     <v-card class="project-table-card">
       <v-data-table
@@ -74,7 +71,8 @@
 }
 
 .search-field {
-  padding-left: 16px;
+  padding-left: 5px;
+  padding-top: 5px;
 }
 
 .search-field > v-text-field {
@@ -85,7 +83,7 @@
   position: relative;
   left: 742px;
 }
-.labelSearch{
+.labelSearch {
   width: 300px;
 }
 </style>

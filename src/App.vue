@@ -1,15 +1,19 @@
 <template>
   <v-app>
-   <router-view/>
+    <router-view />
   </v-app>
 </template>
 
-<script>
+<style>
+html {
+  overflow: hidden;
+}
+</style>
 
+<script>
 export default {
   name: "App",
-  components: {
-  },
+  components: {},
   data() {
     return {
       //

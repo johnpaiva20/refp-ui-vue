@@ -1,5 +1,5 @@
 <template>
-  <div class="project-step">
+  <div >
     <v-stepper v-model="e1">
       <v-stepper-header>
         <v-stepper-step editable step="1">Informações Básicas</v-stepper-step>
@@ -18,7 +18,8 @@
       </v-stepper-header>
 
       <v-stepper-items>
-        <v-stepper-content step="1">
+        <v-stepper-content  step="1">
+  
           <step1 @onProjectChange="onProjectChange"></step1>
 
           <v-btn class="btnStep" color="primary" @click="e1 = 2">Continue</v-btn>
@@ -56,11 +57,8 @@
 
 
 <style>
-.project-step {
-  position: relative;
-  top: 50px;
-  padding: 30px 5px 15px 5px;
-  background-color: white;
+.step {
+  padding: 0px;
 }
 .btnStep {
   float: right;

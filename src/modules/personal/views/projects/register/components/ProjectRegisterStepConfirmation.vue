@@ -1,5 +1,5 @@
 <template>
-  <div class="divConfirmation">
+  <div>
     <b-row>
       <b-col md="5">
         <label class="labelConfirmation">Código ANEEL</label>
@@ -40,9 +40,6 @@
 .labelConfirmation {
   color: #43a047;
   font-size: 18px;
-}
-.divConfirmation {
-  margin-top: 25px;
 }
 </style>
 

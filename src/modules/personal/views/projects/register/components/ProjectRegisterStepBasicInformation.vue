@@ -1,8 +1,15 @@
 <template>
-  <v-container>
-    <v-layout row>
-        <v-flex sm2>
-          <v-radio-group v-model="project.type" label="Tipo de Projeto" @change="typeChanged()" row>
+  <v-form>
+    <v-container>
+      <v-layout row>
+        <v-flex sm3>
+          <v-radio-group
+            v-model="project.type"
+            label="Tipo de Projeto"
+            class="radioBox"
+            @change="typeChanged()"
+            row
+          >
             <v-radio
               v-for="type in types"
               :key="type.id"
@@ -13,135 +20,152 @@
             ></v-radio>
           </v-radio-group>
         </v-flex>
-      <v-layout row>
-        <v-container>
-          <v-layout row>
-            <v-flex xs12 sm6 md3>
-              <v-text-field v-model="project.aneelId" label="Código da ANEEL" required></v-text-field>
-            </v-flex>
-            <v-flex xs5 md4>
-              <v-text-field
-                type="date"
-                v-model="project.start"
-                label="Data de Início do Projeto"
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12 md4>
-              <v-text-field
-                type="number"
-                v-model="project.duration"
-                label="Duração"
-                suffix="meses"
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12 md4>
-              <v-text-field v-model="project.serviceOrder" label="Ordem de Serviço (ODS)" required></v-text-field>
-            </v-flex>
-          </v-layout>
 
-          <v-layout row>
-            <v-flex xs12>
-              <v-text-field
-                v-model="project.title"
-                label="Título do Projeto"
-                counter="200"
-                required
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
+        <v-flex xs12 sm6 md3>
+          <v-text-field
+            v-model="project.aneelId"
+            label="Código da ANEEL"
+            :rules="rules.aneelId"
+            required
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex sm2>
+          <v-text-field
+            type="date"
+            v-model="project.start"
+            label="Data de Início"
+            :rules="rules.start"
+            required
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex sm2>
+          <v-text-field
+            type="number"
+            v-model="project.duration"
+            label="Duração"
+            suffix="meses"
+            :rules="rules.duration"
+            required
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex xs12 md4>
+          <v-text-field
+            v-model="project.serviceOrder"
+            label="Ordem de Serviço (ODS)"
+            :rules="rules.serviceOrder"
+            required
+          ></v-text-field>
+        </v-flex>
       </v-layout>
-    </v-layout>
-    <v-layout row>
-      <v-flex sm2>
-        <v-select
-          v-model="project.segment"
-          :items="segments"
-          value="value"
-          item-text="description"
-          label="Segmento"
-        ></v-select>
-      </v-flex>
-      <v-flex sm6>
-        <v-select
-          v-model="project.innovationPhase"
-          :items="innovationPhases"
-          value="value"
-          item-text="description"
-          label="Fase da Cadeia de Inovação"
-        ></v-select>
-      </v-flex>
-      <v-flex sm5>
-        <v-select
-          v-model="project.product"
-          :items="products"
-          value="value"
-          item-text="description"
-          label="Tipo do Produto"
-        ></v-select>
-      </v-flex>
-      <v-flex xs5 sm6>
-        <v-select
-          v-model="project.sharingType"
-          :items="sharingTypes"
-          value="value"
-          item-text="description"
-          label="Tipo de Compartilhamento"
-        ></v-select>
-      </v-flex>
-    </v-layout>
-    <v-layout row>
-      <v-flex xs12>
-        <v-select
-          v-model="project.topic"
-          :items="topics"
-          item-value="initials"
-          item-text="description"
-          label="Tema do Projeto"
-          @change="topicChanged()"
-        ></v-select>
-      </v-flex>
-    </v-layout>
-    <v-layout row>
-      <v-flex xs12 v-if="true">
-        <v-textarea v-model="project.othertopic" label="Sugestão de Tema" auto-grow counter="1000"></v-textarea>
-      </v-flex>
-    </v-layout>
-    <v-layout row>
-      <v-flex xs12>
-        <v-select
-          v-model="project.subtopic"
-          :items="subtopics"
-          value="initials"
-          item-text="description"
-          label="Subtema do Projeto"
-        ></v-select>
-      </v-flex>
-    </v-layout>
-    <v-layout row>
-      <v-flex xs12 v-if="true">
-        <v-textarea
-          v-model="project.othersubtopic"
-          label="Sugestão de Subtema"
-          auto-grow
-          counter="1000"
-        ></v-textarea>
-      </v-flex>
-    </v-layout>
-  </v-container>
+
+      <v-layout row>
+        <v-flex xs12>
+          <v-text-field
+            v-model="project.title"
+            label="Título do Projeto"
+            counter="200"
+            maxlenght="200"
+            :rules="rules.title"
+            required
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+
+      <v-layout row>
+        <v-flex sm2>
+          <v-select
+            v-model="project.segment"
+            :items="segments"
+            value="value"
+            item-text="description"
+            label="Segmento"
+          ></v-select>
+        </v-flex>
+        <v-flex sm6>
+          <v-select
+            v-model="project.innovationPhase"
+            :items="innovationPhases"
+            value="value"
+            item-text="description"
+            label="Fase da Cadeia de Inovação"
+          ></v-select>
+        </v-flex>
+        <v-flex sm5>
+          <v-select
+            v-model="project.product"
+            :items="products"
+            value="value"
+            item-text="description"
+            label="Tipo do Produto"
+          ></v-select>
+        </v-flex>
+        <v-flex xs5 sm6>
+          <v-select
+            v-model="project.sharingType"
+            :items="sharingTypes"
+            value="value"
+            item-text="description"
+            label="Tipo de Compartilhamento"
+          ></v-select>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs12>
+          <v-select
+            v-model="project.topic"
+            :items="topics"
+            item-value="initials"
+            item-text="description"
+            label="Tema do Projeto"
+            @change="topicChanged()"
+          ></v-select>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs12 v-if="othertopic">
+          <v-textarea
+            v-model="project.othertopic"
+            label="Sugestão de Tema"
+            auto-grow
+            counter="1000"
+          ></v-textarea>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs12>
+          <v-select
+            v-model="project.subtopic"
+            :items="subtopics"
+            value="initials"
+            item-text="description"
+            label="Subtema do Projeto"
+          ></v-select>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs12 v-if="othersubtopic">
+          <v-textarea
+            v-model="project.othersubtopic"
+            label="Sugestão de Subtema"
+            auto-grow
+            counter="1000"
+          ></v-textarea>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-form>
 </template>
 
 <style>
 .radioBox {
-  border: 2px solid black;
+  border: 2px solid #9e9e9e;
   border-radius: 15px;
-  padding: 20px;
-  height: 120px;
-  margin-bottom: 10px;
-  margin-top: 0px;
-  width: 200px;
+  padding: 5px;
+  height: 95px;
+  width: 265px;
 }
 </style>
 
@@ -151,18 +175,34 @@ const ProjectsRepository = RepositoryFactory.get("projects");
 export default {
   data() {
     return {
+      rules: {
+        aneelId: [v => !!v || "Campo obrigatório"],
+        serviceOrder: [v => !!v || "Campo obrigatório"],
+        title: [
+          v => !!v || "Campo obrigatório",
+          v => v.length < 200 || "Máximo 200 caracteres"
+        ],
+        duration: [
+          v => !!v || "Campo obrigatório",
+          v => 0 < v || "Número inválido",
+          v => 48 >= v || "Máximo 48 meses"
+        ],
+        start: [v => !!v || "Campo obrigatório"]
+      },
       project: {
         aneelId: "",
         title: "",
         start: "",
         duration: "",
         serviceOrder: "",
-        type: "",
+        type: "PD",
         innovationPhase: null,
         product: null,
         segment: null,
         topic: null,
+        othertopic: null,
         subtopic: null,
+        othersubtopic: null,
         sharingType: null
       },
       types: [],
@@ -189,7 +229,9 @@ export default {
         { value: "C", description: "Comercialização" }
       ],
       topics: [],
+      othertopic:false,
       subtopics: [],
+      othersubtopic: false,
       sharingTypes: [
         { value: "DP", description: "Domínio Público" },
         {
@@ -214,7 +256,10 @@ export default {
   methods: {
     async fetchData() {
       await ProjectsRepository.getTypes()
-        .then(response => (this.types = response.data))
+        .then(response => {
+          this.types = response.data;
+          this.typeChanged();
+        })
         .catch(error => console.log(error));
     },
     typeChanged() {
@@ -223,6 +268,9 @@ export default {
       );
     },
     topicChanged() {
+      if(this.project.topic=="OU"){
+        this.othertopic = true;
+      }
       ProjectsRepository.getTopicSubtopic(this.project.topic).then(
         response => (this.subtopics = response.data)
       );

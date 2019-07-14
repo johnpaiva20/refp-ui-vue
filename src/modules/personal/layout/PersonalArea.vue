@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Toolbar/>
-    <PersonalSideBar/>
+    <Toolbar />
+    <PersonalSideBar />
     <v-content>
-      <v-container  fluid class="pa-0 ma-0">
+      <v-container fluid class="pa-1 window">
         <v-fade-transition mode="out-in">
           <router-view></router-view>
         </v-fade-transition>
@@ -12,6 +12,12 @@
   </div>
 </template>
 
+<style>
+.window {
+  position: relative;
+  top:72px;
+}
+</style>
 
 
 
@@ -24,8 +30,7 @@ export default {
     PersonalSideBar
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {}
 };
