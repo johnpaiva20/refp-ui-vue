@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="search-field">
+    <div >
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -12,7 +12,7 @@
       ></v-text-field>
     </div>
 
-    <div class="btn-new">
+    <div class="btn-new" >
       <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
     </div>
 
@@ -61,18 +61,9 @@
   color: red;
   font-weight: bold;
 }
-.project-table {
-  position: relative;
-  padding: 30px 5px 15px 5px;
-}
 
 .project-table-card {
   top: 40px;
-}
-
-.search-field {
-  padding-left: 5px;
-  padding-top: 5px;
 }
 
 .search-field > v-text-field {

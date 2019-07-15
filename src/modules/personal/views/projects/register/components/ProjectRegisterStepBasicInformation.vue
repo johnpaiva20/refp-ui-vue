@@ -13,9 +13,9 @@
             <v-radio
               v-for="type in types"
               :key="type.id"
-              :label="`${type.name}`"
-              :value="type.value"
-              :disabled="type.active"
+              :label="`${type.description}`"
+              :value="type.id"
+              :disabled="!type.active"
               color="primary"
             ></v-radio>
           </v-radio-group>
@@ -142,6 +142,7 @@
             value="initials"
             item-text="description"
             label="Subtema do Projeto"
+            @change="subtopicChanged()"
           ></v-select>
         </v-flex>
       </v-layout>
@@ -165,7 +166,7 @@
   border-radius: 15px;
   padding: 5px;
   height: 95px;
-  width: 265px;
+  width: 267px;
 }
 </style>
 
@@ -187,7 +188,9 @@ export default {
           v => 0 < v || "Número inválido",
           v => 48 >= v || "Máximo 48 meses"
         ],
-        start: [v => !!v || "Campo obrigatório"]
+        start: [v => !!v || "Campo obrigatório"],
+        othertopic: [v => !!v || "Campo obrigatório"],
+        othersubtopic: [v => !!v || "Campo obrigatório"]
       },
       project: {
         aneelId: "",
@@ -229,7 +232,7 @@ export default {
         { value: "C", description: "Comercialização" }
       ],
       topics: [],
-      othertopic:false,
+      othertopic: false,
       subtopics: [],
       othersubtopic: false,
       sharingTypes: [
@@ -268,12 +271,21 @@ export default {
       );
     },
     topicChanged() {
-      if(this.project.topic=="OU"){
+      if (this.project.topic == "OU") {
         this.othertopic = true;
+      } else {
+        this.othertopic = false;
       }
       ProjectsRepository.getTopicSubtopic(this.project.topic).then(
         response => (this.subtopics = response.data)
       );
+    },
+    subtopicChanged() {
+      if (this.project.subtopic == "OU") {
+        this.othersubtopic = true;
+      } else {
+        this.othersubtopic = false;
+      }
     }
   },
   watch: {
