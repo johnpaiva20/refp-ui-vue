@@ -1,5 +1,15 @@
  <template>
-  <v-navigation-drawer class="primary mt-5" width="200px"  style="top: 24px" app fixed clipped permanent>
+  <v-navigation-drawer
+    class="primary mt-5"
+    width="180px"
+    style="top: 24px"
+    app
+    fixed
+    clipped
+    permanent
+    :mini-variant.sync="collapsed"
+    hide-overlay
+  >
     <v-list>
       <v-list-tile v-for="item in menuItens" v-bind:key="item.id" v-on:click="goToPage(item.path)">
         <v-list-tile-action>
@@ -31,11 +41,12 @@
 import router from "../../../router/router";
 
 export default {
+  props: { collapsed: Boolean },
   data() {
     return {
       menuItens: [
         { id: 1, title: "Informações", icon: "info", path: "info" },
-        { id: 2, title: "Empresas", icon: "business", path: "enterprises" },
+        { id: 2, title: "Empresas", icon: "business", path: "enterprises" }
         //{ id: 3, title: "Membros", icon: "people", path: "members" },
         //{ id: 4, title: "Despesas", icon: "monetization_on", path: "expenses" },
         //{ id: 5, title: "Documentos", icon: "folder", path: "documents" },

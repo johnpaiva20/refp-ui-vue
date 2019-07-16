@@ -1,6 +1,6 @@
 <template>
-  <div class="project-table">
-    <v-layout row>
+  <div>
+    <v-layout row class="row-padding">
       <div class="search-field">
         <v-text-field
           v-model="search"
@@ -8,17 +8,16 @@
           label="Pesquisar"
           outline
           single-line
-          hide-details 
-          class="labelSearch"         
+          hide-details
         ></v-text-field>
-      </div>   
-
-      <div class="btn-new">
+      </div>
+      <v-spacer></v-spacer>
+      <div >
         <v-btn color="primary" to="/personal/enterprises/register">Novo</v-btn>
       </div>
     </v-layout>
 
-    <v-card class="project-table-card">
+    <v-card class="table-position">
       <v-data-table
         :headers="headers"
         :items="enterprises"
@@ -49,28 +48,24 @@
 </template>
 
 <style>
-.project-table {
-  position: relative;
-  top: 50px;
-  padding: 30px 5px 15px 5px;
-}
-
-.project-table-card {
-  top: 40px;
+.table-position {
+  top: 30px;
 }
 
 .search-field {
-  padding-left: 16px;
+  padding-left: 5px;
 }
 
 .search-field > v-text-field {
   width: 300px;
 }
 
-.btn-new {
-  position: relative;
-  left: 742px;
+.row-padding {
+  padding-left: 10px;
+  padding-right: 10px;
 }
+
+
 </style>
 
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="enterprise-table">
+  <div>
     <v-layout row>
       <div class="search-field">
         <v-text-field
@@ -11,18 +11,14 @@
           hide-details
         ></v-text-field>
       </div>
-      <div>
-        <v-btn flat icon color="primary">
-          <v-icon>filter_list</v-icon>
-        </v-btn>
-      </div>
+      <v-spacer></v-spacer>
 
       <div class="btn-new">
         <v-btn color="primary">Adicionar</v-btn>
       </div>
     </v-layout>
 
-    <v-card class="project-table-card">
+    <v-card class="table-position">
       <v-data-table
         :headers="headers"
         :items="desserts"
@@ -52,18 +48,12 @@
 </template>
 
 <style>
-.enterprise-table {
-  position: relative;
-  top: 50px;
-  padding: 30px 5px 15px 5px;
-}
-
-.project-table-card {
-  top: 40px;
+.table-position {
+  top: 30px;
 }
 
 .search-field {
-  padding-left: 16px;
+  padding-left: 5px;
 }
 
 .search-field > v-text-field {
@@ -71,8 +61,7 @@
 }
 
 .btn-new {
-  position: relative;
-  left: 742px;
+  padding-right: 5px;
 }
 </style>
 

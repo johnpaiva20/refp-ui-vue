@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Toolbar/>
-    <ProjectsSideBar/>
+    <Toolbar :collapse.sync="collapsed"/>
+    <ProjectsSideBar :collapsed="collapsed"/>
     <v-content>
-      <v-container fluid class="pa-0 ma-0">
+      <v-container fluid class="pa-1">
         <v-fade-transition mode="out-in">
           <router-view></router-view>
         </v-fade-transition>
@@ -24,7 +24,7 @@ export default {
     ProjectsSideBar
   },
   data() {
-    return {};
+    return { collapsed: false };
   },
   methods: {}
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="enterprise-table">
+  <div>
     <v-layout row>
       <div class="search-field">
         <v-text-field
@@ -8,8 +8,7 @@
           label="Pesquisar"
           outline
           single-line
-          hide-details 
-          class="labelSearch"         
+          hide-details
         ></v-text-field>
       </div>
       <div>
@@ -23,7 +22,7 @@
       </div>
     </v-layout>
 
-    <v-card class="project-table-card">
+    <v-card class="table-position">
       <v-data-table
         :headers="headers"
         :items="desserts"
@@ -54,14 +53,8 @@
 </template>
 
 <style>
-.enterprise-table {
-  position: relative;
-  top: 50px;
-  padding: 30px 5px 15px 5px;
-}
-
-.project-table-card {
-  top: 40px;
+.table-position {
+  top: 30px;
 }
 
 .search-field {

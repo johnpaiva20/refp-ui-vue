@@ -1,6 +1,6 @@
 <template>
-  <div class="project-table">
-    <v-layout row>
+  <div>
+    <v-layout row class="row-padding">
       <div class="search-field">
         <v-text-field
           v-model="search"
@@ -8,18 +8,16 @@
           label="Pesquisar"
           outline
           single-line
-          hide-details 
-          class="labelSearch"         
+          hide-details
+          height="22"
         ></v-text-field>
       </div>
-      
-
-      <div class="btn-new">
+      <v-spacer></v-spacer>
+      <div>
         <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
       </div>
     </v-layout>
-
-    <v-card class="project-table-card">
+    <v-card class="table-position">
       <v-data-table
         :headers="headers"
         :items="projects"
@@ -47,6 +45,11 @@
             icon="warning"
           >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
         </template>
+        <template v-slot:no-data>
+      <v-alert :value="true" color="primary" icon="info">
+        Nenhum Projeto cadastrado
+      </v-alert>
+    </template>
       </v-data-table>
       <div class="text-xs-right pt-2">
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
@@ -56,21 +59,16 @@
 </template>
 
 <style>
-.statusAberto {
-  color: green;
-  font-weight: bold;
-}
-.statusFechado {
-  color: red;
-  font-weight: bold;
+.table-position {
+  top: 30px;
 }
 .project-table {
   position: relative;
   padding: 30px 5px 15px 5px;
 }
 
-.project-table-card {
-  top: 40px;
+.search-field {
+  padding-left: 5px;
 }
 
 .search-field {
@@ -81,12 +79,13 @@
   width: 300px;
 }
 
-.btn-new {
-  position: relative;
-  left: 742px;
+.row-padding {
+  padding-left: 10px;
+  padding-right: 10px;
 }
-.labelSearch{
-  width: 300px;
+
+.btn-new {
+  padding-right: 5px;
 }
 </style>
 

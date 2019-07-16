@@ -1,5 +1,5 @@
 <template>
-  <div class="project-step">
+  <div>
     <v-stepper v-model="e1">
       <v-stepper-header>
         <v-stepper-step editable step="1">Informações Básicas</v-stepper-step>
@@ -19,9 +19,6 @@
 
       <v-stepper-items>
         <v-stepper-content step="1">
-          <step1 @onProjectChange="onProjectChange"></step1>
-
-          <v-btn class="btnStep" color="primary" @click="e1 = 2">Continue</v-btn>
 
           <v-btn flat @click="cancel()">Cancelar</v-btn>
         </v-stepper-content>
@@ -94,16 +91,14 @@ export default {
     save() {
       ProjectsRepository.save(this.project)
         .then(response => {
-          
-          let id = response.data.id
-          
+          let id = response.data.id;
+
           this.$router.push({
             path: `/project/${id}/info`,
-            params: { id:  id }
+            params: { id: id }
           });
-        
         })
-        .catch(error => console.log("Error: "+error));
+        .catch(error => console.log("Error: " + error));
     },
     cancel() {
       this.$router.push("/personal/projects");

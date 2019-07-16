@@ -1,80 +1,67 @@
 <template>
-  <v-app>
-    <div class="project-table">
-      <v-layout row>
-        <div class="search-field">
-          <v-text-field
-            v-model="search"
-            append-icon="search"
-            label="Pesquisar"
-            box
-            single-line
-            hide-details
-          ></v-text-field>
-        </div>
-        <div>
-          <v-btn flat icon color="primary">
-            <v-icon>filter_list</v-icon>
-          </v-btn>
-        </div>
+  <div>
+    <v-layout row class="row-padding">
+      <div class="search-field">
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Pesquisar"
+          outline
+          single-line
+          hide-details
+        ></v-text-field>
+      </div>
+      <v-spacer></v-spacer>
+      <div>
+        <v-btn color="primary" to="/personal/members/register">Novo</v-btn>
+      </div>
+    </v-layout>
 
-        <div class="btn-new">
-          <v-btn color="primary" to="/personal/members/register">Novo</v-btn>
-        </div>
-      </v-layout>
-
-      <v-card class="project-table-card">
-        <v-data-table
-          :headers="headers"
-          :items="members"
-          :search="search"
-          hide-actions
-          :pagination.sync="pagination"
-        >
-          <template v-slot:items="props">
-            <td>{{ props.item.id }}</td>
-            <td>{{ props.item.name }}</td>
-            <td>{{ props.item.degree }}</td>
-            <td>{{ props.item.role }}</td>
-          </template>
-          <template v-slot:no-results>
-            <v-alert
-              :value="true"
-              color="error"
-              icon="warning"
-            >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
-          </template>
-        </v-data-table>
-        <div class="text-xs-right pt-2">
-          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-        </div>
-      </v-card>
-    </div>
-  </v-app>
+    <v-card class="table-position">
+      <v-data-table
+        :headers="headers"
+        :items="members"
+        :search="search"
+        hide-actions
+        :pagination.sync="pagination"
+      >
+        <template v-slot:items="props">
+          <td>{{ props.item.id }}</td>
+          <td>{{ props.item.name }}</td>
+          <td>{{ props.item.degree }}</td>
+          <td>{{ props.item.role }}</td>
+        </template>
+        <template v-slot:no-results>
+          <v-alert
+            :value="true"
+            color="error"
+            icon="warning"
+          >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
+        </template>
+      </v-data-table>
+      <div class="text-xs-right pt-2">
+        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+      </div>
+    </v-card>
+  </div>
 </template>
 
 <style>
-.project-table {
-  position: relative;
-  top: 50px;
-  padding: 30px 5px 15px 5px;
-}
-
-.project-table-card {
-  top: 40px;
+.table-position {
+  top: 30px;
 }
 
 .search-field {
-  padding-left: 16px;
+  padding-left: 5px;
 }
 
 .search-field > v-text-field {
   width: 300px;
 }
 
-.btn-new {
-  position: relative;
-  left: 742px;
+.row-padding {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 </style>
 

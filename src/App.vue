@@ -4,6 +4,10 @@
   </v-app>
 </template>
 
+<style>
+
+</style>
+
 <script>
 
 export default {
