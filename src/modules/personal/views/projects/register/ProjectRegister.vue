@@ -19,7 +19,7 @@
 
       <v-stepper-items>
         <v-stepper-content step="1">
-
+          <step1></step1>
           <v-btn flat @click="cancel()">Cancelar</v-btn>
         </v-stepper-content>
 
