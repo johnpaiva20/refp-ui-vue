@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout row class="row-padding">
+    <v-layout row>
       <div class="search-field">
         <v-text-field
           v-model="search"
@@ -18,26 +18,7 @@
       </div>
     </v-layout>
     <v-card class="table-position">
-      <v-data-table
-        :headers="headers"
-        :items="projects"
-        :search="search"
-        hide-actions
-        :pagination.sync="pagination"
-        loading="isLoading"
-      >
-        <template v-slot:items="props">
-          <tr @click="goToProject(props.item)">
-            <td>{{ props.item.aneelId }}</td>
-            <td>{{ props.item.title }}</td>
-            <td>{{ props.item.type }}</td>
-            <td>{{ props.item.start }}</td>
-            <td>{{ props.item.duration }}</td>
-            <td>{{ props.item.serviceOrder }}</td>
-            <td>{{ props.item.principalEnterprise }}</td>
-            <td>{{ props.item.status }}</td>
-          </tr>
-        </template>
+      <v-data-table>
         <template v-slot:no-results>
           <v-alert
             :value="true"
@@ -62,17 +43,9 @@
 .table-position {
   top: 30px;
 }
-.project-table {
-  position: relative;
-  padding: 30px 5px 15px 5px;
-}
 
 .search-field {
   padding-left: 5px;
-}
-
-.search-field {
-  padding-left: 16px;
 }
 
 .search-field > v-text-field {

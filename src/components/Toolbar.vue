@@ -24,11 +24,21 @@
 </template>
 
 <style>
+.v-toolbar__extension {
+  padding: 0px !important;
+}
+
+.v-progress-linear {
+  -moz-transform: scale(1, -1);
+  -webkit-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
+}
 </style>
 
  <script>
 import router from "../router/router";
-
 export default {
   data() {
     return {
