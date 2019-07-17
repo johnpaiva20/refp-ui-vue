@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout row>
+    <v-layout row class="row-padding">
       <div class="search-field">
         <v-text-field
           v-model="search"
@@ -18,7 +18,27 @@
       </div>
     </v-layout>
     <v-card class="table-position">
-      <v-data-table>
+      <v-data-table
+        :headers="headers"
+        :items="projects"
+        :search="search"
+        hide-actions
+        :pagination.sync="pagination"
+        loading="isLoading"
+      >
+        <template v-slot:items="props">
+          <tr @click="goToProject(props.item)">
+            <td>{{ props.item.aneelId }}</td>
+            <td>{{ props.item.title }}</td>
+            <td>{{ props.item.type }}</td>
+            <td>{{ props.item.start }}</td>
+            <td>{{ props.item.duration }}</td>
+            <td>{{ props.item.serviceOrder }}</td>
+            <td>{{ props.item.principalEnterprise }}</td>
+            <td>{{ props.item.status }}</td>
+          </tr>
+        </template>
+
         <template v-slot:no-results>
           <v-alert
             :value="true"
@@ -27,10 +47,8 @@
           >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
         </template>
         <template v-slot:no-data>
-      <v-alert :value="true" color="primary" icon="info">
-        Nenhum Projeto cadastrado
-      </v-alert>
-    </template>
+          <v-alert :value="true" color="primary" icon="info">Nenhum Projeto cadastrado</v-alert>
+        </template>
       </v-data-table>
       <div class="text-xs-right pt-2">
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
