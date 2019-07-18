@@ -2,10 +2,10 @@ import Repository from './Repository';
 const resource = 'members';
 export default {
 
-  get() {
+  listMembers() {
     return Repository.get(`${resource}`);
   },
-  save(member){
+  createMember(member){
     return Repository.post(`${resource}`,member);
 
   }

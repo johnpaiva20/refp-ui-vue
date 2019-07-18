@@ -39,7 +39,7 @@
 <style>
 .labelConfirmation {
   color: #43a047;
-  font-size: 18px;
+  font-size: 15px;
 }
 </style>
 

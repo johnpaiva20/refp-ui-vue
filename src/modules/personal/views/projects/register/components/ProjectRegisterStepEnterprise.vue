@@ -38,6 +38,9 @@
             </td>
           </tr>
         </template>
+        <template v-slot:no-data>
+          <v-alert :value="true" color="primary" icon="info">Nenhuma empresa adiconada</v-alert>
+        </template>
       </v-data-table>
       <div class="text-xs-right pt-2">
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>

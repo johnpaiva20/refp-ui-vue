@@ -6,59 +6,59 @@ export class Project {
 
 export default {
 
-  get() {
+  listProjects() {
     return Repository.get(`${resource}`);
   },
 
-  getProject(id) {
+  getProjectbyId(id) {
     return Repository.get(`${resource}/${id}`);
   },
 
-  getTypes() {
+  listProjectTypes() {
     return Repository.get(`/types`);
   },
 
-  getTopics(type) {
+  listProjectTopics(type) {
     if (type == "PD") {
-      return Repository.get(`/topics?type=DEVELOPMENT_RESEARCH`);
+      return Repository.get(`/topics?priority=YES&type=DEVELOPMENT_RESEARCH`);
     } else if (type == "EE") {
-      return Repository.get(`/topics?type=ENERGY_EFFICIENCY`);
+      return Repository.get(`/topics?priority=YES&type=ENERGY_EFFICIENCY`);
     }
     return Repository.get(`/topics`);
   },
 
-  getTopicSubtopic(topic) {
+  listProjectSubtopics(topic) {
     if (topic) {
       return Repository.get(`/subtopics?topic=${topic}`);
     }
     return Repository.get(`/subtopics`);
   },
 
-  getInnovationPhases() {
+  listProjectInnovationPhases() {
     return Repository.get(`${resource}/innovation-phases`);
   },
 
-  getProducts() {
-    return Repository.get(`${resource}/products`);
+  listProjectProductTypes() {
+    return Repository.get(`${resource}/products/types`);
   },
 
-  getSegments() {
+  listProjectSegments() {
     return Repository.get(`${resource}/segments`);
   },
 
-  getSharingTypes() {
+  listProjectSharingTypes() {
     return Repository.get(`${resource}/sharing-types`);
   },
 
-  getEnterprises(id) {
+  listProjectEnterprises(id) {
     return Repository.get(`${resource}/${id}/enterprises`);
   },
 
-  getMembers(id) {
+  listProjectMembers(id) {
     return Repository.get(`${resource}/${id}/members`);
   },
 
-  save(project) {
+  createProject(project) {
     return Repository.post(`${resource}`, project);
   }
 

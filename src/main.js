@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router/router';
+import moment from 'moment'
 
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -33,6 +34,16 @@ Vue.use(VueApexCharts);
 
 
 Vue.config.productionTip = false;
+
+Vue.filter('formatDate', function(value) {
+
+  if (value) {
+
+    return moment(String(value)).format('DD/MM/YYYY')
+
+  }
+
+});
 
 new Vue({
   router,

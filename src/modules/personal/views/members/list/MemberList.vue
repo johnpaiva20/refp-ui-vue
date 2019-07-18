@@ -90,7 +90,7 @@ export default {
   methods: {
     async fetch() {
       this.isLoading = true;
-      const { data } = await MmebersRepository.getMembers();
+      const { data } = await MmebersRepository.listMembers();
       this.isLoading = false;
       this.enterprises = data;
     },

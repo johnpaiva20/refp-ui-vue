@@ -25,21 +25,21 @@
                   <label id="tituloProjeto" class="labelConfirmation">Título do Projeto</label>
                   <h6>{{project.title||"Não Informado"}}</h6>
                 </div>
-                <div class="divLabel">
+                <div class="divLabel" v-if="project.serviceOrder">
                   <label class="labelConfirmation">Data Iníco</label>
-                  <h6>{{project.startDate||"Não Informado"}}</h6>
+                  <h6>{{project.serviceOrder.begin| formatDate}}</h6>
                 </div>
-                <div class="divLabel">
+                <div class="divLabel" v-if="project.serviceOrder">
                   <label class="labelConfirmation">Ordem de Serviço (ODS)</label>
-                  <h6>{{project.serviceOrder||"Não Informado"}}</h6>
+                  <h6>{{project.serviceOrder.order||"Não Informado"}}</h6>
                 </div>
-                <div class="divLabel">
+                <div class="divLabel" v-if="project.topic">
                   <label class="labelConfirmation">Tema</label>
-                  <h6>{{project.topic||"Não Informado"}}</h6>
+                  <h6>{{project.topic.description||"Não Informado"}}</h6>
                 </div>
-                <div class="divLabel">
+                <div class="divLabel" v-if="project.product">
                   <label class="labelConfirmation">Produto</label>
-                  <h6>{{project.product||"Não Informado"}}</h6>
+                  <h6>{{project.product.type.description||"Não Informado"}}</h6>
                 </div>
               </b-col>
 
@@ -61,21 +61,21 @@
                   <h6>{{project.proponentCompany||"Não Informado"}}</h6>
                 </div>
                 <div id="divLabelVazia" class="divLabel"></div>
-                <div class="divLabel">
+                <div class="divLabel" v-if="project.serviceOrder">
                   <label class="labelConfirmation">Data prevista de conclusão</label>
-                  <h6>Não Informado</h6>
+                  <h6>{{project.serviceOrder.end | formatDate}}</h6>
                 </div>
                 <div class="divLabel">
                   <label class="labelConfirmation">Fase da cadeia de inovação</label>
                   <h6>{{project.innovationPhase||"Não Informado"}}</h6>
                 </div>
-                <div class="divLabel">
+                <div class="divLabel" v-if="project.subtopic">
                   <label class="labelConfirmation">Subtema</label>
-                  <h6>{{project.subtopic||"Não Informado"}}</h6>
+                  <h6>{{project.subtopic.description||"Não Informado"}}</h6>
                 </div>
-                <div class="divLabel" v-if="project.description">
+                <div class="divLabel" v-if="false">
                   <label class="labelConfirmation">Descrição Produto</label>
-                  <h6>{{project.description||"Não Informado"}}</h6>
+                  <h6>{{project.product.description||"Não Informado"}}</h6>
                 </div>
               </b-col>
             </b-row>
@@ -118,6 +118,7 @@
 
 <script>
 import { RepositoryFactory } from "../../../../repositories/RepositoryFactory";
+import moment from "moment";
 const ProjectsRepository = RepositoryFactory.get("projects");
 export default {
   data() {
@@ -132,10 +133,22 @@ export default {
     async fetchData(id) {
       this.loading = true;
       this.isLoading = true;
-      const { data } = await ProjectsRepository.getProject(id);
+      const { data } = await ProjectsRepository.getProjectbyId(id);
       this.isLoading = false;
       this.project = data;
-      this.project.progress = 70;
+      let remaning = moment(moment.now()).diff(
+        this.project.serviceOrder.end,
+        "months",
+        true
+      );
+      let complete = moment(this.project.serviceOrder.end).diff(
+        this.project.serviceOrder.begin,
+        "months",
+        true
+      );
+      console.log(remaning + "|" + complete);
+      console.log(remaning / complete);
+      this.project.progress = 10;
     }
   }
 };

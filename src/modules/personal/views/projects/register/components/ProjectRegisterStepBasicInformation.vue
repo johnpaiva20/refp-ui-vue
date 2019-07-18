@@ -4,7 +4,7 @@
       <v-layout row>
         <v-flex sm3>
           <v-radio-group
-            v-model="project.type"
+            v-model="project.type.id"
             label="Tipo de Projeto"
             class="radioBox"
             @change="typeChanged()"
@@ -33,7 +33,7 @@
         <v-flex sm2>
           <v-text-field
             type="date"
-            v-model="project.start"
+            v-model="project.serviceOrder.begin"
             label="Data de Início"
             :rules="rules.start"
             required
@@ -53,7 +53,7 @@
 
         <v-flex xs12 md4>
           <v-text-field
-            v-model="project.serviceOrder"
+            v-model="project.serviceOrder.order"
             label="Ordem de Serviço (ODS)"
             :rules="rules.serviceOrder"
             required
@@ -82,6 +82,7 @@
             value="value"
             item-text="description"
             label="Segmento"
+            required
           ></v-select>
         </v-flex>
         <v-flex sm6>
@@ -91,15 +92,18 @@
             value="value"
             item-text="description"
             label="Fase da Cadeia de Inovação"
+            required
           ></v-select>
         </v-flex>
         <v-flex sm5>
           <v-select
-            v-model="project.product"
+            v-model="project.product.type.id"
             :items="products"
             value="value"
+            item-value="id"
             item-text="description"
             label="Tipo do Produto"
+            required
           ></v-select>
         </v-flex>
         <v-flex xs5 sm6>
@@ -109,25 +113,27 @@
             value="value"
             item-text="description"
             label="Tipo de Compartilhamento"
+            required
           ></v-select>
         </v-flex>
       </v-layout>
       <v-layout row>
         <v-flex xs12>
           <v-select
-            v-model="project.topic"
+            v-model="project.topic.id"
             :items="topics"
-            item-value="initials"
+            item-value="id"
             item-text="description"
             label="Tema do Projeto"
             @change="topicChanged()"
+            required
           ></v-select>
         </v-flex>
       </v-layout>
       <v-layout row>
-        <v-flex xs12 v-if="othertopic">
+        <v-flex xs12 v-if="false">
           <v-textarea
-            v-model="project.othertopic"
+            v-model="project.topic.description"
             label="Sugestão de Tema"
             auto-grow
             counter="1000"
@@ -137,19 +143,21 @@
       <v-layout row>
         <v-flex xs12>
           <v-select
-            v-model="project.subtopic"
+            v-model="project.subtopic.id"
             :items="subtopics"
-            value="initials"
+            value="id"
+            item-value="id"
             item-text="description"
             label="Subtema do Projeto"
             @change="subtopicChanged()"
+            required
           ></v-select>
         </v-flex>
       </v-layout>
       <v-layout row>
-        <v-flex xs12 v-if="othersubtopic">
+        <v-flex xs12 v-if="false">
           <v-textarea
-            v-model="project.othersubtopic"
+            v-model="project.subtopic.description"
             label="Sugestão de Subtema"
             auto-grow
             counter="1000"
@@ -195,16 +203,31 @@ export default {
       project: {
         aneelId: "",
         title: "",
-        start: "",
         duration: "",
-        serviceOrder: "",
-        type: "PD",
+        status: "IN_PROGRESS",
+        serviceOrder: {
+          order: "",
+          begin: ""
+        },
+        type: { id: "PD" },
         innovationPhase: null,
-        product: null,
+        product: {
+          type: {
+            id: 0
+          }
+        },
         segment: null,
-        topic: null,
+        topic: {
+          id: 0,
+          description: "",
+          initials: ""
+        },
         othertopic: null,
-        subtopic: null,
+        subtopic: {
+          id: 0,
+          description: "",
+          initials: ""
+        },
         othersubtopic: null,
         sharingType: null
       },
@@ -258,30 +281,39 @@ export default {
   },
   methods: {
     async fetchData() {
-      await ProjectsRepository.getTypes()
+      await ProjectsRepository.listProjectTypes()
         .then(response => {
           this.types = response.data;
           this.typeChanged();
         })
         .catch(error => console.log(error));
+
+      await ProjectsRepository.listProjectProductTypes()
+        .then(response => {
+          this.products = response.data;
+        })
+        .catch(error => console.log(error));
     },
     typeChanged() {
-      ProjectsRepository.getTopics(this.project.type).then(
+      ProjectsRepository.listProjectTopics(this.project.type.id).then(
         response => (this.topics = response.data)
       );
     },
     topicChanged() {
-      if (this.project.topic == "OU") {
+      let topic = this.topics.find(o => o.id == this.project.topic.id);
+
+      if (topic.initials == "OU") {
         this.othertopic = true;
       } else {
         this.othertopic = false;
       }
-      ProjectsRepository.getTopicSubtopic(this.project.topic).then(
+
+      ProjectsRepository.listProjectSubtopics(topic.initials).then(
         response => (this.subtopics = response.data)
       );
     },
     subtopicChanged() {
-      if (this.project.subtopic == "OU") {
+      if (this.project.subtopic.initials == "OU") {
         this.othersubtopic = true;
       } else {
         this.othersubtopic = false;

@@ -3,9 +3,7 @@
     <b-form-group
       v-for="category in accountingCategories "
       v-bind:key="category.id"
-      id="fieldset-1"
       :label="`${category.description}`"
-      label-for="input-1"
     >
       <b-form-input type="number"></b-form-input>
     </b-form-group>
@@ -34,7 +32,7 @@ export default {
   },
   methods: {
     async fetch() {
-      await AccountCategoriesRepository.getByProjectType("PD").then(
+      await AccountCategoriesRepository.listAccountCategories("PD").then(
         response => (this.accountingCategories = response.data)
       );
     }

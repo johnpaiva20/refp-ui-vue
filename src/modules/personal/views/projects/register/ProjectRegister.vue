@@ -10,7 +10,7 @@
 
         <v-divider></v-divider>
 
-        <v-stepper-step :type="project.type" editable step="3">Categorias Coontabeis</v-stepper-step>
+        <v-stepper-step :type="project" editable step="3">Categorias Coontabeis</v-stepper-step>
 
         <v-divider></v-divider>
 
@@ -18,8 +18,7 @@
       </v-stepper-header>
 
       <v-stepper-items>
-        <v-stepper-content  step="1">
-  
+        <v-stepper-content step="1">
           <step1 @onProjectChange="onProjectChange"></step1>
 
           <v-btn class="btnStep" color="primary" @click="e1 = 2">Continue</v-btn>
@@ -51,6 +50,16 @@
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
+    <v-snackbar
+      v-model="snackbar"
+      :bottom="y === 'bottom'"
+      :left="x === 'left'"
+      :multi-line="mode === 'multi-line'"
+      :right="x === 'right'"
+      :timeout="timeout"
+      :top="y === 'top'"
+      :vertical="mode === 'vertical'"
+    >{{snackbarError}}</v-snackbar>
   </div>
 </template>
 
@@ -85,12 +94,14 @@ export default {
     return {
       e1: 0,
       project: {},
-      enterpises: []
+      enterpises: [],
+      snackbar: false,
+      snackbarError:"",
     };
   },
   methods: {
     save() {
-      ProjectsRepository.save(this.project)
+      ProjectsRepository.createProject(this.project)
         .then(response => {
           let id = response.data.id;
 
@@ -99,7 +110,10 @@ export default {
             params: { id: id }
           });
         })
-        .catch(error => console.log("Error: " + error));
+        .catch(error => {
+          this.snackbar = true
+          this.snackbarError = error;
+        });
     },
     cancel() {
       this.$router.push("/personal/projects");

@@ -83,7 +83,7 @@ export default {
     async fetch() {
       this.isLoading = true;
       let id = this.$router.currentRoute.params.id;
-      const { data } = await ProjectsRepository.getEnterprises(id);
+      const { data } = await ProjectsRepository.listProjectEnterprises(id);
       this.isLoading = false;
       this.projects = data;
     }

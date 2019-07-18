@@ -2,10 +2,10 @@ import Repository from './Repository';
 const resource = 'enterprises';
 export default {
 
-  get() {
+  listEnterprises() {
     return Repository.get(`${resource}`);
   },
-  save(enterprise){
+  createEnterprise(enterprise){
     return Repository.post(`${resource}`,enterprise);
 
   }

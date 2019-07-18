@@ -24,16 +24,15 @@
         :search="search"
         hide-actions
         :pagination.sync="pagination"
-        loading="isLoading"
       >
         <template v-slot:items="props">
           <tr @click="goToProject(props.item)">
             <td>{{ props.item.aneelId }}</td>
             <td>{{ props.item.title }}</td>
-            <td>{{ props.item.type }}</td>
-            <td>{{ props.item.start }}</td>
+            <td>{{ props.item.type.description }}</td>
+            <td>{{ props.item.serviceOrder.begin | formatDate }}</td>
             <td>{{ props.item.duration }}</td>
-            <td>{{ props.item.serviceOrder }}</td>
+            <td>{{ props.item.serviceOrder.order }}</td>
             <td>{{ props.item.principalEnterprise }}</td>
             <td>{{ props.item.status }}</td>
           </tr>
@@ -59,7 +58,7 @@
 
 <style>
 .table-position {
-  top: 30px;
+  top: 15px;
 }
 
 .search-field {
@@ -89,8 +88,7 @@ export default {
   data() {
     return {
       search: "",
-      pagination: {},
-      isLoading: false,
+      pagination: {rowsPerPage:8},
       headers: [
         { text: "Código ANEEL", value: "aneelId" },
         { text: "Titulo", value: "title" },
@@ -109,10 +107,9 @@ export default {
   },
   methods: {
     async fetch() {
-      this.isLoading = true;
-      const { data } = await ProjectsRepository.get();
-      this.isLoading = false;
-      this.projects = data;
+      ProjectsRepository.listProjects().then(response=>{
+        this.projects = response.data;
+      });
     },
     goToProject(project) {
       this.$router.push({

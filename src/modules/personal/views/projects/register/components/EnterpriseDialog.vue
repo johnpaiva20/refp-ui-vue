@@ -7,7 +7,6 @@
           v-model="selected"
           :headers="headers"
           :items="enterprises"
-          :search="search"
           :pagination.sync="pagination"
           select-all
           hide-actions
@@ -27,10 +26,7 @@
             </tr>
           </template>
           <template v-slot:items="props">
-            <tr
-              :active="props.selected"
-              @click="props.selected = !props.selected"
-            >
+            <tr :active="props.selected" @click="props.selected = !props.selected">
               <td>
                 <v-checkbox :input-value="props.selected" color="primary" hide-details></v-checkbox>
               </td>
@@ -74,7 +70,7 @@ const EnterprisesRepository = RepositoryFactory.get("enterprises");
 export default {
   props: {
     value: Boolean,
-    enterprisesSelected:Array
+    enterprisesSelected: Array
   },
   created() {
     this.fetchData();
@@ -83,7 +79,6 @@ export default {
     return {
       pagination: {},
       selected: [],
-      search: "",
       headers: [
         { text: "Código da Empresa", value: "id" },
         { text: "CNPJ", value: "cnpj" },
@@ -96,8 +91,8 @@ export default {
   },
   methods: {
     async fetchData() {
-      console.log(this.enterprisesSelected)
-      await EnterprisesRepository.get()
+      console.log(this.enterprisesSelected);
+      await EnterprisesRepository.listEnterprises()
         .then(response => (this.enterprises = response.data))
         .catch(error => console.log(error));
     },

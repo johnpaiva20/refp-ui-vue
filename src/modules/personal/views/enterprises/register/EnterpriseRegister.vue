@@ -74,7 +74,7 @@ export default {
       this.$router.push("/personal/projects");
     },
     save() {
-      EnterprisesRepository.save(this.enterprise)
+      EnterprisesRepository.createEnterprise(this.enterprise)
         .then(() => {
           this.$router.push({ path: `/personal/enterprises` });
         })
