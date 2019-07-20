@@ -48,7 +48,9 @@ export default {
   },
   methods: {
     goToPage(path) {
+      //console.log(router.currentRoute)
       router.push({ path: path });
+      
     }
   }
 };

@@ -52,13 +52,12 @@
     </v-stepper>
     <v-snackbar
       v-model="snackbar"
-      :bottom="y === 'bottom'"
-      :left="x === 'left'"
-      :multi-line="mode === 'multi-line'"
-      :right="x === 'right'"
-      :timeout="timeout"
-      :top="y === 'top'"
-      :vertical="mode === 'vertical'"
+      :bottom="true"
+      :multi-line="true"
+      :right="true"
+      :timeout="3000"
+      :vertical="false"
+      color="error"
     >{{snackbarError}}</v-snackbar>
   </div>
 </template>
@@ -96,7 +95,7 @@ export default {
       project: {},
       enterpises: [],
       snackbar: false,
-      snackbarError:"",
+      snackbarError: ""
     };
   },
   methods: {
@@ -111,8 +110,8 @@ export default {
           });
         })
         .catch(error => {
-          this.snackbar = true
-          this.snackbarError = error;
+          this.snackbar = true;
+          this.snackbarError = error.response.data.message;
         });
     },
     cancel() {

@@ -12,7 +12,7 @@
         ></v-text-field>
       </div>
       <v-spacer></v-spacer>
-      <div >
+      <div>
         <v-btn color="primary" to="/personal/enterprises/register">Novo</v-btn>
       </div>
     </v-layout>
@@ -64,8 +64,6 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-
-
 </style>
 
 
@@ -92,10 +90,9 @@ export default {
   },
   methods: {
     async fetch() {
-      this.isLoading = true;
-      const { data } = await EnterprisesRepository.listEnterprises();
-      this.isLoading = false;
-      this.enterprises = data;
+      EnterprisesRepository.listEnterprises().then(response => {
+        this.enterprises = response.data;
+      });
     },
     goToEnterprise() {
       const id = this.$router.currentRoute.params.id;
