@@ -1,6 +1,6 @@
 <template>
   <v-form>
-    <v-container>
+    <v-container style="padding:5px">
       <v-layout row>
         <v-flex sm3>
           <v-radio-group
@@ -182,6 +182,7 @@
 import { RepositoryFactory } from "@/repositories/RepositoryFactory";
 const ProjectsRepository = RepositoryFactory.get("projects");
 export default {
+  props: ["project"],
   data() {
     return {
       rules: {
@@ -199,37 +200,6 @@ export default {
         start: [v => !!v || "Campo obrigatório"],
         othertopic: [v => !!v || "Campo obrigatório"],
         othersubtopic: [v => !!v || "Campo obrigatório"]
-      },
-      project: {
-        aneelId: "",
-        title: "",
-        duration: "",
-        status: "IN_PROGRESS",
-        serviceOrder: {
-          order: "",
-          begin: ""
-        },
-        type: { id: "PD" },
-        innovationPhase: null,
-        product: {
-          type: {
-            id: 0
-          }
-        },
-        segment: null,
-        topic: {
-          id: 0,
-          description: "",
-          initials: ""
-        },
-        othertopic: null,
-        subtopic: {
-          id: 0,
-          description: "",
-          initials: ""
-        },
-        othersubtopic: null,
-        sharingType: null
       },
       types: [],
       innovationPhases: [
@@ -280,15 +250,15 @@ export default {
     this.fetchData();
   },
   methods: {
-    async fetchData() {
-      await ProjectsRepository.listProjectTypes()
+    fetchData() {
+      ProjectsRepository.listProjectTypes()
         .then(response => {
           this.types = response.data;
           this.typeChanged();
         })
         .catch(error => console.log(error));
 
-      await ProjectsRepository.listProjectProductTypes()
+      ProjectsRepository.listProjectProductTypes()
         .then(response => {
           this.products = response.data;
         })
@@ -318,14 +288,6 @@ export default {
       } else {
         this.othersubtopic = false;
       }
-    }
-  },
-  watch: {
-    project: {
-      handler: function(val) {
-        this.$emit("onProjectChange", val);
-      },
-      deep: true
     }
   }
 };

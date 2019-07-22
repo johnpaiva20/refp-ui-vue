@@ -22,7 +22,6 @@
         :headers="headers"
         :items="projects"
         :search="search"
-        hide-actions
         :pagination.sync="pagination"
       >
         <template v-slot:items="props">
@@ -49,9 +48,9 @@
           <v-alert :value="true" color="primary" icon="info">Nenhum Projeto cadastrado</v-alert>
         </template>
       </v-data-table>
-      <div class="text-xs-right pt-2">
+      <!-- <div class="text-xs-right pt-2">
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-      </div>
+      </div> -->
     </v-card>
   </div>
 </template>

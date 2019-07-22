@@ -2,46 +2,43 @@
   <v-dialog v-model="show" persistent width="800px">
     <v-card>
       <v-card-title class="header-color">Selecionar Empresas</v-card-title>
-      <div style="padding:5px 5px 5px 5px;">
-        <v-data-table
-          v-model="selected"
-          :headers="headers"
-          :items="enterprises"
-          :pagination.sync="pagination"
-          select-all
-          hide-actions
-        >
-          <template v-slot:headers="props">
-            <tr>
-              <th>
-                <v-checkbox
-                  :input-value="props.all"
-                  :indeterminate="props.indeterminate"
-                  color="primary"
-                  hide-details
-                  @click.stop="toggleAllModal"
-                ></v-checkbox>
-              </th>
-              <th v-for="header in props.headers" :key="header.text">{{ header.text }}</th>
-            </tr>
-          </template>
-          <template v-slot:items="props">
-            <tr :active="props.selected" @click="props.selected = !props.selected">
-              <td>
-                <v-checkbox :input-value="props.selected" color="primary" hide-details></v-checkbox>
-              </td>
-              <td>{{ props.item.id }}</td>
-              <td>{{ props.item.cnpj }}</td>
-              <td>{{ props.item.company }}</td>
-              <td>{{ props.item.trade }}</td>
-              <td>{{ props.item.initials }}</td>
-            </tr>
-          </template>
-        </v-data-table>
-        <div class="text-xs-right pt-2">
-          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-        </div>
-      </div>
+      <v-data-table
+        :headers="headers"
+        :items="enterprises"
+        v-model="selected"
+        :pagination.sync="pagination"
+        select-all
+      >
+        <template v-slot:headers="props">
+          <tr>
+            <th>
+              <v-checkbox
+                :input-value="props.all"
+                :indeterminate="props.indeterminate"
+                color="primary"
+                hide-details
+                @click.stop="toggleAllModal"
+              ></v-checkbox>
+            </th>
+            <th v-for="header in props.headers" :key="header.text">{{ header.text }}</th>
+          </tr>
+        </template>
+        <template v-slot:items="props">
+          <tr :active="props.selected" @click="props.selected = !props.selected">
+            <td>
+              <v-checkbox :input-value="props.selected" color="primary" hide-details></v-checkbox>
+            </td>
+            <td>{{ props.item.id }}</td>
+            <td>{{ props.item.cnpj }}</td>
+            <td>{{ props.item.company }}</td>
+            <td>{{ props.item.trade }}</td>
+            <td>{{ props.item.initials }}</td>
+          </tr>
+        </template>
+      </v-data-table>
+      <!-- <div class="text-xs-right pt-2">
+        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+      </div>-->
       <v-card-actions>
         <v-spacer></v-spacer>
 
@@ -69,8 +66,7 @@ import { RepositoryFactory } from "@/repositories/RepositoryFactory";
 const EnterprisesRepository = RepositoryFactory.get("enterprises");
 export default {
   props: {
-    value: Boolean,
-    enterprisesSelected: Array
+    value: Boolean
   },
   created() {
     this.fetchData();
@@ -90,9 +86,8 @@ export default {
     };
   },
   methods: {
-    async fetchData() {
-      console.log(this.enterprisesSelected);
-      await EnterprisesRepository.listEnterprises()
+    fetchData() {
+      EnterprisesRepository.listEnterprises()
         .then(response => (this.enterprises = response.data))
         .catch(error => console.log(error));
     },
@@ -102,10 +97,15 @@ export default {
     },
     add() {
       this.$emit("onEnterpriseSelected", this.selected);
-      this.show = false;
+      this.clear();
+      this.close();
     },
     close() {
+      this.clear();
       this.show = false;
+    },
+    clear() {
+      this.selected = [];
     }
   },
   computed: {

@@ -10,7 +10,7 @@
 
         <v-divider></v-divider>
 
-        <v-stepper-step :type="project" editable step="3">Categorias Coontabeis</v-stepper-step>
+        <v-stepper-step editable step="3">Categorias Coontabeis</v-stepper-step>
 
         <v-divider></v-divider>
 
@@ -18,29 +18,29 @@
       </v-stepper-header>
 
       <v-stepper-items>
-        <v-stepper-content step="1">
-          <step1 @onProjectChange="onProjectChange"></step1>
+        <v-stepper-content step="1" style="padding: 0px;">
+          <step1 :project="project"></step1>
 
           <v-btn class="btnStep" color="primary" @click="e1 = 2">Continue</v-btn>
 
           <v-btn flat @click="cancel()">Cancelar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="2">
-          <step2></step2>
+        <v-stepper-content step="2" style="padding: 0px;">
+          <step2 @update-enterprises-selected="onUpdateEnterpisesSelected"></step2>
           <v-btn class="btnStep" color="primary" @click="e1 = 3">Continue</v-btn>
 
           <v-btn flat @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="3">
-          <step3></step3>
+        <v-stepper-content step="3" style="padding: 0px;">
+          <step3 :type="project.type.id" @update-account-categories="onUpdateAccountCategories"></step3>
           <v-btn class="btnStep" color="primary" @click="e1 = 4">Continue</v-btn>
 
           <v-btn flat @click="e1 = 2">Voltar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="4">
+        <v-stepper-content step="4" style="padding: 0px;">
           <step4 :project="project"></step4>
           <div>
             <v-btn class="btnStep" color="primary" @click="save">Confirmar</v-btn>
@@ -61,8 +61,6 @@
     >{{snackbarError}}</v-snackbar>
   </div>
 </template>
-
-
 
 <style>
 .step {
@@ -92,8 +90,39 @@ export default {
   data() {
     return {
       e1: 0,
-      project: {},
-      enterpises: [],
+      project: {
+        aneelId: "",
+        title: "",
+        duration: "",
+        status: "IN_PROGRESS",
+        serviceOrder: {
+          order: "",
+          begin: ""
+        },
+        type: { id: "PD" },
+        innovationPhase: null,
+        product: {
+          type: {
+            id: 0
+          }
+        },
+        segment: null,
+        topic: {
+          id: 0,
+          description: "",
+          initials: ""
+        },
+        othertopic: null,
+        subtopic: {
+          id: 0,
+          description: "",
+          initials: ""
+        },
+        othersubtopic: null,
+        sharingType: null,
+        enterprises: [],
+        accountCategories: []
+      },
       snackbar: false,
       snackbarError: ""
     };
@@ -117,11 +146,18 @@ export default {
     cancel() {
       this.$router.push("/personal/projects");
     },
-    onProjectChange(val) {
-      this.project = val;
+    onUpdateEnterpisesSelected(enterprises) {
+      let selectedEnterprises = [];
+      enterprises.forEach(e => {
+        selectedEnterprises.push({
+          enterprise: { id: e.id },
+          type: e.type
+        });
+      });
+      this.project.enterprises = selectedEnterprises;
     },
-    onEnterprisesSelected(val) {
-      this.enterpises = val;
+    onUpdateAccountCategories(categories) {
+      this.project.accountCategories = categories;
     }
   }
 };
