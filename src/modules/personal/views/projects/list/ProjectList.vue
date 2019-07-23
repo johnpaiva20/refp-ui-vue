@@ -50,7 +50,7 @@
       </v-data-table>
       <!-- <div class="text-xs-right pt-2">
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-      </div> -->
+      </div>-->
     </v-card>
   </div>
 </template>
@@ -76,6 +76,11 @@
 .btn-new {
   padding-right: 5px;
 }
+
+i {
+  color: red;
+  font-size: 24px;
+}
 </style>
 
 
@@ -87,7 +92,7 @@ export default {
   data() {
     return {
       search: "",
-      pagination: {rowsPerPage:8},
+      pagination: { rowsPerPage: 8 },
       headers: [
         { text: "Código ANEEL", value: "aneelId" },
         { text: "Titulo", value: "title" },
@@ -106,7 +111,7 @@ export default {
   },
   methods: {
     async fetch() {
-      ProjectsRepository.listProjects().then(response=>{
+      ProjectsRepository.listProjects().then(response => {
         this.projects = response.data;
       });
     },

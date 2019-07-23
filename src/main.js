@@ -15,7 +15,6 @@ Vue.use(window.VueCharts);
 import Vuetify from 'vuetify/lib';
 import 'vuetify/src/stylus/app.styl';
 import 'vuetify/dist/vuetify.min.css';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
 Vue.use(Vuetify, {
   iconfont: 'md',
   theme: {
@@ -32,10 +31,13 @@ Vue.use(Vuebar);
 import VueApexCharts from 'vue-apexcharts';
 Vue.use(VueApexCharts);
 
+import fontello from './assets/icons/css/refp-element-icon-font.css';
+Vue.use(fontello);
+
 
 Vue.config.productionTip = false;
 
-Vue.filter('formatDate', function(value) {
+Vue.filter('formatDate', function (value) {
 
   if (value) {
 
