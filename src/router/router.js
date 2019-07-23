@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Login from '../modules/Login.vue';
-
+import Login from '../workspace/modules/Login.vue';
 import RootArea from '../workspace/components/RootArea.vue';
+
 // -------------------Personal Modules---------------------------
 import ProjectList from '../modules/personal/views/projects/list/ProjectList.vue';
 import ProjectRegister from '../modules/personal/views/projects/register/ProjectRegister.vue';

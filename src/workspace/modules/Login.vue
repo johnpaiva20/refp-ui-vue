@@ -32,7 +32,7 @@
       </b-form>
       <v-btn block color="#3e8f52" class="white--text" v-on:click="login()">Entrar</v-btn>
       <div>
-        <h6 class="version">Versão 0.0.0</h6>
+        <h6 class="version">Versão {{appVersion}}</h6>
       </div>
     </div>
   </div>
@@ -78,7 +78,6 @@
 
 
 <script>
-import router from "../router/router";
 export default {
   data() {
     return {
@@ -90,8 +89,14 @@ export default {
   },
   methods: {
     login() {
-      router.push({ path: "/personal/projects" });
+      this.$router.push({ path: "/personal/projects" });
     }
+  },
+  computed: {
+    appVersion() {
+      return this.$store.getters.appVersion;
+    }
+    // other computed values here
   }
 };
 </script>
