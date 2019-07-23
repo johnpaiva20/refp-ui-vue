@@ -5,7 +5,7 @@
     style="top: 24px"
     app
     clipped
-    :mini-variant.sync="collapsed"
+    :mini-variant="collapsed"
   >
     <v-list class="menuSideBar">
       <v-list-tile v-for="item in itens" v-bind:key="item.id" v-on:click="goToPage(item.path)">
