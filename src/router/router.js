@@ -5,21 +5,21 @@ import Login from '../workspace/modules/Login.vue';
 import RootArea from '../workspace/components/RootArea.vue';
 
 // -------------------Personal Modules---------------------------
-import ProjectList from '../modules/personal/views/projects/list/ProjectList.vue';
-import ProjectRegister from '../modules/personal/views/projects/register/ProjectRegister.vue';
-import EnterpriseList from '../modules/personal/views/enterprises/list/EnterpriseList.vue';
-import EnterpriseRegister from '../modules/personal/views/enterprises/register/EnterpriseRegister.vue';
-import MemberList from '../modules/personal/views/members/list/MemberList';
-import MemberRegister from '../modules/personal/views/members/register/MemberRegister.vue';
+import ProjectList from '../modules/project/project-list/ProjectList.vue';
+import ProjectRegister from '../modules/project/project-register/ProjectRegister.vue';
+import EnterpriseList from '../modules/enterprise/enterprise-list/EnterpriseList.vue';
+import EnterpriseRegister from '../modules/enterprise/enterprise-register/EnterpriseRegister.vue';
+import MemberList from '../modules/member/member-list/MemberList.vue';
+import MemberRegister from '../modules/member/member-register/MemberRegister.vue';
 
 // -------------------Project Modules-----------------------------
-import ProjectInfo from '../modules/project/views/info/ProjectInfo.vue';
-import ProjectCharts from '../modules/project/views/charts/ProjectCharts.vue';
-import ProjectEnterprises from '../modules/project/views/enterprises/ProjectEnterprises.vue';
-import ProjectMembers from '../modules/project/views/members/ProjectMembers.vue';
-import ProjectDocuments from '../modules/project/views/documents/ProjectDocuments.vue';
-import ProjectExpenses from '../modules/project/views/expenses/ProjectExpenses.vue';
-import ProjectTerminate from '../modules/project/views/finalization/ProjectTerminate.vue';
+import ProjectInfo from '../modules/project/project-info/ProjectInfo.vue';
+import ProjectCharts from '../modules/project/project-charts/ProjectCharts.vue';
+import ProjectEnterprises from '../modules/project/project-enterprises/ProjectEnterprises.vue';
+import ProjectMembers from '../modules/project/project-members/ProjectMembers.vue';
+import ProjectDocuments from '../modules/project/project-documents/ProjectDocuments.vue';
+import ProjectExpenses from '../modules/project/project-expenses/ProjectExpenses.vue';
+import ProjectTerminate from '../modules/project/project-finalization/ProjectTerminate.vue';
 
 Vue.use(Router);
 

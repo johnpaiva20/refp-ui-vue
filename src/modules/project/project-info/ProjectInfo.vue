@@ -117,7 +117,7 @@
 
 
 <script>
-import { RepositoryFactory } from "../../../../repositories/RepositoryFactory";
+import { RepositoryFactory } from "@/repositories/RepositoryFactory";
 //import moment from "moment";
 const ProjectsRepository = RepositoryFactory.get("projects");
 export default {

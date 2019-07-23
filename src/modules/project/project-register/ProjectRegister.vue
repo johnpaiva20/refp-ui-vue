@@ -77,7 +77,7 @@ import step2 from "./components/ProjectRegisterStepEnterprise";
 import step3 from "./components/ProjectAccountCategories";
 import step4 from "./components/ProjectRegisterStepConfirmation";
 
-import { RepositoryFactory } from "../../../../../repositories/RepositoryFactory";
+import { RepositoryFactory } from "@/repositories/RepositoryFactory";
 const ProjectsRepository = RepositoryFactory.get("projects");
 
 export default {
