@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     cancel() {
-      this.$router.push("/personal/projects");
+      this.$router.push("/personal/enterprises");
     },
     save() {
       EnterprisesRepository.createEnterprise(this.enterprise)

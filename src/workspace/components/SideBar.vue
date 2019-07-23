@@ -24,7 +24,6 @@
 </style>
 
 <script>
-import router from "../../router/router";
 export default {
   props: { collapsed: Boolean },
   watch: {
@@ -78,7 +77,12 @@ export default {
       }
     },
     goToPage(path) {
-      router.push({ path: path });
+      if (new RegExp(/\bregister\b/).test(this.$router.currentRoute.path)) {
+        this.$router.back();
+        this.$router.push({ path: path });
+      } else {
+        this.$router.push({ path: path });
+      }
     }
   }
 };
