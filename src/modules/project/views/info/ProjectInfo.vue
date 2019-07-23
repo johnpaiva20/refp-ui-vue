@@ -118,7 +118,7 @@
 
 <script>
 import { RepositoryFactory } from "../../../../repositories/RepositoryFactory";
-import moment from "moment";
+//import moment from "moment";
 const ProjectsRepository = RepositoryFactory.get("projects");
 export default {
   data() {
@@ -136,18 +136,17 @@ export default {
       const { data } = await ProjectsRepository.getProjectbyId(id);
       this.isLoading = false;
       this.project = data;
-      let remaning = moment(moment.now()).diff(
-        this.project.serviceOrder.end,
-        "months",
-        true
-      );
-      let complete = moment(this.project.serviceOrder.end).diff(
-        this.project.serviceOrder.begin,
-        "months",
-        true
-      );
-      console.log(remaning + "|" + complete);
-      console.log(remaning / complete);
+      // let remaning = moment(moment.now()).diff(
+      //   this.project.serviceOrder.end,
+      //   "months",
+      //   true
+      // );
+      // let complete = moment(this.project.serviceOrder.end).diff(
+      //   this.project.serviceOrder.begin,
+      //   "months",
+      //   true
+      // );
+      // let sum = remaning+complete;
       this.project.progress = 10;
     }
   }

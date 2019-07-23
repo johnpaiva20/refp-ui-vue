@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout row>
+    <v-layout row-padding row>
       <div class="search-field">
         <v-text-field
           v-model="search"
@@ -12,20 +12,18 @@
         ></v-text-field>
       </div>
       <div>
-        <v-btn flat icon color="primary">
+        <!-- <v-btn flat icon color="primary">
           <v-icon>filter_list</v-icon>
-        </v-btn>
+        </v-btn>-->
       </div>
-
-      <div class="btn-new">
-        <v-btn color="primary">Adicionar</v-btn>
-      </div>
+      <v-spacer></v-spacer>
+      <v-btn color="primary">Adicionar</v-btn>
     </v-layout>
 
     <v-card class="table-position">
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="enterprises"
         :search="search"
         hide-actions
         :pagination.sync="pagination"
@@ -68,6 +66,11 @@
 .btn-new {
   position: relative;
   left: 742px;
+}
+
+.row-padding {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 </style>
 

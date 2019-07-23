@@ -10,7 +10,7 @@
         <h6>{{project.title||"Não Informado"}}</h6>
 
         <label class="labelConfirmation">Tema</label>
-        <h6>{{project.topic.description||"Não Informado"}}</h6>
+        <h6>{{project.topic.id||"Não Informado"}}</h6>
 
         <label class="labelConfirmation">Segmento</label>
         <h6>{{project.segment||"Não Informado"}}</h6>

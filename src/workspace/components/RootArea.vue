@@ -1,7 +1,7 @@
 <template>
   <div>
     <Toolbar :collapse.sync="collapsed" />
-    <PersonalSideBar :collapsed="collapsed" />
+    <SideBar :collapsed="collapsed" :menu-items="menuItens" />
     <v-content>
       <v-container fluid class="pa-1">
         <!-- <v-subheader>Projetos</v-subheader> -->
@@ -17,15 +17,15 @@
 </style>
 
 <script>
-import Toolbar from "@/components/Toolbar";
-import PersonalSideBar from "../layout/PersonalSideBar";
+import Toolbar from "./Toolbar";
+import SideBar from "./SideBar";
 export default {
   components: {
     Toolbar,
-    PersonalSideBar
+    SideBar
   },
   data() {
-    return { collapsed: false };
+    return { collapsed: false, menuItens: [] };
   },
   methods: {}
 };
