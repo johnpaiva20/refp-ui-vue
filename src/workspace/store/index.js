@@ -1,6 +1,11 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+import p from "../../../vue.config"
 export default new Vuex.Store({
     state: {
-        packageVersion: JSON.parse(unescape(process.env.PACKAGE_JSON || '%7Bversion%3A0%7D')).version,
+        packageVersion: p,
         // the rest of your state here},
         getters: {
             appVersion: (state) => {

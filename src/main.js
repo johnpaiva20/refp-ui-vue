@@ -2,6 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router/router';
 import moment from 'moment'
+import store from './workspace/store'
+
 
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -34,7 +36,6 @@ Vue.use(VueApexCharts);
 import fontello from './assets/icons/css/refp-element-icon-font.css';
 Vue.use(fontello);
 
-
 Vue.config.productionTip = false;
 
 Vue.filter('formatDate', function (value) {
@@ -49,5 +50,7 @@ Vue.filter('formatDate', function (value) {
 
 new Vue({
   router,
+  moment,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

@@ -32,7 +32,7 @@
       </b-form>
       <v-btn block color="#3e8f52" class="white--text" v-on:click="login()">Entrar</v-btn>
       <div>
-        <h6 class="version">Versão {{appVersion}}</h6>
+        <h6 class="version">Versão 0.1.0</h6>
       </div>
     </div>
   </div>
@@ -75,10 +75,10 @@
 }
 </style>
 
-
-
 <script>
 export default {
+  mounted() {
+  },
   data() {
     return {
       form: {
@@ -92,12 +92,6 @@ export default {
       this.$router.push({ path: "/personal/projects" });
     }
   },
-  computed: {
-    appVersion() {
-      return this.$store.getters.appVersion;
-    }
-    // other computed values here
-  }
 };
 </script>
 
