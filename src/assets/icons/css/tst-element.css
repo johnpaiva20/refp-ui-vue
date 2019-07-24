@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'tst-element';
-  src: url('../font/tst-element.eot?93018058');
-  src: url('../font/tst-element.eot?93018058#iefix') format('embedded-opentype'),
-       url('../font/tst-element.woff2?93018058') format('woff2'),
-       url('../font/tst-element.woff?93018058') format('woff'),
-       url('../font/tst-element.ttf?93018058') format('truetype'),
-       url('../font/tst-element.svg?93018058#tst-element') format('svg');
+  src: url('../font/tst-element.eot?23150258');
+  src: url('../font/tst-element.eot?23150258#iefix') format('embedded-opentype'),
+       url('../font/tst-element.woff2?23150258') format('woff2'),
+       url('../font/tst-element.woff?23150258') format('woff'),
+       url('../font/tst-element.ttf?23150258') format('truetype'),
+       url('../font/tst-element.svg?23150258#tst-element') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'tst-element';
-    src: url('../font/tst-element.svg?93018058#tst-element') format('svg');
+    src: url('../font/tst-element.svg?23150258#tst-element') format('svg');
   }
 }
 */
@@ -55,4 +55,4 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.tst-project:before { content: '\e806'; } /* '' */
+.tst-project:before { content: '\e800'; } /* '' */
