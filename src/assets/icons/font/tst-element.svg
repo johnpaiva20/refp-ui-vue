@@ -3,8 +3,8 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 <metadata>Copyright (C) 2019 by original authors @ fontello.com</metadata>
 <defs>
-<font id="refp-element-icon-font" horiz-adv-x="1000" >
-<font-face font-family="refp-element-icon-font" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<font id="tst-element" horiz-adv-x="1000" >
+<font-face font-family="tst-element" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
 <missing-glyph horiz-adv-x="1000" />
 <glyph glyph-name="project" unicode="&#xe806;" d="M0 679v38a72 72 0 0 0 12 40l14 21a155 155 0 0 0 80 61l7 2 0 1a167 167 0 0 0 53 8h167v-111h-163a59 59 0 0 1-59-59v-1a56 56 0 0 0-16-40 54 54 0 0 0-39-16 56 56 0 0 0-56 56z m167-829a167 167 0 0 0-134 67l-18 24a74 74 0 0 0-15 45v697h111v-538a51 51 0 0 1 39-17h139a139 139 0 1 0 0-278z m944 0h-889v899h889v-899z m-557 533h0l-206-199 91-94 120 116 108-108 86 85 0 1 110 110 85-87 5 262-262-2 80-80-111-111-98 99-8 8z" horiz-adv-x="1111" />
 </font>

@@ -1,5 +1,5 @@
-[class^="icon-"], [class*=" icon-"] {
-  font-family: 'refp-element-icon-font';
+[class^="tst-"], [class*=" tst-"] {
+  font-family: 'tst-element';
   font-style: normal;
   font-weight: normal;
  
@@ -10,4 +10,4 @@
   /* font-size: 120%; */
 }
  
-.icon-project { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe806;&nbsp;'); }
+.tst-project { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe806;&nbsp;'); }

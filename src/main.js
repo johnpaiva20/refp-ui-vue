@@ -33,7 +33,7 @@ Vue.use(Vuebar);
 import VueApexCharts from 'vue-apexcharts';
 Vue.use(VueApexCharts);
 
-import fontello from './assets/icons/css/refp-element-icon-font.css';
+import fontello from './assets/icons/css/tst-element.css';
 Vue.use(fontello);
 
 Vue.config.productionTip = false;

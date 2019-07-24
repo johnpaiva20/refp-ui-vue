@@ -39,7 +39,7 @@ export default {
       itens: [],
       menuItens: {
         personal: [
-          { id: 1, title: "Projetos", icon: "assignment", path: "projects" },
+          { id: 1, title: "Projetos", icon: "tst-project", path: "projects" },
           { id: 2, title: "Empresas", icon: "business", path: "enterprises" }
           //{ id: 3, title: "Membros", icon: "people", path: "members" },
           // { id: 4, title: "Auditoria", icon: " inbox ", path: "members" },
