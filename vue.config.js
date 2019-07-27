@@ -7,5 +7,5 @@ module.exports = {
       })
     ]
   },
-  publicPath: '/SGPP'
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
 }
