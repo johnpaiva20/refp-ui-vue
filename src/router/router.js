@@ -23,6 +23,18 @@ import ProjectTerminate from '../modules/project/project-finalization/ProjectTer
 
 Vue.use(Router);
 
+// router.beforeEach((to, from, next) => {
+//   if(to.matched.some(record => record.meta.requiresAuth)) {
+//     if (store.getters.isLoggedIn) {
+//       next()
+//       return
+//     }
+//     next('/login') 
+//   } else {
+//     next() 
+//   }
+// })
+
 export default new Router({
   routes: [
     { path: '/', component: Login },
@@ -50,4 +62,7 @@ export default new Router({
       ],
     },
   ],
+  
 });
+
+

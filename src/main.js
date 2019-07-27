@@ -36,17 +36,15 @@ Vue.use(VueApexCharts);
 import fontello from './assets/icons/css/tst-element.css';
 Vue.use(fontello);
 
-Vue.config.productionTip = false;
 
 Vue.filter('formatDate', function (value) {
-
   if (value) {
-
     return moment(String(value)).format('DD/MM/YYYY')
-
   }
-
 });
+
+Vue.config.productionTip = false;
+
 
 new Vue({
   router,

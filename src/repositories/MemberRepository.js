@@ -1,12 +1,12 @@
-import Repository from './Repository';
+import api from '../workspace/api/api.config';
 const resource = 'members';
 export default {
 
   listMembers() {
-    return Repository.get(`${resource}`);
+    return api.get(`${resource}`);
   },
   createMember(member){
-    return Repository.post(`${resource}`,member);
+    return api.post(`${resource}`,member);
 
   }
 };

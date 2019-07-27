@@ -10,31 +10,33 @@
         ></b-img>
       </div>
       <b-form>
-        <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
-          <b-form-input
-            id="input-1"
-            v-model="form.email"
-            type="email"
-            required
-            placeholder="Enter email"
-          ></b-form-input>
+        <b-form-group id="input-group-1" label="Usuário/Email" label-for="input-1">
+          <b-form-input id="input-1" v-model="form.username" type="text" required></b-form-input>
         </b-form-group>
 
         <b-form-group id="input-group-2" label="Senha" label-for="input-2">
-          <b-form-input
-            id="input-2"
-            v-model="form.password"
-            type="password"
-            required
-            placeholder="Senha"
-          ></b-form-input>
+          <b-form-input id="input-2" v-model="form.password" type="password" required></b-form-input>
         </b-form-group>
       </b-form>
-      <v-btn block color="#3e8f52" class="white--text" v-on:click="login()">Entrar</v-btn>
+      <v-btn
+        :loading="loading"
+        :disabled="loading"
+        block
+        color="#3e8f52"
+        class="white--text"
+        v-on:click="login()"
+      >Entrar</v-btn>
       <div>
         <h6 class="version">Versão {{appVersion}}</h6>
       </div>
     </div>
+    <v-snackbar
+      v-model="snackbar.show"
+      :bottom="true"
+      :color="snackbar.color"
+      :timeout="snackbar.timeout"
+    
+    >{{ snackbar.message }}</v-snackbar>
   </div>
 </template>
 
@@ -78,17 +80,46 @@
 <script>
 export default {
   mounted() {},
+  created() {},
   data() {
     return {
+      loading: false,
+      snackbar: {
+        show: false,
+        message: "",
+        timeout: 3000,
+        color: "info"
+      },
       form: {
-        email: "",
+        username: "",
         password: ""
       }
     };
   },
   methods: {
     login() {
-      this.$router.push({ path: "/personal/projects" });
+      this.loading = true;
+      this.$store
+        .dispatch("login", this.form)
+        .then(() => {
+          this.loading = false;
+          this.$router.push({ path: "/personal/projects" });
+        })
+        .catch(err => {
+          if (err.response.data.status === 401) {
+            this.loading = false;
+            this.snackbar.show = true;
+            this.snackbar.message = "Credencias inválidas";
+            this.snackbar.color="error"
+          }else if(err.response.data.status === 500){
+             this.loading = false;
+            this.snackbar.show = true;
+            this.snackbar.message = "Problemas com o servidor contate a TI";
+            this.snackbar.message = "info";
+          }
+
+          console.log(err);
+        });
     }
   },
   computed: {

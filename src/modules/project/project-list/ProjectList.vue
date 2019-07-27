@@ -111,9 +111,11 @@ export default {
   },
   methods: {
     async fetch() {
-      ProjectsRepository.listProjects().then(response => {
-        this.projects = response.data;
-      });
+      ProjectsRepository.listProjects()
+        .then(response => {
+          this.projects = response.data;
+        })
+        .catch(() => console.log("Error Loading Projects"));
     },
     goToProject(project) {
       this.$router.push({

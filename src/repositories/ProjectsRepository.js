@@ -1,4 +1,4 @@
-import Repository from './Repository';
+import api from '../workspace/api/api.config';
 const resource = 'projects';
 export class Project {
 
@@ -7,59 +7,59 @@ export class Project {
 export default {
 
   listProjects() {
-    return Repository.get(`${resource}`);
+    return api.get(`${resource}`);
   },
 
   getProjectbyId(id) {
-    return Repository.get(`${resource}/${id}`);
+    return api.get(`${resource}/${id}`);
   },
 
   listProjectTypes() {
-    return Repository.get(`/types`);
+    return api.get(`/types`);
   },
 
   listProjectTopics(type) {
     if (type == "PD") {
-      return Repository.get(`/topics?priority=YES&type=DEVELOPMENT_RESEARCH`);
+      return api.get(`/topics?priority=YES&type=DEVELOPMENT_RESEARCH`);
     } else if (type == "EE") {
-      return Repository.get(`/topics?priority=YES&type=ENERGY_EFFICIENCY`);
+      return api.get(`/topics?priority=YES&type=ENERGY_EFFICIENCY`);
     }
-    return Repository.get(`/topics`);
+    return api.get(`/topics`);
   },
 
   listProjectSubtopics(topic) {
     if (topic) {
-      return Repository.get(`/subtopics?topic=${topic}`);
+      return api.get(`/subtopics?topic=${topic}`);
     }
-    return Repository.get(`/subtopics`);
+    return api.get(`/subtopics`);
   },
 
   listProjectInnovationPhases() {
-    return Repository.get(`${resource}/innovation-phases`);
+    return api.get(`${resource}/innovation-phases`);
   },
 
   listProjectProductTypes() {
-    return Repository.get(`${resource}/products/types`);
+    return api.get(`${resource}/products/types`);
   },
 
   listProjectSegments() {
-    return Repository.get(`${resource}/segments`);
+    return api.get(`${resource}/segments`);
   },
 
   listProjectSharingTypes() {
-    return Repository.get(`${resource}/sharing-types`);
+    return api.get(`${resource}/sharing-types`);
   },
 
   listProjectEnterprises(id) {
-    return Repository.get(`${resource}/${id}/enterprises`);
+    return api.get(`${resource}/${id}/enterprises`);
   },
 
   listProjectMembers(id) {
-    return Repository.get(`${resource}/${id}/members`);
+    return api.get(`${resource}/${id}/members`);
   },
 
   createProject(project) {
-    return Repository.post(`${resource}`, project);
+    return api.post(`${resource}`, project);
   }
 
 

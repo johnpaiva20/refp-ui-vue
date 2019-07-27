@@ -38,7 +38,6 @@
 </style>
 
  <script>
-import router from "../../router/router";
 export default {
   data() {
     return {
@@ -61,7 +60,9 @@ export default {
   },
   methods: {
     logout() {
-      router.push({ path: "/" });
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/");
+      });
     },
     collapseDrawer() {
       this.collapse = !this.collapse;

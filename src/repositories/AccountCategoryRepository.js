@@ -1,13 +1,13 @@
-import Repository from './Repository';
+import api from '../workspace/api/api.config';
 const resource = 'account-categories';
 
 export default {
     listAccountCategories(type) {
         if (type == "PD") {
-            return Repository.get(`${resource}?type=DEVELOPMENT_RESEARCH`);
+            return api.get(`${resource}?type=DEVELOPMENT_RESEARCH`);
         } else if (type == "EE") {
-            return Repository.get(`${resource}?type=ENERGY_EFFICIENCY`);
+            return api.get(`${resource}?type=ENERGY_EFFICIENCY`);
         }
-        return Repository.get(`${resource}`);
+        return api.get(`${resource}`);
     },
 }

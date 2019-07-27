@@ -1,12 +1,12 @@
-import Repository from './Repository';
+import api from '../workspace/api/api.config';
 const resource = 'enterprises';
 export default {
 
   listEnterprises() {
-    return Repository.get(`${resource}`);
+    return api.get(`${resource}`);
   },
   createEnterprise(enterprise){
-    return Repository.post(`${resource}`,enterprise);
+    return api.post(`${resource}`,enterprise);
 
   }
 };
