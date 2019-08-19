@@ -117,13 +117,13 @@
 
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
 //import moment from "moment";
-const ProjectsRepository = RepositoryFactory.get("projects");
+const ProjectsRepository = RepositoryFactory.get('projects');
 export default {
   data() {
     return {
-      project: {}
+      project: {},
     };
   },
   created() {
@@ -148,7 +148,7 @@ export default {
       // );
       // let sum = remaning+complete;
       this.project.progress = 10;
-    }
-  }
+    },
+  },
 };
 </script>

@@ -62,11 +62,11 @@
 
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const EnterprisesRepository = RepositoryFactory.get("enterprises");
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const EnterprisesRepository = RepositoryFactory.get('enterprises');
 export default {
   props: {
-    value: Boolean
+    value: Boolean,
   },
   created() {
     this.fetchData();
@@ -76,27 +76,27 @@ export default {
       pagination: {},
       selected: [],
       headers: [
-        { text: "Código da Empresa", value: "id" },
-        { text: "CNPJ", value: "cnpj" },
-        { text: "Razão Social", value: "company" },
-        { text: "Nome Fantasia", value: "trade" },
-        { text: "Sigla", value: "initials" }
+        { text: 'Código da Empresa', value: 'id' },
+        { text: 'CNPJ', value: 'cnpj' },
+        { text: 'Razão Social', value: 'company' },
+        { text: 'Nome Fantasia', value: 'trade' },
+        { text: 'Sigla', value: 'initials' },
       ],
-      enterprises: []
+      enterprises: [],
     };
   },
   methods: {
     fetchData() {
       EnterprisesRepository.listEnterprises()
-        .then(response => (this.enterprises = response.data))
-        .catch(error => console.log(error));
+        .then((response) => (this.enterprises = response.data))
+        .catch((error) => console.log(error));
     },
     toggleAllModal() {
       if (this.selected.length) this.selected = [];
       else this.selected = this.enterprises.slice();
     },
     add() {
-      this.$emit("onEnterpriseSelected", this.selected);
+      this.$emit('onEnterpriseSelected', this.selected);
       this.clear();
       this.close();
     },
@@ -106,7 +106,7 @@ export default {
     },
     clear() {
       this.selected = [];
-    }
+    },
   },
   computed: {
     show: {
@@ -114,8 +114,8 @@ export default {
         return this.value;
       },
       set(value) {
-        this.$emit("input", value);
-      }
+        this.$emit('input', value);
+      },
     },
     pages() {
       if (
@@ -127,7 +127,7 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
-    }
-  }
+    },
+  },
 };
 </script>

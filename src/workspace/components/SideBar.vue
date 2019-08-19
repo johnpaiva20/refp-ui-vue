@@ -2,7 +2,7 @@
   <v-navigation-drawer
     class="primary mt-5"
     width="180px"
-    style="top: 24px"
+    style="top: 30px"
     app
     clipped
     :mini-variant="collapsed"
@@ -20,10 +20,10 @@
   </v-navigation-drawer>
 </template>
 
-<style>
-.icon{
-  width:24px;
-  height:24px;
+<style lang="scss">
+.icon {
+  width: 24px;
+  height: 24px;
 }
 </style>
 
@@ -33,7 +33,7 @@ export default {
   watch: {
     $route(to) {
       this.handlerRoute(to);
-    }
+    },
   },
   beforeMount() {
     this.itens = this.menuItens.personal;
@@ -43,9 +43,9 @@ export default {
       itens: [],
       menuItens: {
         personal: [
-          { id: 1, title: "Projetos", icon: "tst-project", path: "projects" },
-          { id: 2, title: "Empresas", icon: "business", path: "enterprises" }
-          //{ id: 3, title: "Membros", icon: "people", path: "members" },
+          { id: 1, title: 'Projetos', icon: 'tst-project', path: 'projects' },
+          { id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
+          // { id: 3, title: "Membros", icon: "people", path: "members" },
           // { id: 4, title: "Auditoria", icon: " inbox ", path: "members" },
           // {
           //   id: 5,
@@ -55,21 +55,21 @@ export default {
           // }
         ],
         project: [
-          { id: 1, title: "Informações", icon: "info", path: "info" },
-          { id: 2, title: "Empresas", icon: "business", path: "enterprises" },
-          //{ id: 3, title: "Membros", icon: "people", path: "members" },
-          //{ id: 4, title: "Despesas", icon: "monetization_on", path: "expenses" },
-          //{ id: 5, title: "Documentos", icon: "folder", path: "documents" },
-          //{ id: 6, title: "Gráficos", icon: "insert_chart", path: "charts" },
-          //{ id: 7, title: "Finalizar Projeto", icon: "cancel", path: "terminate" }
+          { id: 1, title: 'Informações', icon: 'info', path: 'info' },
+          { id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
+          // { id: 3, title: "Membros", icon: "people", path: "members" },
+          // { id: 4, title: "Despesas", icon: "monetization_on", path: "expenses" },
+          // { id: 5, title: "Documentos", icon: "folder", path: "documents" },
+          // { id: 6, title: "Gráficos", icon: "insert_chart", path: "charts" },
+          // { id: 7, title: "Finalizar Projeto", icon: "cancel", path: "terminate" }
           {
             id: 8,
-            title: "Voltar",
-            icon: "arrow_back_ios",
-            path: "/personal/projects"
-          }
-        ]
-      }
+            title: 'Voltar',
+            icon: 'arrow_back_ios',
+            path: '/personal/projects',
+          },
+        ],
+      },
     };
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
       } else {
         this.$router.push({ path: path });
       }
-    }
-  }
+    },
+  },
 };
 </script>

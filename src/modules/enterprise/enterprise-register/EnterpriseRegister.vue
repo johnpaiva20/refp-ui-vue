@@ -55,31 +55,31 @@
 
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const EnterprisesRepository = RepositoryFactory.get("enterprises");
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const EnterprisesRepository = RepositoryFactory.get('enterprises');
 export default {
   data() {
     return {
       enterprise: {
         id: null,
-        trade: "",
-        company: "",
-        cnpj: "",
-        initials: ""
-      }
+        trade: '',
+        company: '',
+        cnpj: '',
+        initials: '',
+      },
     };
   },
   methods: {
     cancel() {
-      this.$router.push("/personal/enterprises");
+      this.$router.push('/personal/enterprises');
     },
     save() {
       EnterprisesRepository.createEnterprise(this.enterprise)
         .then(() => {
           this.$router.push({ path: `/personal/enterprises` });
         })
-        .catch(error => console.log("Error: " + error));
-    }
-  }
+        .catch((error) => console.log('Error: ' + error));
+    },
+  },
 };
 </script>

@@ -17,16 +17,16 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 </style>
 
 <script>
-import Toolbar from "./Toolbar";
-import SideBar from "./SideBar";
+import Toolbar from './Toolbar';
+import SideBar from './SideBar';
 export default {
   components: {
     Toolbar,
-    SideBar
+    SideBar,
   },
   data() {
     return {
@@ -34,14 +34,14 @@ export default {
       menuItens: [],
       tab: null,
       tabItems: [
-        { id: 1, text: "web", path: "" },
-        { id: 2, text: "shopping", path: "" },
-        { id: 3, text: "videos", path: "" },
-        { id: 4, text: "images", path: "" },
-        { id: 5, text: "news", path: "" }
-      ]
+        { id: 1, text: 'web', path: '' },
+        { id: 2, text: 'shopping', path: '' },
+        { id: 3, text: 'videos', path: '' },
+        { id: 4, text: 'images', path: '' },
+        { id: 5, text: 'news', path: '' },
+      ],
     };
   },
-  methods: {}
+  methods: {},
 };
 </script>

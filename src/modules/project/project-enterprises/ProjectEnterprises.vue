@@ -76,8 +76,8 @@
 
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const ProjectsRepository = RepositoryFactory.get("projects");
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const ProjectsRepository = RepositoryFactory.get('projects');
 export default {
   created() {
     this.fetch();
@@ -89,20 +89,20 @@ export default {
       const { data } = await ProjectsRepository.listProjectEnterprises(id);
       this.isLoading = false;
       this.projects = data;
-    }
+    },
   },
   data() {
     return {
       pagination: {},
-      search: "",
+      search: '',
       headers: [
-        { text: "Código da Empresa", value: "id" },
-        { text: "Nome Fantasia", value: "trade" },
-        { text: "Razão Social", value: "company" },
-        { text: "CNPJ", value: "cnpj" },
-        { text: "Sigla", value: "initials" }
+        { text: 'Código da Empresa', value: 'id' },
+        { text: 'Nome Fantasia', value: 'trade' },
+        { text: 'Razão Social', value: 'company' },
+        { text: 'CNPJ', value: 'cnpj' },
+        { text: 'Sigla', value: 'initials' },
       ],
-      enterprises: []
+      enterprises: [],
     };
   },
   computed: {
@@ -116,7 +116,7 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
-    }
-  }
+    },
+  },
 };
 </script>

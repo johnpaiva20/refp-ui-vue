@@ -17,7 +17,7 @@
         <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
       </div>
     </v-layout>
-    <v-card class="table-position">
+<v-card class="table-position">
       <v-data-table
         :headers="headers"
         :items="projects"
@@ -52,6 +52,16 @@
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
       </div>-->
     </v-card>
+
+
+    <!-- <div v-for="project in projects" v-bind:key="project.id">
+      <project-card :project="project" />
+    </div> -->
+
+    <!-- <div class="text-xs-right pt-2">
+      <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+    </div>
+    </v-card> -->
   </div>
 </template>
 
@@ -85,25 +95,28 @@ i {
 
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const ProjectsRepository = RepositoryFactory.get("projects");
-
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const ProjectsRepository = RepositoryFactory.get('projects');
+import ProjectCardComponent from './components/ProjectCardComponent';
 export default {
+  components: {
+    'project-card': ProjectCardComponent,
+  },
   data() {
     return {
-      search: "",
+      search: '',
       pagination: { rowsPerPage: 8 },
-      headers: [
-        { text: "Código ANEEL", value: "aneelId" },
-        { text: "Titulo", value: "title" },
-        { text: "Tipo do Projeto", value: "type" },
-        { text: "Data de Inicio", value: "start" },
-        { text: "Duração(meses)", value: "duration" },
-        { text: "Ordem de Serviço(ODS)", value: "serviceOrder" },
-        { text: "Empresa Proponente", value: "principalEnterprise" },
-        { text: "Status", value: "status" }
+       headers: [
+        { text: 'Código ANEEL', value: 'aneelId' },
+        { text: 'Titulo', value: 'title' },
+        { text: 'Tipo do Projeto', value: 'type' },
+        { text: 'Data de Inicio', value: 'start' },
+        { text: 'Duração(meses)', value: 'duration' },
+        { text: 'Ordem de Serviço(ODS)', value: 'serviceOrder' },
+        { text: 'Empresa Proponente', value: 'principalEnterprise' },
+        { text: 'Status', value: 'status' }
       ],
-      projects: []
+      projects: [],
     };
   },
   created() {
@@ -112,17 +125,17 @@ export default {
   methods: {
     async fetch() {
       ProjectsRepository.listProjects()
-        .then(response => {
+        .then((response) => {
           this.projects = response.data;
         })
-        .catch(() => console.log("Error Loading Projects"));
+        .catch(() => console.log('Error Loading Projects'));
     },
     goToProject(project) {
       this.$router.push({
         path: `/project/${project.id}/info`,
-        params: { id: project.id }
+        params: { id: project.id },
       });
-    }
+    },
   },
   mounted() {},
   computed: {
@@ -136,7 +149,7 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
-    }
-  }
+    },
+  },
 };
 </script>

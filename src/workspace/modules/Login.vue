@@ -35,12 +35,11 @@
       :bottom="true"
       :color="snackbar.color"
       :timeout="snackbar.timeout"
-    
     >{{ snackbar.message }}</v-snackbar>
   </div>
 </template>
 
-<style>
+<style  >
 .background {
   width: 100%;
   height: 100%;
@@ -77,57 +76,62 @@
 }
 </style>
 
-<script>
-export default {
-  mounted() {},
-  created() {},
-  data() {
-    return {
-      loading: false,
-      snackbar: {
-        show: false,
-        message: "",
-        timeout: 3000,
-        color: "info"
-      },
-      form: {
-        username: "",
-        password: ""
-      }
-    };
-  },
-  methods: {
-    login() {
-      this.loading = true;
-      this.$store
-        .dispatch("login", this.form)
-        .then(() => {
-          this.loading = false;
-          this.$router.push({ path: "/personal/projects" });
-        })
-        .catch(err => {
-          if (err.response.data.status === 401) {
-            this.loading = false;
-            this.snackbar.show = true;
-            this.snackbar.message = "Credencias inválidas";
-            this.snackbar.color="error"
-          }else if(err.response.data.status === 500){
-             this.loading = false;
-            this.snackbar.show = true;
-            this.snackbar.message = "Problemas com o servidor contate a TI";
-            this.snackbar.message = "info";
-          }
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-          console.log(err);
-        });
-    }
-  },
-  computed: {
-    appVersion() {
-      return this.$store.getters.appVersion;
-    }
+interface LoginForm {
+  username: string;
+  password: string;
+}
+
+interface Snackbar {
+  show: boolean;
+  message: string;
+  timeout: number;
+  color: string;
+}
+
+@Component({})
+export default class Login extends Vue {
+  private loading: boolean = false;
+
+  private form: LoginForm = { username: '', password: '' };
+
+  private snackbar: Snackbar = {
+    show: false,
+    message: '',
+    timeout: 3000,
+    color: 'info',
+  };
+
+  private login() {
+    this.loading = true;
+    this.$router.push({ path: '/personal/projects' });
+    // this.$store
+    //   .dispatch('login', this.form)
+    //   .then(() => {
+    //     this.loading = false;
+    //     this.$router.push({ path: '/personal/projects' });
+    //   })
+    //   .catch((err) => {
+    //     if (err.response.data.satatus === 401) {
+    //       this.loading = false;
+    //       this.snackbar.show = true;
+    //       this.snackbar.message = 'Credencias inválidas';
+    //       this.snackbar.color = 'error';
+    //     } else if (err.response.data.status === 500) {
+    //       this.loading = false;
+    //       this.snackbar.show = true;
+    //       this.snackbar.message = 'Problemas com o servidor contate a TI';
+    //       this.snackbar.message = 'info';
+    //     }
+    //   });
   }
-};
+
+  get appVersion() {
+    return this.$store.getters.appVersion;
+  }
+}
 </script>
 
 

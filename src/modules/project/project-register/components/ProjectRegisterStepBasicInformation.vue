@@ -179,71 +179,71 @@
 </style>
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const ProjectsRepository = RepositoryFactory.get("projects");
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const ProjectsRepository = RepositoryFactory.get('projects');
 export default {
-  props: ["project"],
+  props: ['project'],
   data() {
     return {
       rules: {
-        aneelId: [v => !!v || "Campo obrigatório"],
-        serviceOrder: [v => !!v || "Campo obrigatório"],
+        aneelId: [(v) => !!v || 'Campo obrigatório'],
+        serviceOrder: [(v) => !!v || 'Campo obrigatório'],
         title: [
-          v => !!v || "Campo obrigatório",
-          v => v.length < 200 || "Máximo 200 caracteres"
+          (v) => !!v || 'Campo obrigatório',
+          (v) => v.length < 200 || 'Máximo 200 caracteres',
         ],
         duration: [
-          v => !!v || "Campo obrigatório",
-          v => 0 < v || "Número inválido",
-          v => 48 >= v || "Máximo 48 meses"
+          (v) => !!v || 'Campo obrigatório',
+          (v) => 0 < v || 'Número inválido',
+          (v) => 48 >= v || 'Máximo 48 meses',
         ],
-        start: [v => !!v || "Campo obrigatório"],
-        othertopic: [v => !!v || "Campo obrigatório"],
-        othersubtopic: [v => !!v || "Campo obrigatório"]
+        start: [(v) => !!v || 'Campo obrigatório'],
+        othertopic: [(v) => !!v || 'Campo obrigatório'],
+        othersubtopic: [(v) => !!v || 'Campo obrigatório'],
       },
       types: [],
       innovationPhases: [
-        { value: "PB", description: "Pesquisa Básica Dirigida" },
-        { value: "PA", description: "Pesquisa Aplicada" },
-        { value: "DE", description: "Desenvolvimento Experimental" },
-        { value: "CS", description: "Cabeça-de-série" },
-        { value: "LP", description: "Lote Pioneiro" },
-        { value: "IM", description: "Inserção no Mercado" }
+        { value: 'PB', description: 'Pesquisa Básica Dirigida' },
+        { value: 'PA', description: 'Pesquisa Aplicada' },
+        { value: 'DE', description: 'Desenvolvimento Experimental' },
+        { value: 'CS', description: 'Cabeça-de-série' },
+        { value: 'LP', description: 'Lote Pioneiro' },
+        { value: 'IM', description: 'Inserção no Mercado' },
       ],
       products: [
-        { value: "CM", description: "Conceito ou Metodologia" },
-        { value: "SW", description: "Software" },
-        { value: "SM", description: "Sistema" },
-        { value: "MS", description: "Material ou Substância" },
-        { value: "CD", description: "Componente ou Dispositivo" },
-        { value: "ME", description: "Máquina ou Equipamento" }
+        { value: 'CM', description: 'Conceito ou Metodologia' },
+        { value: 'SW', description: 'Software' },
+        { value: 'SM', description: 'Sistema' },
+        { value: 'MS', description: 'Material ou Substância' },
+        { value: 'CD', description: 'Componente ou Dispositivo' },
+        { value: 'ME', description: 'Máquina ou Equipamento' },
       ],
       segments: [
-        { value: "G", description: "Geração" },
-        { value: "T", description: "Transmissão" },
-        { value: "D", description: "Distribuição" },
-        { value: "C", description: "Comercialização" }
+        { value: 'G', description: 'Geração' },
+        { value: 'T', description: 'Transmissão' },
+        { value: 'D', description: 'Distribuição' },
+        { value: 'C', description: 'Comercialização' },
       ],
       topics: [],
       othertopic: false,
       subtopics: [],
       othersubtopic: false,
       sharingTypes: [
-        { value: "DP", description: "Domínio Público" },
+        { value: 'DP', description: 'Domínio Público' },
         {
-          value: "EE",
-          description: "Exclusivo da(s) empresa(s) de energia elétrica"
+          value: 'EE',
+          description: 'Exclusivo da(s) empresa(s) de energia elétrica',
         },
         {
-          value: "EX",
-          description: "Exclusivo da(s) entidade(s) executora(s)"
+          value: 'EX',
+          description: 'Exclusivo da(s) entidade(s) executora(s)',
         },
         {
-          value: "CE",
+          value: 'CE',
           description:
-            "Compartilhado  entre  as  empresa(s)  de  energia  elétrica e entidade(s) executora(s)"
-        }
-      ]
+            'Compartilhado  entre  as  empresa(s)  de  energia  elétrica e entidade(s) executora(s)',
+        },
+      ],
     };
   },
   created() {
@@ -252,43 +252,43 @@ export default {
   methods: {
     fetchData() {
       ProjectsRepository.listProjectTypes()
-        .then(response => {
+        .then((response) => {
           this.types = response.data;
           this.typeChanged();
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
 
       ProjectsRepository.listProjectProductTypes()
-        .then(response => {
+        .then((response) => {
           this.products = response.data;
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     },
     typeChanged() {
       ProjectsRepository.listProjectTopics(this.project.type.id).then(
-        response => (this.topics = response.data)
+        (response) => (this.topics = response.data)
       );
     },
     topicChanged() {
-      let topic = this.topics.find(o => o.id == this.project.topic.id);
+      let topic = this.topics.find((o) => o.id == this.project.topic.id);
 
-      if (topic.initials == "OU") {
+      if (topic.initials == 'OU') {
         this.othertopic = true;
       } else {
         this.othertopic = false;
       }
 
       ProjectsRepository.listProjectSubtopics(topic.initials).then(
-        response => (this.subtopics = response.data)
+        (response) => (this.subtopics = response.data)
       );
     },
     subtopicChanged() {
-      if (this.project.subtopic.initials == "OU") {
+      if (this.project.subtopic.initials == 'OU') {
         this.othersubtopic = true;
       } else {
         this.othersubtopic = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -48,17 +48,16 @@ export default {
       pagination: {},
       file: null,
       headers: [
-        {text: "Nome do Arquivo",value: "name"},
-        { text: "Extensão", value: "extension" }
+        { text: 'Nome do Arquivo', value: 'name' },
+        { text: 'Extensão', value: 'extension' },
       ],
-      files: [
-      ]
+      files: [],
     };
   },
   methods: {
     clearFiles() {
-      this.$refs["file-input"].reset();
-    }
+      this.$refs['file-input'].reset();
+    },
   },
   computed: {
     pages() {
@@ -71,8 +70,8 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

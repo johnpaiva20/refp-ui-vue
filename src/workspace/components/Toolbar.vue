@@ -23,7 +23,7 @@
   </v-toolbar>
 </template>
 
-<style>
+<style lang="scss">
 .v-toolbar__extension {
   padding: 0px !important;
 }
@@ -45,37 +45,37 @@ export default {
       toolbarItens: [
         {
           id: 2,
-          description: "notifications",
-          icon: "notifications",
-          action: "notifications"
+          description: 'notifications',
+          icon: 'notifications',
+          action: 'notifications',
         },
         {
           id: 1,
-          description: "logout",
-          icon: "power_settings_new",
-          action: "logout"
-        }
-      ]
+          description: 'logout',
+          icon: 'power_settings_new',
+          action: 'logout',
+        },
+      ],
     };
   },
   methods: {
     logout() {
-      this.$store.dispatch("logout").then(() => {
-        this.$router.push("/");
+      this.$store.dispatch('logout').then(() => {
+        this.$router.push('/');
       });
     },
     collapseDrawer() {
       this.collapse = !this.collapse;
-      this.$emit("update:collapse", this.collapse);
+      this.$emit('update:collapse', this.collapse);
     },
     handle(action) {
       switch (action) {
-        case "logout":
+        case 'logout':
           this.logout();
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

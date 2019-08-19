@@ -91,41 +91,41 @@
 </style>
 
 <script>
-import EnterpriseDialog from "./EnterpriseDialog";
+import EnterpriseDialog from './EnterpriseDialog';
 export default {
   components: {
-    EnterpriseDialog
+    EnterpriseDialog,
   },
   data() {
     return {
       pagination: {},
       headers: [
-        { text: "Código da Empresa", value: "id" },
-        { text: "CNPJ", value: "cnpj" },
-        { text: "Razão Social", value: "company" },
-        { text: "Nome Fantasia", value: "trade" },
-        { text: "Tipo Empresa", value: "type" }
+        { text: 'Código da Empresa', value: 'id' },
+        { text: 'CNPJ', value: 'cnpj' },
+        { text: 'Razão Social', value: 'company' },
+        { text: 'Nome Fantasia', value: 'trade' },
+        { text: 'Tipo Empresa', value: 'type' },
       ],
       dialog: false,
       enterpriseRoles: [
-        { text: "Proponente", value: "P" },
-        { text: "Cooperada", value: "C" }
+        { text: 'Proponente', value: 'P' },
+        { text: 'Cooperada', value: 'C' },
       ],
       enterprises: [],
       snackbar: {
         show: false,
-        color: "primary",
-        message: ""
-      }
+        color: 'primary',
+        message: '',
+      },
     };
   },
   methods: {
     onEnterpriseSelected(enterprises) {
-      enterprises.forEach(e => {
+      enterprises.forEach((e) => {
         if (this.enterprises.includes(e)) {
           this.snackbar.show = true;
-          this.snackbar.message = "Empresa adicionada anteriormente";
-          this.snackbar.color = "error";
+          this.snackbar.message = 'Empresa adicionada anteriormente';
+          this.snackbar.color = 'error';
         } else {
           this.enterprises.push(e);
         }
@@ -142,8 +142,8 @@ export default {
       this.enterprisesChanged();
     },
     enterprisesChanged() {
-      this.$emit("update-enterprises-selected", this.enterprises);
-    }
+      this.$emit('update-enterprises-selected', this.enterprises);
+    },
   },
   computed: {
     pages() {
@@ -156,7 +156,7 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
-    }
-  }
+    },
+  },
 };
 </script>

@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const AccountCategoriesRepository = RepositoryFactory.get("accountCategories");
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const AccountCategoriesRepository = RepositoryFactory.get('accountCategories');
 export default {
-  props: ["type"],
+  props: ['type'],
   created() {
     this.fetch();
   },
@@ -45,41 +45,41 @@ export default {
       handler: function() {
         this.fetch();
       },
-      deep: true
+      deep: true,
     },
     accountingCategories: {
       handler: function() {
         this.calculateAccountsValue();
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   data() {
     return {
       total: 0,
       accountingCategories: [],
-      currencyMask: "###.###.###.###,##"
+      currencyMask: '###.###.###.###,##',
     };
   },
   methods: {
     fetch() {
       AccountCategoriesRepository.listAccountCategories(this.type).then(
-        response => (this.accountingCategories = response.data)
+        (response) => (this.accountingCategories = response.data)
       );
     },
     calculateAccountsValue() {
       let sum = 0;
-      this.accountingCategories.forEach(e => {
+      this.accountingCategories.forEach((e) => {
         if (e.value) {
           sum += parseFloat(e.value);
         }
         this.total = sum;
       });
 
-      this.$emit("update-account-categories", this.accountingCategories);
-    }
+      this.$emit('update-account-categories', this.accountingCategories);
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
 

@@ -72,93 +72,93 @@
 </style>
 
 <script>
-import step1 from "./components/ProjectRegisterStepBasicInformation";
-import step2 from "./components/ProjectRegisterStepEnterprise";
-import step3 from "./components/ProjectAccountCategories";
-import step4 from "./components/ProjectRegisterStepConfirmation";
+import step1 from './components/ProjectRegisterStepBasicInformation';
+import step2 from './components/ProjectRegisterStepEnterprise';
+import step3 from './components/ProjectAccountCategories';
+import step4 from './components/ProjectRegisterStepConfirmation';
 
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const ProjectsRepository = RepositoryFactory.get("projects");
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const ProjectsRepository = RepositoryFactory.get('projects');
 
 export default {
   components: {
     step1,
     step2,
     step3,
-    step4
+    step4,
   },
   data() {
     return {
       e1: 0,
       project: {
-        aneelId: "",
-        title: "",
-        duration: "",
-        status: "IN_PROGRESS",
+        aneelId: '',
+        title: '',
+        duration: '',
+        status: 'IN_PROGRESS',
         serviceOrder: {
-          order: "",
-          begin: ""
+          order: '',
+          begin: '',
         },
-        type: { id: "PD" },
+        type: { id: 'PD' },
         innovationPhase: null,
         product: {
           type: {
-            id: 0
-          }
+            id: 0,
+          },
         },
         segment: null,
         topic: {
           id: 0,
-          description: "",
-          initials: ""
+          description: '',
+          initials: '',
         },
         othertopic: null,
         subtopic: {
           id: 0,
-          description: "",
-          initials: ""
+          description: '',
+          initials: '',
         },
         othersubtopic: null,
         sharingType: null,
         enterprises: [],
-        accountCategories: []
+        accountCategories: [],
       },
       snackbar: false,
-      snackbarError: ""
+      snackbarError: '',
     };
   },
   methods: {
     save() {
       ProjectsRepository.createProject(this.project)
-        .then(response => {
+        .then((response) => {
           let id = response.data.id;
 
           this.$router.push({
             path: `/project/${id}/info`,
-            params: { id: id }
+            params: { id: id },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.snackbar = true;
           this.snackbarError = error.response.data.message;
         });
     },
     cancel() {
-      this.$router.push("/personal/projects");
+      this.$router.push('/personal/projects');
     },
     onUpdateEnterpisesSelected(enterprises) {
-      let selectedEnterprises = [];
-      enterprises.forEach(e => {
+      const selectedEnterprises = [];
+      enterprises.forEach((e) => {
         selectedEnterprises.push({
           enterprise: { id: e.id },
-          type: e.type
+          type: e.type,
         });
       });
       this.project.enterprises = selectedEnterprises;
     },
     onUpdateAccountCategories(categories) {
       this.project.accountCategories = categories;
-    }
-  }
+    },
+  },
 };
 </script>

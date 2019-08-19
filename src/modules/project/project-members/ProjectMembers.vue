@@ -67,8 +67,8 @@
 
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const ProjectsRepository = RepositoryFactory.get("projects");
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const ProjectsRepository = RepositoryFactory.get('projects');
 export default {
   created() {
     this.fetch();
@@ -76,15 +76,15 @@ export default {
   data() {
     return {
       pagination: {},
-      search: "",
+      search: '',
       headers: [
-        { text: "Código do Membro", value: "id" },
-        { text: "Nome", value: "name" },
-        { text: "Função", value: "degree" },
-        { text: "Titulação", value: "role" },
-        { text: "CPF", value: "cpf" }
+        { text: 'Código do Membro', value: 'id' },
+        { text: 'Nome', value: 'name' },
+        { text: 'Função', value: 'degree' },
+        { text: 'Titulação', value: 'role' },
+        { text: 'CPF', value: 'cpf' },
       ],
-      members: []
+      members: [],
     };
   },
   methods: {
@@ -98,7 +98,7 @@ export default {
     goToMember() {
       const id = this.$router.currentRoute.params.id;
       this.$router.push({ path: `/member/${id}` });
-    }
+    },
   },
   computed: {
     pages() {
@@ -111,7 +111,7 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
-    }
-  }
+    },
+  },
 };
 </script>

@@ -71,36 +71,36 @@
 
 
 <script>
-import { RepositoryFactory } from "@/repositories/RepositoryFactory";
-const EnterprisesRepository = RepositoryFactory.get("enterprises");
+import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+const EnterprisesRepository = RepositoryFactory.get('enterprises');
 export default {
   created() {
     this.fetch();
   },
   data() {
     return {
-      search: "",
+      search: '',
       pagination: {},
       headers: [
-        { text: "Código da Empresa", value: "id" },
-        { text: "Nome Fantasia", value: "trade" },
-        { text: "Razão Social", value: "company" },
-        { text: "CNPJ", value: "cnpj" },
-        { text: "Sigla", value: "initials" }
+        { text: 'Código da Empresa', value: 'id' },
+        { text: 'Nome Fantasia', value: 'trade' },
+        { text: 'Razão Social', value: 'company' },
+        { text: 'CNPJ', value: 'cnpj' },
+        { text: 'Sigla', value: 'initials' },
       ],
-      enterprises: []
+      enterprises: [],
     };
   },
   methods: {
     async fetch() {
-      EnterprisesRepository.listEnterprises().then(response => {
+      EnterprisesRepository.listEnterprises().then((response) => {
         this.enterprises = response.data;
       });
     },
     goToEnterprise() {
       const id = this.$router.currentRoute.params.id;
       this.$router.push({ path: `/enterprise/${id}` });
-    }
+    },
   },
   computed: {
     pages() {
@@ -113,7 +113,7 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
-    }
-  }
+    },
+  },
 };
 </script>
