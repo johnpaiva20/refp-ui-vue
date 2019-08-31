@@ -104,28 +104,34 @@ export default class Login extends Vue {
     color: 'info',
   };
 
+  beforeCreate() {
+    if (this.$store.getters.isLoggedIn) {
+      this.$router.push({ path: '/personal/projects' });
+    }
+  }
+
   private login() {
     this.loading = true;
-    this.$router.push({ path: '/personal/projects' });
-    // this.$store
-    //   .dispatch('login', this.form)
-    //   .then(() => {
-    //     this.loading = false;
-    //     this.$router.push({ path: '/personal/projects' });
-    //   })
-    //   .catch((err) => {
-    //     if (err.response.data.satatus === 401) {
-    //       this.loading = false;
-    //       this.snackbar.show = true;
-    //       this.snackbar.message = 'Credencias inválidas';
-    //       this.snackbar.color = 'error';
-    //     } else if (err.response.data.status === 500) {
-    //       this.loading = false;
-    //       this.snackbar.show = true;
-    //       this.snackbar.message = 'Problemas com o servidor contate a TI';
-    //       this.snackbar.message = 'info';
-    //     }
-    //   });
+    this.$store
+      .dispatch('login', this.form)
+      .then(() => {
+        this.loading = false;
+        this.$router.push({ path: '/personal/projects' });
+      })
+      .catch((err) => {
+        console.log(JSON.stringify(err))
+        if (err === 401) {
+          this.loading = false;
+          this.snackbar.show = true;
+          this.snackbar.message = 'Credencias inválidas';
+          this.snackbar.color = 'error';
+        } else if (err === 500) {
+          this.loading = false;
+          this.snackbar.show = true;
+          this.snackbar.message = 'Problemas com o servidor contate a TI';
+          this.snackbar.message = 'info';
+        }
+      });
   }
 
   get appVersion() {

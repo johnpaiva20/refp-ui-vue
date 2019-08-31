@@ -8,7 +8,7 @@ export const RepositoryFactory = {
   get: (name: string) => {
     switch (name) {
       case 'projects':
-        return new ProjectsRepository;
+        return new ProjectsRepository();
       case 'accountCategories':
         return new AccountCategoryRepository
       case 'enterprises':
@@ -19,4 +19,20 @@ export const RepositoryFactory = {
         return new ApplicationRepository;
     }
   },
+  getProjectRepository() {
+    return new ProjectsRepository();
+  },
+  getMemberRepository() {
+    return new MemberRepository;
+  },
+  getAccountCategoryRepository() {
+    return new AccountCategoryRepository
+  },
+  getApplicationRepository() {
+    return new ApplicationRepository;
+  },
+  getEnterpriseRepository() {
+    return new EnterpriseRepository;
+  }
+
 };
