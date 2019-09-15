@@ -3,4 +3,5 @@ export enum ProjectStatusEnum {
     Cancelled = 'CANCELLED',
     Finished = 'FINISHED',
     AboutToBegin = 'ABOUT_TO_BEGIN',
+
 }

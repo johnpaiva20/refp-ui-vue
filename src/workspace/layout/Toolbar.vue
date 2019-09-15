@@ -43,12 +43,12 @@ export default {
     return {
       collapse: Boolean,
       toolbarItens: [
-        {
-          id: 2,
-          description: 'notifications',
-          icon: 'notifications',
-          action: 'notifications',
-        },
+        // {
+        //   id: 2,
+        //   description: 'notifications',
+        //   icon: 'notifications',
+        //   action: 'notifications',
+        // },
         {
           id: 1,
           description: 'logout',

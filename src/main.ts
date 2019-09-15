@@ -25,18 +25,24 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
 
-Vue.filter('formatDate', function (value:Date) {
+import NewTextField from './workspace/components/NewTextFiled.vue';
+Vue.component('teste', NewTextField);
+
+Vue.filter('formatDate', function (value: Date) {
   if (value) {
     return moment(String(value)).format('DD/MM/YYYY')
   }
 });
 
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
 
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
-  // vuetify,
   render: (h) => h(App),
 }).$mount('#app');

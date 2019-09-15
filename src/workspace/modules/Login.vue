@@ -29,6 +29,7 @@
       <div>
         <h6 class="version">Versão {{appVersion}}</h6>
       </div>
+      <teste label="Leonardo" type="text" />
     </div>
     <v-snackbar
       v-model="snackbar.show"
@@ -112,14 +113,14 @@ export default class Login extends Vue {
 
   private login() {
     this.loading = true;
+    this.$router.push({ path: '/personal/projects' });
     this.$store
       .dispatch('login', this.form)
       .then(() => {
         this.loading = false;
-        this.$router.push({ path: '/personal/projects' });
       })
       .catch((err) => {
-        console.log(JSON.stringify(err))
+        console.log(JSON.stringify(err));
         if (err === 401) {
           this.loading = false;
           this.snackbar.show = true;

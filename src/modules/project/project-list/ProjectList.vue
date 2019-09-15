@@ -17,12 +17,13 @@
         <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
       </div>
     </v-layout>
-<v-card class="table-position">
+    <v-card class="table-position">
       <v-data-table
         :headers="headers"
         :items="projects"
         :search="search"
         :pagination.sync="pagination"
+        hide-actions
       >
         <template v-slot:items="props">
           <tr @click="goToProject(props.item)">
@@ -30,10 +31,10 @@
             <td>{{ props.item.title }}</td>
             <td>{{ props.item.type.description }}</td>
             <td>{{ props.item.serviceOrder.begin | formatDate }}</td>
-            <td>{{ props.item.duration }}</td>
+            <td>{{ $tc('pluralization.month', props.item.duration)  }} meses</td>
             <td>{{ props.item.serviceOrder.order }}</td>
             <td>{{ props.item.principalEnterprise }}</td>
-            <td>{{ props.item.status }}</td>
+            <td>{{ getProjectStatus(props.item.status) }}</td>
           </tr>
         </template>
 
@@ -48,28 +49,23 @@
           <v-alert :value="true" color="primary" icon="info">Nenhum Projeto cadastrado</v-alert>
         </template>
       </v-data-table>
-      <!-- <div class="text-xs-right pt-2">
+      <div class="text-xs-right pt-2">
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-      </div>-->
+      </div>
     </v-card>
-
 
     <!-- <div v-for="project in projects" v-bind:key="project.id">
       <project-card :project="project" />
-    </div> -->
+    </div>-->
 
     <!-- <div class="text-xs-right pt-2">
       <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
     </div>
-    </v-card> -->
+    </v-card>-->
   </div>
 </template>
 
 <style>
-.table-position {
-  top: 15px;
-}
-
 .search-field {
   padding-left: 5px;
 }
@@ -86,11 +82,6 @@
 .btn-new {
   padding-right: 5px;
 }
-
-i {
-  color: red;
-  font-size: 24px;
-}
 </style>
 
 
@@ -98,6 +89,8 @@ i {
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
 const ProjectsRepository = RepositoryFactory.get('projects');
 import ProjectCardComponent from './components/ProjectCardComponent';
+import { ProjectStatusEnum } from '../../../workspace/enums/ProjectStatusEnum';
+
 export default {
   components: {
     'project-card': ProjectCardComponent,
@@ -106,16 +99,19 @@ export default {
     return {
       search: '',
       pagination: { rowsPerPage: 8 },
-       headers: [
+      headers: [
         { text: 'Código ANEEL', value: 'aneelId' },
         { text: 'Titulo', value: 'title' },
         { text: 'Tipo do Projeto', value: 'type' },
         { text: 'Data de Inicio', value: 'start' },
-        { text: 'Duração(meses)', value: 'duration' },
-        { text: 'Ordem de Serviço(ODS)', value: 'serviceOrder' },
+        { text: 'Duração', value: 'duration' },
+        { text: 'Ordem de Serviço', value: 'serviceOrder' },
         { text: 'Empresa Proponente', value: 'principalEnterprise' },
-        { text: 'Status', value: 'status' }
+        { text: 'Status', value: 'status' },
       ],
+      pluralization:{
+        month:'mês | {count} meses'
+      },
       projects: [],
     };
   },
@@ -135,6 +131,20 @@ export default {
         path: `/project/${project.id}/info`,
         params: { id: project.id },
       });
+    },
+    getProjectStatus(status) {
+      switch (status) {
+        case ProjectStatusEnum.InProgress:
+          return 'Em andamento';
+        case ProjectStatusEnum.Cancelled:
+          return 'Cancelado';
+        case ProjectStatusEnum.Finished:
+          return 'Finalizado';
+        case ProjectStatusEnum.AboutToBegin:
+          return 'A ser iniciado em breve';
+        default:
+          return 'Indefinido';
+      }
     },
   },
   mounted() {},

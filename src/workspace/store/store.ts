@@ -11,6 +11,7 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     user: User,
+    actualModel:'',
   },
   getters: {
     appVersion: (state) => state.packageVersion,
