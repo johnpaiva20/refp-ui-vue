@@ -5,7 +5,6 @@ import Login from '@/workspace/modules/Login.vue';
 import RootArea from '@/workspace/layout/RootArea.vue';
 
 import ProjectList from '@/modules/project/project-list/ProjectList.vue';
-import ProjectRegister from '@/modules/project/project-register/ProjectRegister.vue';
 import EnterpriseList from '@/modules/enterprise/enterprise-list/EnterpriseList.vue';
 import EnterpriseRegister from '@/modules/enterprise/enterprise-register/EnterpriseRegister.vue';
 import MemberList from '@/modules/member/member-list/MemberList.vue';
@@ -28,7 +27,6 @@ export default new Router({
       path: '/personal', component: RootArea,
       children: [
         { path: 'projects', component: ProjectList },
-        { path: 'projects/register', component: ProjectRegister },
         { path: 'enterprises', component: EnterpriseList },
         { path: 'enterprises/register', component: EnterpriseRegister },
         { path: 'members/register', component: MemberRegister },

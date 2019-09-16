@@ -1,6 +1,6 @@
 <template>
   <v-form>
-    <v-container style="padding:5px">
+    <v-container fluid ma-0 pa-2 >
       <v-layout row>
         <v-flex sm3>
           <v-radio-group
@@ -21,7 +21,7 @@
           </v-radio-group>
         </v-flex>
 
-        <v-flex xs12 sm6 md3>
+        <v-flex xs12 sm2>
           <v-text-field
             v-model="project.aneelId"
             label="Código da ANEEL"
@@ -51,7 +51,7 @@
           ></v-text-field>
         </v-flex>
 
-        <v-flex xs12 md4>
+        <v-flex xs5 md3 sm12>
           <v-text-field
             v-model="project.serviceOrder.order"
             label="Ordem de Serviço (ODS)"
@@ -117,53 +117,6 @@
           ></v-select>
         </v-flex>
       </v-layout>
-      <v-layout row>
-        <v-flex xs12>
-          <v-select
-            v-model="project.topic.id"
-            :items="topics"
-            item-value="id"
-            item-text="description"
-            label="Tema do Projeto"
-            @change="topicChanged()"
-            required
-          ></v-select>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs12 v-if="false">
-          <v-textarea
-            v-model="project.topic.description"
-            label="Sugestão de Tema"
-            auto-grow
-            counter="1000"
-          ></v-textarea>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs12>
-          <v-select
-            v-model="project.subtopic.id"
-            :items="subtopics"
-            value="id"
-            item-value="id"
-            item-text="description"
-            label="Subtema do Projeto"
-            @change="subtopicChanged()"
-            required
-          ></v-select>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs12 v-if="false">
-          <v-textarea
-            v-model="project.subtopic.description"
-            label="Sugestão de Subtema"
-            auto-grow
-            counter="1000"
-          ></v-textarea>
-        </v-flex>
-      </v-layout>
     </v-container>
   </v-form>
 </template>
@@ -175,6 +128,9 @@
   padding: 5px;
   height: 95px;
   width: 267px;
+}
+.container-margin {
+  margin-right: 5px;
 }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form>
-      <v-container style="padding:5px">
+      <v-container style="padding:5px;margin:0px;">
         <v-layout>
           <v-flex xs12 md4>
             <v-text-field

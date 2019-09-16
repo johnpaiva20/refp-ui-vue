@@ -1,5 +1,5 @@
 export class ProjectType {
-    id!: number;
+    id!: string;
     description!: string;
     active!: boolean;
 }

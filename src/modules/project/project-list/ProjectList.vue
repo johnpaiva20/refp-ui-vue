@@ -91,7 +91,7 @@ import { RepositoryFactory } from '@/repositories/RepositoryFactory';
 const ProjectsRepository = RepositoryFactory.get('projects');
 import ProjectCardComponent from './components/ProjectCardComponent';
 import { ProjectStatusEnum } from '../../../workspace/enums/ProjectStatusEnum';
-import ProjectRegisterDialog from './components/ProjectRegisterDialogComponent';
+import ProjectRegisterDialog from './components/project-register-dialog/ProjectRegisterDialogComponent';
 
 export default {
   components: {
