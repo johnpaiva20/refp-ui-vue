@@ -1,5 +1,5 @@
 import api from '../workspace/api/api.config';
-import { Member } from '@/workspace/models/Memebrs';
+import { Member } from '@/workspace/models/Member';
 const resource = 'members';
 export default class MemberRepository {
 

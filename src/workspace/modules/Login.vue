@@ -29,7 +29,7 @@
       <div>
         <h6 class="version">Versão {{appVersion}}</h6>
       </div>
-      <teste label="Leonardo" type="text" />
+
     </div>
     <v-snackbar
       v-model="snackbar.show"

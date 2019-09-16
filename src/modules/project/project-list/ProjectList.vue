@@ -14,7 +14,7 @@
       </div>
       <v-spacer></v-spacer>
       <div>
-        <v-btn color="primary" to="/personal/projects/register">Novo</v-btn>
+        <v-btn color="primary" @click.stop="dialog = true">Novo</v-btn>
       </div>
     </v-layout>
     <v-card class="table-position">
@@ -31,7 +31,7 @@
             <td>{{ props.item.title }}</td>
             <td>{{ props.item.type.description }}</td>
             <td>{{ props.item.serviceOrder.begin | formatDate }}</td>
-            <td>{{ $tc('pluralization.month', props.item.duration)  }} meses</td>
+            <td>{{ props.item.duration }} meses</td>
             <td>{{ props.item.serviceOrder.order }}</td>
             <td>{{ props.item.principalEnterprise }}</td>
             <td>{{ getProjectStatus(props.item.status) }}</td>
@@ -62,6 +62,7 @@
       <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
     </div>
     </v-card>-->
+    <project-register-dialog v-model="dialog"/>
   </div>
 </template>
 
@@ -90,10 +91,12 @@ import { RepositoryFactory } from '@/repositories/RepositoryFactory';
 const ProjectsRepository = RepositoryFactory.get('projects');
 import ProjectCardComponent from './components/ProjectCardComponent';
 import { ProjectStatusEnum } from '../../../workspace/enums/ProjectStatusEnum';
+import ProjectRegisterDialog from './components/ProjectRegisterDialogComponent';
 
 export default {
   components: {
     'project-card': ProjectCardComponent,
+    'project-register-dialog': ProjectRegisterDialog,
   },
   data() {
     return {
@@ -109,10 +112,11 @@ export default {
         { text: 'Empresa Proponente', value: 'principalEnterprise' },
         { text: 'Status', value: 'status' },
       ],
-      pluralization:{
-        month:'mês | {count} meses'
+      pluralization: {
+        month: 'mês | {count} meses',
       },
       projects: [],
+      dialog: false,
     };
   },
   created() {
