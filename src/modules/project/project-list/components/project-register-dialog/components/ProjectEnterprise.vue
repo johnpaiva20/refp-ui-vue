@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container style="padding:5px">
+    <v-container fluid ma-0 pa-2>
       <div class="text-xs-right pt-2">
         <v-btn color="primary" @click.stop="dialog = true">Adicionar</v-btn>
       </div>
@@ -55,7 +55,7 @@
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
         </div>-->
       </div>
-      <EnterpriseDialog v-model="dialog" @onEnterpriseSelected="onEnterpriseSelected" />
+      <enterprise-dialog v-model="dialog" />
       <v-snackbar
         v-model="snackbar.show"
         :bottom="true"
@@ -90,73 +90,84 @@
 }
 </style>
 
-<script>
-import EnterpriseDialog from './EnterpriseDialog';
-export default {
-  components: {
-    EnterpriseDialog,
-  },
-  data() {
-    return {
-      pagination: {},
-      headers: [
-        { text: 'Código da Empresa', value: 'id' },
-        { text: 'CNPJ', value: 'cnpj' },
-        { text: 'Razão Social', value: 'company' },
-        { text: 'Nome Fantasia', value: 'trade' },
-        { text: 'Tipo Empresa', value: 'type' },
-      ],
-      dialog: false,
-      enterpriseRoles: [
-        { text: 'Proponente', value: 'P' },
-        { text: 'Cooperada', value: 'C' },
-      ],
-      enterprises: [],
-      snackbar: {
-        show: false,
-        color: 'primary',
-        message: '',
-      },
-    };
-  },
-  methods: {
-    onEnterpriseSelected(enterprises) {
-      enterprises.forEach((e) => {
-        if (this.enterprises.includes(e)) {
-          this.snackbar.show = true;
-          this.snackbar.message = 'Empresa adicionada anteriormente';
-          this.snackbar.color = 'error';
-        } else {
-          this.enterprises.push(e);
-        }
-      });
-      this.enterprisesChanged();
-    },
-    deleteItem(item) {
-      const index = this.enterprises.indexOf(item);
-      this.enterprises.splice(index, 1);
-    },
-    setEnterpriseType(item) {
-      const index = this.enterprises.indexOf(item);
-      this.enterprises[index].type = item.type;
-      this.enterprisesChanged();
-    },
-    enterprisesChanged() {
-      this.$emit('update-enterprises-selected', this.enterprises);
-    },
-  },
-  computed: {
-    pages() {
-      if (
-        this.pagination.rowsPerPage == null ||
-        this.pagination.totalItems == null
-      )
-        return 0;
 
-      return Math.ceil(
-        this.pagination.totalItems / this.pagination.rowsPerPage
-      );
-    },
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { Prop, Emit } from 'vue-property-decorator';
+import { Project } from '../../../../../../workspace/models/Project';
+import EnterpriseDialog from '../components/EnterpriseDialog.vue';
+import { Enterprise } from '../../../../../../workspace/models/Enterprise';
+import { ProjectEnterprise } from '../../../../../../workspace/models/ProjectEnterprise';
+@Component({
+  components: {
+    'enterprise-dialog':EnterpriseDialog,
   },
-};
+})
+export default class ProjectCardComponent extends Vue {
+  @Prop()
+  project: Project;
+
+  pagination = {
+    rowsPerPage:0,
+    totalItems:0
+  };
+  headers = [
+    { text: 'Código da Empresa', value: 'id' },
+    { text: 'CNPJ', value: 'cnpj' },
+    { text: 'Razão Social', value: 'company' },
+    { text: 'Nome Fantasia', value: 'trade' },
+    { text: 'Tipo Empresa', value: 'type' },
+  ];
+  dialog = false;
+  enterpriseRoles = [
+    { text: 'Proponente', value: 'P' },
+    { text: 'Cooperada', value: 'C' },
+  ];
+  enterprises = [];
+  snackbar = {
+    show: false,
+    color: 'primary',
+    message: '',
+  };
+
+  // onEnterpriseSelected(enterprises:Enterprise[]) {
+  //   enterprises.forEach((e) => {
+  //     if (this.enterprises.includes(e)) {
+  //       this.snackbar.show = true;
+  //       this.snackbar.message = 'Empresa adicionada anteriormente';
+  //       this.snackbar.color = 'error';
+  //     } else {
+  //       this.enterprises.push(e);
+  //     }
+  //   });
+  //   this.enterprisesChanged();
+  // }
+  // deleteItem(item:ProjectEnterprise) {
+  //   const index = this.enterprises.indexOf(item);
+  //   this.enterprises.splice(index, 1);
+  // }
+  // setEnterpriseType(item:ProjectEnterprise) {
+  //   const index = this.enterprises.indexOf(item);
+  //   this.enterprises[index].type = item.type;
+  //   this.enterprisesChanged();
+  // }
+  // enterprisesChanged() {
+  //   this.$emit('update-enterprises-selected', this.enterprises);
+  // }
+
+  get pages() {
+    if (
+      this.pagination.rowsPerPage == null ||
+      this.pagination.totalItems == null
+    )
+      return 0;
+
+    return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
+  }
+
+  set pages(value) {
+    this.$emit('input', value);
+  }
+}
 </script>

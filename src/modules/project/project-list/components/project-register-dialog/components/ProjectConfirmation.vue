@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container style="padding:5px">
+    <v-container fluid ma-0 pa-2>
       <b-row>
         <b-col md="5">
           <label class="labelConfirmation">Código ANEEL</label>
@@ -46,11 +46,15 @@
 </style>
 
 
-<script>
-export default {
-  props: ['project'],
-  data() {
-    return {};
-  },
-};
-</script>        
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
+import { Project } from '../../../../../../workspace/models/Project';
+
+@Component({})
+export default class ProjectCardComponent extends Vue {
+  @Prop()
+  project: Project;
+}
+</script>   

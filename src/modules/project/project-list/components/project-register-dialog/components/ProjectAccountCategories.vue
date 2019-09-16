@@ -36,7 +36,7 @@
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
 const AccountCategoriesRepository = RepositoryFactory.get('accountCategories');
 export default {
-  props: ['type'],
+  props: ['project'],
   created() {
     this.fetch();
   },

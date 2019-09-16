@@ -47,14 +47,14 @@
         </v-stepper-content>
 
         <v-stepper-content step="3" style="padding: 0px">
-          <step3 @update-enterprises-selected="onUpdateEnterpisesSelected"></step3>
+          <step3 :project="project"></step3>
           <v-btn class="btnStep" color="primary" @click="e1 = 4">Continue</v-btn>
 
           <v-btn flat @click="e1 = 2">Voltar</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4" style="padding: 0px">
-          <step4 :type="project.type.id" @update-account-categories="onUpdateAccountCategories"></step4>
+          <step4 :project="project"></step4>
           <v-btn class="btnStep" color="primary" @click="e1 = 5">Continue</v-btn>
 
           <v-btn flat @click="e1 = 3">Voltar</v-btn>
@@ -151,21 +151,6 @@ export default class ProjectCardComponent extends Vue {
 
   cancel() {
     this.show = false;
-  }
-
-  onUpdateEnterpisesSelected(enterprises: Enterprise[]) {
-    //   const selectedEnterprises: ProjectEnterprise[] = [];
-    //   enterprises.forEach((e) => {
-    //     selectedEnterprises.push({
-    //       enterprise: { id: e.id },
-    //       type: e.type,
-    //     });
-    //   });
-    //   this.project.enterprises = selectedEnterprises;
-  }
-
-  onUpdateAccountCategories(categories: AccountCategory[]) {
-    this.project.accountCategories = categories;
   }
 }
 </script>
