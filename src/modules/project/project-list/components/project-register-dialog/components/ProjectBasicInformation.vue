@@ -142,9 +142,10 @@ import { Topic } from '../../../../../../workspace/models/Topic';
 import { Subtopic } from '../../../../../../workspace/models/Subtopic';
 import { ProjectType } from '../../../../../../workspace/models/ProjectType';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+import { Project } from '../../../../../../workspace/models/Project';
 const ProjectsRepository = RepositoryFactory.getProjectRepository();
 @Component({})
-export default class ProjectTopicInfomationComponent extends Vue {
+export default class ProjectBasicInfomationComponent extends Vue {
   @Prop()
   project: Project;
 

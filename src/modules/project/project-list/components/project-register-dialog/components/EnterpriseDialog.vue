@@ -96,7 +96,7 @@ export default {
       else this.selected = this.enterprises.slice();
     },
     add() {
-      this.$emit('onEnterpriseSelected', this.selected);
+      this.$emit('onSelected', this.selected);
       this.clear();
       this.close();
     },

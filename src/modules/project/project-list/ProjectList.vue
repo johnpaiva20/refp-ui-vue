@@ -53,15 +53,6 @@
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
       </div>
     </v-card>
-
-    <!-- <div v-for="project in projects" v-bind:key="project.id">
-      <project-card :project="project" />
-    </div>-->
-
-    <!-- <div class="text-xs-right pt-2">
-      <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-    </div>
-    </v-card>-->
     <project-register-dialog v-model="dialog"/>
   </div>
 </template>

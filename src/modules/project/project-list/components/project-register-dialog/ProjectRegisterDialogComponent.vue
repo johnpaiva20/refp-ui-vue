@@ -122,7 +122,6 @@ export default class ProjectCardComponent extends Vue {
 
   project: Project = new Project();
   
-
   snackbar = { show: false, message: '' };
 
   get show() {

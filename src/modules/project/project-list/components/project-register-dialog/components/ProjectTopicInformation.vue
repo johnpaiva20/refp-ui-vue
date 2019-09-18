@@ -77,6 +77,12 @@ export default class ProjectTopicInfomationComponent extends Vue {
 
   subtopics: Subtopic[] = [];
 
+  created() {
+     ProjectsRepository.listProjectTopics(this.project.type.id).then(
+      (response) => (this.topics = response.data)
+    );
+  }
+
   @Watch('project.type')
   onProjectTypeChange(value: ProjectType, oldValue: ProjectType) {
     ProjectsRepository.listProjectTopics(value.id).then(
@@ -86,11 +92,12 @@ export default class ProjectTopicInfomationComponent extends Vue {
 
   @Watch('project.topic')
   onProjectTopicChange(value: Topic, oldValue: Topic) {
+    console.log(JSON.stringify(value));
     ProjectsRepository.listProjectSubtopics(value.initials).then(
       (response) => (this.subtopics = response.data)
     );
   }
 
-  created() {}
+  
 }
 </script>        

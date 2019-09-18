@@ -33,14 +33,6 @@
                     @change="setEnterpriseType(props.item)"
                   ></v-select>
                 </v-flex>
-                <!-- <b-form-select id="input-11">
-                <option :value="null" disabled>Tipo Empresa</option>
-                <option
-                  v-for="role in enterpriseRoles"
-                  v-bind:key="role.value"
-                  :value="role.value"
-                >{{role.text}}</option>
-                </b-form-select>-->
               </td>
               <td class="justify-center">
                 <v-icon @click="deleteItem(props.item)">delete</v-icon>
@@ -55,7 +47,7 @@
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
         </div>-->
       </div>
-      <enterprise-dialog v-model="dialog" />
+      <enterprise-dialog v-model="dialog" @onSelected="onSelected" />
       <v-snackbar
         v-model="snackbar.show"
         :bottom="true"
@@ -101,16 +93,20 @@ import { Enterprise } from '../../../../../../workspace/models/Enterprise';
 import { ProjectEnterprise } from '../../../../../../workspace/models/ProjectEnterprise';
 @Component({
   components: {
-    'enterprise-dialog':EnterpriseDialog,
+    'enterprise-dialog': EnterpriseDialog,
   },
 })
 export default class ProjectCardComponent extends Vue {
   @Prop()
   project: Project;
 
+  enterprises: Enterprise[] = [];
+
+  dialog = false;
+
   pagination = {
-    rowsPerPage:0,
-    totalItems:0
+    rowsPerPage: 0,
+    totalItems: 0,
   };
   headers = [
     { text: 'Código da Empresa', value: 'id' },
@@ -119,42 +115,29 @@ export default class ProjectCardComponent extends Vue {
     { text: 'Nome Fantasia', value: 'trade' },
     { text: 'Tipo Empresa', value: 'type' },
   ];
-  dialog = false;
+
   enterpriseRoles = [
     { text: 'Proponente', value: 'P' },
     { text: 'Cooperada', value: 'C' },
   ];
-  enterprises = [];
+
   snackbar = {
     show: false,
     color: 'primary',
     message: '',
   };
 
-  // onEnterpriseSelected(enterprises:Enterprise[]) {
-  //   enterprises.forEach((e) => {
-  //     if (this.enterprises.includes(e)) {
-  //       this.snackbar.show = true;
-  //       this.snackbar.message = 'Empresa adicionada anteriormente';
-  //       this.snackbar.color = 'error';
-  //     } else {
-  //       this.enterprises.push(e);
-  //     }
-  //   });
-  //   this.enterprisesChanged();
-  // }
-  // deleteItem(item:ProjectEnterprise) {
-  //   const index = this.enterprises.indexOf(item);
-  //   this.enterprises.splice(index, 1);
-  // }
-  // setEnterpriseType(item:ProjectEnterprise) {
-  //   const index = this.enterprises.indexOf(item);
-  //   this.enterprises[index].type = item.type;
-  //   this.enterprisesChanged();
-  // }
-  // enterprisesChanged() {
-  //   this.$emit('update-enterprises-selected', this.enterprises);
-  // }
+  onSelected(enterprises: Enterprise[]) {
+    enterprises.forEach((e: Enterprise) => {
+      if (this.enterprises.includes(e)) {
+        this.snackbar.show = true;
+        this.snackbar.message = 'Empresa adicionada anteriormente';
+        this.snackbar.color = 'error';
+      } else {
+        this.enterprises.push(e);
+      }
+    });
+  }
 
   get pages() {
     if (
