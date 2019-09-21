@@ -28,7 +28,7 @@
           <h6></h6>
 
           <label class="labelConfirmation">Subtema</label>
-          <h6>{{project.subtopic.description||"Não Informado"}}</h6>
+          <h6>{{project.subtopic.id||"Não Informado"}}</h6>
 
           <label class="labelConfirmation">Produto</label>
           <h6>{{project.product.type.id||"Não Informado"}}</h6>

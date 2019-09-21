@@ -149,18 +149,18 @@ export default class ProjectBasicInfomationComponent extends Vue {
   @Prop()
   project: Project;
 
-  aneelIdRule = [(v: any) => !!v || 'Campo obrigatório'];
-  serviceOrderRule = [(v: any) => !!v || 'Campo obrigatório'];
+  aneelIdRule = [(v: string) => !!v || 'Campo obrigatório'];
+  serviceOrderRule = [(v: string) => !!v || 'Campo obrigatório'];
   titleRule = [
-    (v: any) => !!v || 'Campo obrigatório',
-    (v: any) => v.length < 200 || 'Máximo 200 caracteres',
+    (v: string) => !!v || 'Campo obrigatório',
+    (v: string) => v.length < 200 || 'Máximo 200 caracteres',
   ];
   durationRule = [
-    (v: any) => !!v || 'Campo obrigatório',
-    (v: any) => 0 < v || 'Número inválido',
-    (v: any) => 48 >= v || 'Máximo 48 meses',
+    (v: number) => !!v || 'Campo obrigatório',
+    (v: number) => 0 < v || 'Número inválido',
+    (v: number) => 48 >= v || 'Máximo 48 meses',
   ];
-  startRule = [(v: any) => !!v || 'Campo obrigatório'];
+  startRule = [(v: Date) => !!v || 'Campo obrigatório'];
   othertopicRule = [(v: any) => !!v || 'Campo obrigatório'];
   othersubtopicRule = [(v: any) => !!v || 'Campo obrigatório'];
 

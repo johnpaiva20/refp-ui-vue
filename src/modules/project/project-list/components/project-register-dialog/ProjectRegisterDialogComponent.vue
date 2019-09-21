@@ -40,7 +40,7 @@
         </v-stepper-content>
 
         <v-stepper-content step="2" style="padding: 0px">
-          <step2 :project="project" ></step2>
+          <step2 :project="project"></step2>
           <v-btn class="btnStep" color="primary" @click="e1 = 3">Continue</v-btn>
 
           <v-btn flat @click="e1 = 1">Voltar</v-btn>
@@ -63,7 +63,7 @@
         <v-stepper-content step="5" style="padding: 0px">
           <step5 :project="project"></step5>
           <div>
-            <v-btn class="btnStep" color="primary" @click="save">Confirmar</v-btn>
+            <v-btn class="btnStep" color="primary" @click="save()">Confirmar</v-btn>
             <v-btn class="btnStep" @click="cancel()">Cancelar</v-btn>
           </div>
           <v-btn flat @click="e1 = 4">Voltar</v-btn>
@@ -103,6 +103,8 @@ import step2 from './components/ProjectTopicInformation.vue';
 import step3 from './components/ProjectEnterprise.vue';
 import step4 from './components/ProjectAccountCategories.vue';
 import step5 from './components/ProjectConfirmation.vue';
+import { ProjectStatusEnum } from '../../../../../workspace/enums/ProjectStatusEnum';
+import { ProjectType } from '../../../../../workspace/models';
 
 const ProjectsRepository = RepositoryFactory.getProjectRepository();
 @Component({
@@ -111,7 +113,7 @@ const ProjectsRepository = RepositoryFactory.getProjectRepository();
     step2,
     step3,
     step4,
-    step5
+    step5,
   },
 })
 export default class ProjectCardComponent extends Vue {
@@ -120,8 +122,11 @@ export default class ProjectCardComponent extends Vue {
 
   e1: number = 0;
 
-  project: Project = new Project();
-  
+  project: Project = new Project(
+    new ProjectType('PD'),
+    ProjectStatusEnum.InProgress
+  );
+
   snackbar = { show: false, message: '' };
 
   get show() {
@@ -133,6 +138,7 @@ export default class ProjectCardComponent extends Vue {
   }
 
   save() {
+    this.project.status = ProjectStatusEnum.InProgress;
     ProjectsRepository.createProject(this.project)
       .then((response) => {
         let id = response.data.id;

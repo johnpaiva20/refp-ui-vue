@@ -24,7 +24,7 @@ export default class ProjectRespository {
     return api.get(`/topics`);
   }
 
-  listProjectSubtopics(topic: string) {
+  listProjectSubtopics(topic: number) {
     if (topic) {
       return api.get(`/subtopics?topic=${topic}`);
     }

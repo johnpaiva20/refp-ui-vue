@@ -28,7 +28,7 @@
         <template v-slot:items="props">
           <tr @click="goToProject(props.item)">
             <td>{{ props.item.aneelId }}</td>
-            <td>{{ props.item.title }}</td>
+            <td style="width:50px">{{ props.item.title }}</td>
             <td>{{ props.item.type.description }}</td>
             <td>{{ props.item.serviceOrder.begin | formatDate }}</td>
             <td>{{ props.item.duration }} meses</td>
