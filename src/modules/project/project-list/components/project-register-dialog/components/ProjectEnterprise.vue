@@ -100,8 +100,6 @@ export default class ProjectCardComponent extends Vue {
   @Prop()
   project: Project;
 
-  enterprises: Array<Enterprise> = [];
-
   dialog = false;
 
   pagination = {
@@ -129,7 +127,7 @@ export default class ProjectCardComponent extends Vue {
 
   onSelected(enterprises: Enterprise[]) {
     enterprises.forEach((e: Enterprise) => {
-      if (this.enterprises.includes(e)) {
+      if (this.project.enterprises.includes({ enterprise: e })) {
         this.snackbar.show = true;
         this.snackbar.message = 'Empresa adicionada anteriormente';
         this.snackbar.color = 'warning';
