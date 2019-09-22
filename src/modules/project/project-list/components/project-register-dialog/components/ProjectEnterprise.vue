@@ -135,7 +135,7 @@ export default class ProjectCardComponent extends Vue {
         this.snackbar.color = 'warning';
       } else {
         this.pagination.totalItems = this.project.enterprises.push({
-          enterprise: { id: e.id },
+          enterprise: e,
         });
       }
     });
