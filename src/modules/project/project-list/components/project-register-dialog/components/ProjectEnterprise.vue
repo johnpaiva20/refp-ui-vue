@@ -7,9 +7,10 @@
       <div>
         <v-data-table
           :headers="headers"
-          :items="enterprises"
+          :items="project.enterprises"
           :pagination.sync="pagination"
           select-all
+          hide-actions
         >
           <template v-slot:headers="props">
             <tr>
@@ -18,10 +19,10 @@
           </template>
           <template v-slot:items="props">
             <tr>
-              <td>{{ props.item.id }}</td>
-              <td>{{ props.item.cnpj }}</td>
-              <td>{{ props.item.company }}</td>
-              <td>{{ props.item.trade }}</td>
+              <td>{{ props.item.enterprise.id }}</td>
+              <td>{{ props.item.enterprise.cnpj }}</td>
+              <td>{{ props.item.enterprise.company }}</td>
+              <td>{{ props.item.enterprise.trade }}</td>
               <td>
                 <v-flex xs12 sm6 d-flex>
                   <v-select
@@ -30,7 +31,6 @@
                     style="margin-top:10px;"
                     v-model="props.item.type"
                     solo
-                    @change="setEnterpriseType(props.item)"
                   ></v-select>
                 </v-flex>
               </td>
@@ -43,9 +43,9 @@
             <v-alert :value="true" color="primary" icon="info">Nenhuma empresa adiconada</v-alert>
           </template>
         </v-data-table>
-        <!-- <div class="text-xs-right pt-2">
-        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-        </div>-->
+        <div class="text-xs-right pt-2">
+          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+        </div>
       </div>
       <enterprise-dialog v-model="dialog" @onSelected="onSelected" />
       <v-snackbar
@@ -100,12 +100,12 @@ export default class ProjectCardComponent extends Vue {
   @Prop()
   project: Project;
 
-  enterprises: Enterprise[] = [];
+  enterprises: Array<Enterprise> = [];
 
   dialog = false;
 
   pagination = {
-    rowsPerPage: 0,
+    rowsPerPage: 5,
     totalItems: 0,
   };
   headers = [
@@ -132,9 +132,11 @@ export default class ProjectCardComponent extends Vue {
       if (this.enterprises.includes(e)) {
         this.snackbar.show = true;
         this.snackbar.message = 'Empresa adicionada anteriormente';
-        this.snackbar.color = 'error';
+        this.snackbar.color = 'warning';
       } else {
-        this.enterprises.push(e);
+        this.pagination.totalItems = this.project.enterprises.push({
+          enterprise: { id: e.id },
+        });
       }
     });
   }

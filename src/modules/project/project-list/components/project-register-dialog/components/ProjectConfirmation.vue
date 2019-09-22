@@ -23,7 +23,7 @@
           <h6>{{project.serviceOrder.order||"Não Informado"}}</h6>
 
           <label></label>
-          <h6></h6>
+          <h6>{{project.enterprises}}</h6>
           <label></label>
           <h6></h6>
 

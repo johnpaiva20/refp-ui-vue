@@ -19,8 +19,8 @@ export class Project {
     sharingMethod!: string
     mainEnterprise!: Enterprise;
     type: ProjectType = new ProjectType();
-    enterprises: ProjectEnterprise[];
-    accountCategories: AccountCategory[];
+    enterprises: ProjectEnterprise[] = [];
+    accountCategories: AccountCategory[] = [];
     serviceOrder: ServiceOrder = new ServiceOrder();
     product: Product = new Product();
     topic: Topic = new Topic();

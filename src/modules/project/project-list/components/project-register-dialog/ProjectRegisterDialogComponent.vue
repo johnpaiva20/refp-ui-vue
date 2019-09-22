@@ -23,7 +23,7 @@
 
         <v-divider></v-divider>
 
-        <v-stepper-step editable step="4">Categorias Coontabeis</v-stepper-step>
+        <v-stepper-step editable step="4">Categorias Contábeis</v-stepper-step>
 
         <v-divider></v-divider>
 

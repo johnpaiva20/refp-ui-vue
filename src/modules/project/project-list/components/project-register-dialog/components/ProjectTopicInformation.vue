@@ -92,7 +92,6 @@ export default class ProjectTopicInfomationComponent extends Vue {
 
   @Watch('project.topic')
   onProjectTopicChange(value: Topic, oldValue: Topic) {
-    console.log(JSON.stringify(value));
     ProjectsRepository.listProjectSubtopics(value.id).then(
       (response) => (this.subtopics = response.data)
     );

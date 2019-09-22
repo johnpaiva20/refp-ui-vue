@@ -53,7 +53,7 @@
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
       </div>
     </v-card>
-    <project-register-dialog v-model="dialog"/>
+    <project-register-dialog v-model="dialog" />
   </div>
 </template>
 
@@ -77,84 +77,94 @@
 </style>
 
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
-const ProjectsRepository = RepositoryFactory.get('projects');
-import ProjectCardComponent from './components/ProjectCardComponent';
+const ProjectsRepository = RepositoryFactory.getProjectRepository();
+import ProjectCardComponent from './components/ProjectCardComponent.vue';
 import { ProjectStatusEnum } from '../../../workspace/enums/ProjectStatusEnum';
-import ProjectRegisterDialog from './components/project-register-dialog/ProjectRegisterDialogComponent';
-
-export default {
+import ProjectRegisterDialog from './components/project-register-dialog/ProjectRegisterDialogComponent.vue';
+import { Project } from '../../../workspace/models';
+@Component({
   components: {
     'project-card': ProjectCardComponent,
     'project-register-dialog': ProjectRegisterDialog,
   },
-  data() {
-    return {
-      search: '',
-      pagination: { rowsPerPage: 8 },
-      headers: [
-        { text: 'Código ANEEL', value: 'aneelId' },
-        { text: 'Titulo', value: 'title' },
-        { text: 'Tipo do Projeto', value: 'type' },
-        { text: 'Data de Inicio', value: 'start' },
-        { text: 'Duração', value: 'duration' },
-        { text: 'Ordem de Serviço', value: 'serviceOrder' },
-        { text: 'Empresa Proponente', value: 'principalEnterprise' },
-        { text: 'Status', value: 'status' },
-      ],
-      pluralization: {
-        month: 'mês | {count} meses',
-      },
-      projects: [],
-      dialog: false,
-    };
-  },
+})
+export default class ProjectListView extends Vue {
+  search: string = '';
+  pagination = { rowsPerPage: 8, totalItems: 0 };
+
+  headers = [
+    { text: 'Código ANEEL', value: 'aneelId', width: '1%' },
+    { text: 'Titulo', value: 'title', width: '1%' },
+    { text: 'Tipo do Projeto', value: 'type', width: '1%' },
+    { text: 'Data de Inicio', value: 'start', width: '1%' },
+    { text: 'Duração', value: 'duration', width: '1%' },
+    { text: 'Ordem de Serviço', value: 'serviceOrder', width: '1%' },
+    {
+      text: 'Empresa Proponente',
+      value: 'principalEnterprise',
+      width: '1%',
+    },
+    { text: 'Status', value: 'status', width: '1%' },
+  ];
+
+  pluralization = {
+    month: 'mês | {count} meses',
+  };
+  projects: Project[] = [];
+  dialog: boolean = false;
+
   created() {
     this.fetch();
-  },
-  methods: {
-    async fetch() {
-      ProjectsRepository.listProjects()
-        .then((response) => {
-          this.projects = response.data;
-        })
-        .catch(() => console.log('Error Loading Projects'));
-    },
-    goToProject(project) {
-      this.$router.push({
-        path: `/project/${project.id}/info`,
-        params: { id: project.id },
-      });
-    },
-    getProjectStatus(status) {
-      switch (status) {
-        case ProjectStatusEnum.InProgress:
-          return 'Em andamento';
-        case ProjectStatusEnum.Cancelled:
-          return 'Cancelado';
-        case ProjectStatusEnum.Finished:
-          return 'Finalizado';
-        case ProjectStatusEnum.AboutToBegin:
-          return 'A ser iniciado em breve';
-        default:
-          return 'Indefinido';
-      }
-    },
-  },
-  mounted() {},
-  computed: {
-    pages() {
-      if (
-        this.pagination.rowsPerPage == null ||
-        this.pagination.totalItems == null
-      )
-        return 0;
+  }
 
-      return Math.ceil(
-        this.pagination.totalItems / this.pagination.rowsPerPage
-      );
-    },
-  },
-};
+  async fetch() {
+    ProjectsRepository.listProjects()
+      .then((response) => {
+        this.projects = response.data;
+        this.pagination.totalItems = this.projects.length;
+      })
+      .catch(() => console.log('Error Loading Projects'));
+  }
+
+  goToProject(project: Project) {
+    this.$router.push({
+      path: `/project/${project.id}/info`,
+      params: { id: project.id.toString() },
+    });
+  }
+
+  getProjectStatus(status: String) {
+    switch (status) {
+      case ProjectStatusEnum.InProgress:
+        return 'Em andamento';
+      case ProjectStatusEnum.Cancelled:
+        return 'Cancelado';
+      case ProjectStatusEnum.Finished:
+        return 'Finalizado';
+      case ProjectStatusEnum.AboutToBegin:
+        return 'A ser iniciado em breve';
+      default:
+        return 'Indefinido';
+    }
+  }
+
+  get pages() {
+    if (
+      this.pagination.rowsPerPage == null ||
+      this.pagination.totalItems == null
+    )
+      return 0;
+
+    return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
+  }
+
+  set pages(value) {
+    this.$emit('input', value);
+  }
+}
 </script>
+
