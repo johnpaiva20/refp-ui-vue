@@ -29,12 +29,10 @@
           <tr @click="goToProject(props.item)">
             <td>{{ props.item.aneelId }}</td>
             <td style="width:50px">{{ props.item.title }}</td>
-            <td>{{ props.item.type.description }}</td>
             <td>{{ props.item.serviceOrder.begin | formatDate }}</td>
             <td>{{ props.item.duration }} meses</td>
             <td>{{ props.item.serviceOrder.order }}</td>
             <td>{{ props.item.principalEnterprise }}</td>
-            <td>{{ getProjectStatus(props.item.status) }}</td>
           </tr>
         </template>
 
@@ -99,16 +97,9 @@ export default class ProjectListView extends Vue {
   headers = [
     { text: 'Código ANEEL', value: 'aneelId', width: '1%' },
     { text: 'Titulo', value: 'title', width: '1%' },
-    { text: 'Tipo do Projeto', value: 'type', width: '1%' },
     { text: 'Data de Inicio', value: 'start', width: '1%' },
     { text: 'Duração', value: 'duration', width: '1%' },
     { text: 'Ordem de Serviço', value: 'serviceOrder', width: '1%' },
-    {
-      text: 'Empresa Proponente',
-      value: 'principalEnterprise',
-      width: '1%',
-    },
-    { text: 'Status', value: 'status', width: '1%' },
   ];
 
   pluralization = {
