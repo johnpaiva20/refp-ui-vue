@@ -1,5 +1,5 @@
 <template>
-  <apexchart height="200" type="bar" :options="chartOptions" :series="series" />
+  <apexchart height="500" type="bar" :options="chartOptions" :series="series" />
 </template>
 
 <style>
@@ -12,23 +12,25 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class AccountChartComponent extends Vue {
   chartOptions = {
     xaxis: {
-      type: 'datetime',
       categories: [
-        '2019-01-01',
-        '2019-02-01',
-        '2019-03-01',
-        '2019-04-01',
-        '2019-05-01',
-        '2019-06-01',
-        '2019-07-01',
+        'Recursos Humanos',
+        'Materiais de Consumo',
+        'Materiais permanentes e equipamentos',
+        'Serviços de terceiros',
+        'Viagens e Diarias',
+        'Outros',
       ],
     },
   };
 
   series = [
     {
-      name: 'WebsiteHits',
-      data: [15, 20, 21, 25, 60, 120, 93],
+      name: 'Previsto',
+      data: [80, 20, 28, 95, 60, 170],
+    },
+    {
+      name: 'Executado',
+      data: [1, 20, 21, 25, 30, 120],
     },
   ];
 }

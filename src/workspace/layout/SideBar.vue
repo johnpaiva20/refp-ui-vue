@@ -44,7 +44,7 @@ export default {
       menuItens: {
         personal: [
           { id: 1, title: 'Projetos', icon: 'tst-project', path: 'projects' },
-          { id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
+          //{ id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
           // { id: 3, title: "Membros", icon: "people", path: "members" },
           // { id: 4, title: "Auditoria", icon: " inbox ", path: "members" },
           // {
@@ -56,11 +56,16 @@ export default {
         ],
         project: [
           { id: 1, title: 'Informações', icon: 'info', path: 'info' },
-          { id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
+          //{ id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
           // { id: 3, title: "Membros", icon: "people", path: "members" },
-          // { id: 4, title: "Despesas", icon: "monetization_on", path: "expenses" },
-          // { id: 5, title: "Documentos", icon: "folder", path: "documents" },
-           { id: 6, title: 'Gráficos', icon: 'insert_chart', path: 'charts' },
+          {
+            id: 4,
+            title: 'Despesas',
+            icon: 'monetization_on',
+            path: 'expenses',
+          },
+          { id: 5, title: 'Documentos', icon: 'folder', path: 'documents' },
+          { id: 6, title: 'Gráficos', icon: 'insert_chart', path: 'charts' },
           // { id: 7, title: "Finalizar Projeto", icon: "cancel", path: "terminate" }
           {
             id: 8,
@@ -87,7 +92,7 @@ export default {
       } else {
         this.$router.push({ path: item.path });
       }
-      this.$emit('modelSelected',item);
+      this.$emit('modelSelected', item);
     },
   },
 };
