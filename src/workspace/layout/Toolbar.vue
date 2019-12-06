@@ -1,8 +1,8 @@
 <template>
-  <v-toolbar fixed app :clipped-left="true" extended extension-height="7">
-    <v-toolbar-side-icon @click="collapseDrawer">
+  <v-app-bar fixed app :clipped-left="true" extended extension-height="7">
+    <v-app-bar-nav-icon @click="collapseDrawer">
       <v-icon color="primary">menu</v-icon>
-    </v-toolbar-side-icon>
+    </v-app-bar-nav-icon>
     <b-img
       src="https://static.wixstatic.com/media/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.png/v1/fill/w_141,h_36,al_c,q_80,usm_0.66_1.00_0.01/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.webp"
       fluid
@@ -20,7 +20,7 @@
       <v-icon size="24" class="primary--text">{{item.icon}}</v-icon>
     </v-btn>
     <v-progress-linear slot="extension" :size="100" :indeterminate="false"></v-progress-linear>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <style lang="scss">

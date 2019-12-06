@@ -3,20 +3,10 @@
     <Toolbar :collapse.sync="collapsed" />
     <SideBar :collapsed="collapsed" @modelSelected="modelSelected" />
     <v-content>
-      <!-- <v-container fluid class="pa-1"> -->
       <v-container fluid>
-        <!-- <v-subheader>{{model.title}}</v-subheader>
-
-        <v-card v-if="project">
-          <v-card-title>Teste</v-card-title>
-        </v-card>-->
         <v-fade-transition mode="out-in">
           <router-view></router-view>
         </v-fade-transition>
-        <!-- <v-tabs v-model="tab" color="cyan" grow>
-          <v-tabs-slider color="yellow"></v-tabs-slider>
-          <v-tab v-for="item in tabItems" :key="item.id" :to="item.path">{{ item.text }}</v-tab>
-        </v-tabs>-->
       </v-container>
     </v-content>
   </div>

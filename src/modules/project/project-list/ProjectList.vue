@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout row class="row-padding">
-      <div class="search-field">
+      <div>
         <v-text-field
           v-model="search"
           append-icon="search"
@@ -9,7 +9,7 @@
           outline
           single-line
           hide-details
-          height="22"
+          dense
         ></v-text-field>
       </div>
       <v-spacer></v-spacer>
@@ -24,6 +24,8 @@
         :search="search"
         :pagination.sync="pagination"
         hide-actions
+        height="450"
+        hide-default-footer
       >
         <template v-slot:items="props">
           <tr @click="goToProject(props.item)">
@@ -35,19 +37,8 @@
             <td>{{ props.item.principalEnterprise }}</td>
           </tr>
         </template>
-
-        <template v-slot:no-results>
-          <v-alert
-            :value="true"
-            color="error"
-            icon="warning"
-          >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
-        </template>
-        <template v-slot:no-data>
-          <v-alert :value="true" color="primary" icon="info">Nenhum Projeto cadastrado</v-alert>
-        </template>
       </v-data-table>
-      <div class="text-xs-right pt-2">
+      <div class="text-right">
         <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
       </div>
     </v-card>

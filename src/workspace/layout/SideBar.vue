@@ -1,22 +1,19 @@
  <template>
-  <v-navigation-drawer
-    class="primary mt-5"
-    width="180px"
-    style="top: 30px"
-    app
-    clipped
-    :mini-variant="collapsed"
-  >
-    <v-list class="menuSideBar">
-      <v-list-tile v-for="item in itens" v-bind:key="item.id" v-on:click="goToPage(item)">
-        <v-list-tile-action>
-          <v-icon class="white--text">{{ item.icon }}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="white--text">{{item.title}}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-    </v-list>
+  <v-navigation-drawer class="primary" app clipped :mini-variant="collapsed">
+     <v-list
+        dense
+        nav
+      >
+        <v-list-item v-for="item in itens" v-bind:key="item.id" v-on:click="goToPage(item)">
+          <v-list-item-icon>
+            <v-icon class="white--text">{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title class="white--text">{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
   </v-navigation-drawer>
 </template>
 
