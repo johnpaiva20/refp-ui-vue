@@ -11,13 +11,12 @@
     ></b-img>
     <v-spacer></v-spacer>
     <v-btn
-      large
       icon
       v-for="item in toolbarItens"
       v-bind:key="item.id"
       v-on:click="handle(item.action)"
     >
-      <v-icon size="24" class="primary--text">{{item.icon}}</v-icon>
+      <v-icon  class="primary--text">{{item.icon}}</v-icon>
     </v-btn>
     <v-progress-linear slot="extension" :size="100" :indeterminate="false"></v-progress-linear>
   </v-app-bar>
@@ -26,14 +25,6 @@
 <style lang="scss">
 .v-toolbar__extension {
   padding: 0px !important;
-}
-
-.v-progress-linear {
-  -moz-transform: scale(1, -1);
-  -webkit-transform: scale(1, -1);
-  -o-transform: scale(1, -1);
-  -ms-transform: scale(1, -1);
-  transform: scale(1, -1);
 }
 </style>
 

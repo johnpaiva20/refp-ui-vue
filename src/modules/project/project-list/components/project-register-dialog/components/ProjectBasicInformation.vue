@@ -1,6 +1,6 @@
 <template>
   <v-form>
-    <v-container fluid ma-0 pa-2>
+    <v-container fluid ma-2 pa-2>
       <v-layout row>
         <v-flex sm3>
           <v-radio-group

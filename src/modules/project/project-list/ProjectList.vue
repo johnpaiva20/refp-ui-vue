@@ -22,24 +22,15 @@
         :headers="headers"
         :items="projects"
         :search="search"
-        :pagination.sync="pagination"
-        hide-actions
+        :page.sync="page"
+        :items-per-page="itemsPerPage"
         height="450"
         hide-default-footer
-      >
-        <template v-slot:items="props">
-          <tr @click="goToProject(props.item)">
-            <td>{{ props.item.aneelId }}</td>
-            <td style="width:50px">{{ props.item.title }}</td>
-            <td>{{ props.item.serviceOrder.begin | formatDate }}</td>
-            <td>{{ props.item.duration }} meses</td>
-            <td>{{ props.item.serviceOrder.order }}</td>
-            <td>{{ props.item.principalEnterprise }}</td>
-          </tr>
-        </template>
-      </v-data-table>
+        @page-count="pageCount = $event"
+        @click:row="goToProject"
+      ></v-data-table>
       <div class="text-right">
-        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+        <v-pagination v-model="page" :length="pageCount"></v-pagination>
       </div>
     </v-card>
     <project-register-dialog v-model="dialog" />
@@ -71,19 +62,19 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
 const ProjectsRepository = RepositoryFactory.getProjectRepository();
-import ProjectCardComponent from './components/ProjectCardComponent.vue';
 import { ProjectStatusEnum } from '../../../workspace/enums/ProjectStatusEnum';
 import ProjectRegisterDialog from './components/project-register-dialog/ProjectRegisterDialogComponent.vue';
 import { Project } from '../../../workspace/models';
 @Component({
   components: {
-    'project-card': ProjectCardComponent,
     'project-register-dialog': ProjectRegisterDialog,
   },
 })
 export default class ProjectListView extends Vue {
   search: string = '';
-  pagination = { rowsPerPage: 8, totalItems: 0 };
+  page: number = 1;
+  pageCount: number = 0;
+  itemsPerPage: number = 10;
 
   headers = [
     { text: 'Código ANEEL', value: 'aneelId', width: '1%' },
@@ -107,7 +98,6 @@ export default class ProjectListView extends Vue {
     ProjectsRepository.listProjects()
       .then((response) => {
         this.projects = response.data;
-        this.pagination.totalItems = this.projects.length;
       })
       .catch(() => console.log('Error Loading Projects'));
   }
@@ -132,20 +122,6 @@ export default class ProjectListView extends Vue {
       default:
         return 'Indefinido';
     }
-  }
-
-  get pages() {
-    if (
-      this.pagination.rowsPerPage == null ||
-      this.pagination.totalItems == null
-    )
-      return 0;
-
-    return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
-  }
-
-  set pages(value) {
-    this.$emit('input', value);
   }
 }
 </script>
