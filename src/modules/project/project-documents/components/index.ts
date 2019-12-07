@@ -1,0 +1,1 @@
+export { default as DocumentsExpansionComponent } from './DocumentsExpansionComponent.vue'

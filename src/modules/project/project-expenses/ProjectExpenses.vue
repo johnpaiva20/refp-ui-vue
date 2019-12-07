@@ -1,39 +1,36 @@
 <template>
-  <div class="project-expanses-container">
+  <div>
+    <v-layout row class="row-padding">
+      <div>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Pesquisar"
+          outline
+          single-line
+          hide-details
+          dense
+        ></v-text-field>
+      </div>
+      <v-spacer></v-spacer>
+      <div>
+        <v-btn color="primary" @click.stop="dialog = true">Adicionar</v-btn>
+      </div>
+    </v-layout>
     <v-card class="table-position">
       <v-data-table
         :headers="headers"
-        :items="projects"
+        :items="expenses"
         :search="search"
-        :pagination.sync="pagination"
-        hide-actions
-      >
-        <template v-slot:items="props">
-          <tr @click="goToProject(props.item)">
-            <td>{{ props.item.aneelId }}</td>
-            <td style="width:50px">{{ props.item.title }}</td>
-            <td>{{ props.item.type.description }}</td>
-            <td>{{ props.item.serviceOrder.begin | formatDate }}</td>
-            <td>{{ props.item.duration }} meses</td>
-            <td>{{ props.item.serviceOrder.order }}</td>
-            <td>{{ props.item.principalEnterprise }}</td>
-            <td>{{ getProjectStatus(props.item.status) }}</td>
-          </tr>
-        </template>
-
-        <template v-slot:no-results>
-          <v-alert
-            :value="true"
-            color="error"
-            icon="warning"
-          >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
-        </template>
-        <template v-slot:no-data>
-          <v-alert :value="true" color="primary" icon="info">Nenhum Projeto cadastrado</v-alert>
-        </template>
-      </v-data-table>
-      <div class="text-xs-right pt-2">
-        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+        :page.sync="page"
+        :items-per-page="itemsPerPage"
+        height="450"
+        hide-default-footer
+        @page-count="pageCount = $event"
+        @click:row="openExpense"
+      ></v-data-table>
+      <div>
+        <v-pagination v-model="page" :length="pageCount"></v-pagination>
       </div>
     </v-card>
   </div>
@@ -41,45 +38,27 @@
 
 <style>
 </style>
+
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
 @Component({})
 export default class ProjectListView extends Vue {
   search: string = '';
-  pagination = { rowsPerPage: 8, totalItems: 0 };
+  page: number = 1;
+  pageCount: number = 0;
+  itemsPerPage: number = 10;
+
+  expenses = [];
 
   headers = [
-    { text: 'Código ANEEL', value: 'aneelId', width: '1%' },
-    { text: 'Titulo', value: 'title', width: '1%' },
-    { text: 'Tipo do Projeto', value: 'type', width: '1%' },
-    { text: 'Data de Inicio', value: 'start', width: '1%' },
-    { text: 'Duração', value: 'duration', width: '1%' },
-    { text: 'Ordem de Serviço', value: 'serviceOrder', width: '1%' },
-    {
-      text: 'Empresa Proponente',
-      value: 'principalEnterprise',
-      width: '1%',
-    },
-    { text: 'Status', value: 'status', width: '1%' },
+    { text: 'Data', value: 'aneelId', width: '1%' },
+    { text: 'Tipo do Documento', value: 'title', width: '1%' },
+    { text: 'Número do Documento', value: 'start', width: '1%' },
+    { text: 'Beneficiado', value: 'duration', width: '1%' },
+    { text: 'Valor', value: 'serviceOrder', width: '1%' },
   ];
 
-  pluralization = {
-    month: 'mês | {count} meses',
-  };
-
-  get pages() {
-    if (
-      this.pagination.rowsPerPage == null ||
-      this.pagination.totalItems == null
-    )
-      return 0;
-
-    return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
-  }
-
-  set pages(value) {
-    this.$emit('input', value);
-  }
+  openExpense(value: any) {}
 }
 </script>

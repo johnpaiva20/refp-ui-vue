@@ -1,5 +1,7 @@
 <template>
-  <apexchart type="pie" width="380" :options="chartOptions" :series="series" />
+  <v-card width="380" height="250">
+    <apexchart type="pie" width="380" :options="chartOptions" :series="series" />
+  </v-card>
 </template>
 
 <style>

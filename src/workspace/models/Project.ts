@@ -25,13 +25,14 @@ export class Project {
     product: Product = new Product();
     topic: Topic = new Topic();
     subtopic: Subtopic = new Subtopic();
+    progress: number = 0;
 
     constructor(type?: ProjectType, status?: ProjectStatusEnum) {
         if (type) {
             this.type = type;
         }
 
-        if(status){
+        if (status) {
             this.status = status;
         }
     }

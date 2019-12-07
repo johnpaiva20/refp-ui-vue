@@ -1,5 +1,7 @@
 <template>
-  <apexchart type="line" height="350" :options="chartOptions" :series="series" />
+  <v-card height="350">
+    <apexchart type="line" height="350" :options="chartOptions" :series="series" />
+  </v-card>
 </template>
 
 <style>

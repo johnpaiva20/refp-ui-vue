@@ -1,8 +1,13 @@
 <template>
   <div>
-    <accounting-chart />
-    <accounting-pie-chart />
-    <accounting-line-chart />
+    <div class="d-flex flex-row">
+      <accounting-chart />
+      <v-spacer></v-spacer>
+      <accounting-pie-chart />
+    </div>
+    <!-- <div>
+      <accounting-line-chart />
+    </div> -->
   </div>
 </template>
 

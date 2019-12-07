@@ -3,7 +3,7 @@
     <Toolbar :collapse.sync="collapsed" />
     <SideBar :collapsed="collapsed" @modelSelected="modelSelected" />
     <v-content>
-      <v-container fluid>
+      <v-container fluid class="ma-0">
         <v-fade-transition mode="out-in">
           <router-view></router-view>
         </v-fade-transition>
@@ -13,6 +13,9 @@
 </template>
 
 <style>
+v-container {
+  max-width: 100%;
+}
 </style>
 
 <script>

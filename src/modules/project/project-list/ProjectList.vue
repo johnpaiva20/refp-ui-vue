@@ -29,7 +29,7 @@
         @page-count="pageCount = $event"
         @click:row="goToProject"
       ></v-data-table>
-      <div class="text-right">
+      <div>
         <v-pagination v-model="page" :length="pageCount"></v-pagination>
       </div>
     </v-card>
@@ -38,22 +38,6 @@
 </template>
 
 <style>
-.search-field {
-  padding-left: 5px;
-}
-
-.search-field > v-text-field {
-  width: 300px;
-}
-
-.row-padding {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.btn-new {
-  padding-right: 5px;
-}
 </style>
 
 
