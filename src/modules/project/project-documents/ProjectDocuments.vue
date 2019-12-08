@@ -37,6 +37,8 @@ import { DocumentsExpansionComponent } from './components';
     'documents-expansion': DocumentsExpansionComponent,
   },
 })
-export default class ProjectDocumentsListView extends Vue {}
+export default class ProjectDocumentsListView extends Vue {
+  search: string = '';
+}
 </script>
 

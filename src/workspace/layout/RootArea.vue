@@ -3,7 +3,15 @@
     <Toolbar :collapse.sync="collapsed" />
     <SideBar :collapsed="collapsed" @modelSelected="modelSelected" />
     <v-content>
-      <v-container fluid class="ma-0">
+      <!-- <v-expansion-panels accordion>
+        <v-expansion-panel v-for="(item,i) in 1" :key="i">
+          <v-expansion-panel-header>Item</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <project-info-card :project="value" />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels> -->
+      <v-container fluid class="ma-0 container">
         <v-fade-transition mode="out-in">
           <router-view></router-view>
         </v-fade-transition>
@@ -13,18 +21,21 @@
 </template>
 
 <style>
-v-container {
-  max-width: 100%;
+.container {
+  max-width: 100% !important;
 }
 </style>
 
 <script>
 import Toolbar from './Toolbar';
 import SideBar from './SideBar';
+import { ProjectInfoCardComponent } from '../../modules/project/project-info';
+import { Project } from '../models';
 export default {
   components: {
     Toolbar,
     SideBar,
+    'project-info-card': ProjectInfoCardComponent,
   },
   watch: {
     $route(to) {
@@ -39,6 +50,7 @@ export default {
       model: {
         title: '',
       },
+      value: new Project(),
     };
   },
   methods: {

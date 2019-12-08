@@ -2,15 +2,7 @@
   <div>
     <v-layout row class="row-padding">
       <div>
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          label="Pesquisar"
-          outline
-          single-line
-          hide-details
-          dense
-        ></v-text-field>
+        <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
       </div>
       <v-spacer></v-spacer>
       <div>

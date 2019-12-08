@@ -4,11 +4,11 @@
       <v-card-title class="headline primary white--text" primary-title>
         Cadastro de Projetos
         <v-spacer></v-spacer>
-        <v-btn icon @click="cancel()">
+        <v-btn icon @click="close()">
           <v-icon class="white--text">close</v-icon>
         </v-btn>
       </v-card-title>
-      <v-card-text>
+      <v-card-text class="pa-0">
         <v-stepper v-model="e1">
           <v-stepper-header>
             <template v-for="step in steps">
@@ -24,14 +24,27 @@
           </v-stepper-header>
 
           <v-stepper-items>
-            <v-stepper-content v-for="step in steps" :key="`${step.id}-content`" :step="step.id">
+            <v-stepper-content
+              class="pa-2"
+              v-for="step in steps"
+              :key="`${step.id}-content`"
+              :step="step.id"
+            >
               <template>
                 <component :is="step.component" v-bind="{project:project}"></component>
               </template>
 
-              <v-btn class="btnStep" color="primary" @click="nextStep(step.id)">Continuar</v-btn>
-              <v-btn text @click="cancel()">Cancelar</v-btn>
-              <v-btn text @click="previousStep(step.id)">Voltar</v-btn>
+              <v-btn text @click="close()">Cancelar</v-btn>
+              <v-btn text v-if="!isFirstStep()" @click="previousStep(step.id)">Voltar</v-btn>
+              <v-btn
+                v-if="!isLastStep()"
+                class="btnNextStep"
+                color="primary"
+                @click="nextStep(step.id)"
+              >Continuar</v-btn>
+              <v-btn v-if="isLastStep()" class="btnNextStep" color="primary" @click="save()">
+                <v-icon>save</v-icon>Salvar
+              </v-btn>
             </v-stepper-content>
           </v-stepper-items>
         </v-stepper>
@@ -50,10 +63,7 @@
 </template>
 
 <style>
-.step {
-  padding: 0px;
-}
-.btnStep {
+.btnNextStep {
   float: right;
 }
 </style>
@@ -69,18 +79,24 @@ import { Project } from '../../../../../workspace/models/Project';
 import ProjectBasicInformation from './components/ProjectBasicInformation.vue';
 import step2 from './components/ProjectTopicInformation.vue';
 import step3 from './components/ProjectEnterprise.vue';
-import step4 from './components/ProjectAccountCategories.vue';
+import ProjectAccountCategories from './components/ProjectAccountCategories.vue';
 import ProjectConfirmation from './components/ProjectConfirmation.vue';
 import { ProjectStatusEnum } from '../../../../../workspace/enums/ProjectStatusEnum';
 import { ProjectType } from '../../../../../workspace/models';
 
 const ProjectsRepository = RepositoryFactory.getProjectRepository();
+
+interface Snackbar {
+  show: boolean;
+  message: string;
+}
+
 @Component({
   components: {
     'project-basic-information': ProjectBasicInformation,
     step2,
     step3,
-    step4,
+    'project-account-categories': ProjectAccountCategories,
     'project-confirmation': ProjectConfirmation,
   },
 })
@@ -98,6 +114,11 @@ export default class ProjectCardComponent extends Vue {
     },
     {
       id: 2,
+      title: 'Rubricas',
+      component: 'project-account-categories',
+    },
+    {
+      id: 3,
       title: 'Confirmação',
       component: 'project-confirmation',
     },
@@ -108,7 +129,7 @@ export default class ProjectCardComponent extends Vue {
     ProjectStatusEnum.InProgress
   );
 
-  snackbar = { show: false, message: '' };
+  snackbar: Snackbar = { show: false, message: '' };
 
   get show() {
     return this.value;
@@ -120,23 +141,27 @@ export default class ProjectCardComponent extends Vue {
 
   nextStep(n: number) {
     if (n === this.steps.length) {
-      this.e1 = 1;
+      this.e1 = n;
     } else {
       this.e1 = n + 1;
     }
   }
 
   previousStep(n: number) {
-    console.log(n)
     if (n === 1) {
       this.e1 = 1;
     } else {
       this.e1 = n - 1;
     }
   }
+  isLastStep() {
+    return this.e1 === this.steps.length;
+  }
+  isFirstStep() {
+    return this.e1 === 1;
+  }
 
   save() {
-    this.project.status = ProjectStatusEnum.InProgress;
     ProjectsRepository.createProject(this.project)
       .then((response) => {
         let id = response.data.id;
@@ -147,13 +172,16 @@ export default class ProjectCardComponent extends Vue {
         });
       })
       .catch((error) => {
-        this.snackbar.show = true;
-        this.snackbar.message = error.response.data.message;
+        this.snackbar = { show: true, message: error.message };
       });
   }
 
-  cancel() {
+  close() {
     this.show = false;
+    this.project = new Project(
+      new ProjectType('PD'),
+      ProjectStatusEnum.InProgress
+    );
   }
 }
 </script>

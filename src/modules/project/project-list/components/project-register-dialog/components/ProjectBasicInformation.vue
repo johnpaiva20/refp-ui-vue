@@ -1,135 +1,150 @@
 <template>
-  <v-form>
-    <v-container fluid ma-2 pa-2>
-      <v-layout row>
-        <v-flex sm3>
-          <v-radio-group
-            v-model="project.type.id"
-            label="Tipo de Projeto"
-            class="radioBox"
-            row
-          >
-            <v-radio
-              v-for="type in types"
-              :key="type.id"
-              :label="`${type.description}`"
-              :value="type.id"
-              :disabled="!type.active"
-              color="primary"
-            ></v-radio>
-          </v-radio-group>
-        </v-flex>
+  <v-form class="ma-5">
+    <v-row>
+      <v-col cols="3" sm="3" class="pt-0 pl-0 pb-0">
+        <v-radio-group v-model="project.type.id" label="Tipo de Projeto" class="radioBox ma-0">
+          <v-radio
+            v-for="type in types"
+            :key="type.id"
+            :label="`${type.description}`"
+            :value="type.id"
+            :disabled="!type.active"
+            color="primary"
+            class="radio"
+          ></v-radio>
+        </v-radio-group>
+      </v-col>
 
-        <v-flex xs12 sm2>
-          <v-text-field
-            v-model="project.aneelId"
-            label="Código da ANEEL"
-            :rules="aneelIdRule"
-            required
-          ></v-text-field>
-        </v-flex>
+      <v-col class="pt-0">
+        <v-row>
+          <v-col cols="3" class="pa-0">
+            <v-text-field
+              v-model="project.aneelId"
+              label="Código da ANEEL"
+              :rules="aneelIdRule"
+              required
+              outlined
+              dense
+            />
+          </v-col>
+          <v-col cols="2" class="pt-0 pl-2 pr-0">
+            <v-text-field
+              type="date"
+              v-model="project.serviceOrder.begin"
+              label="Data de Início"
+              :rules="startRule"
+              required
+              outlined
+              dense
+            />
+          </v-col>
+          <v-col cols="2" class="pt-0 pl-2 pr-0">
+            <v-text-field
+              type="number"
+              v-model="project.duration"
+              label="Duração"
+              suffix="meses"
+              :rules="durationRule"
+              required
+              outlined
+              dense
+            />
+          </v-col>
+          <v-col class="pt-0">
+            <v-text-field
+              v-model="project.serviceOrder.order"
+              label="Ordem de Serviço (ODS)"
+              :rules="serviceOrderRule"
+              required
+              outlined
+              dense
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="4" class="pa-0">
+            <v-select
+              v-model="project.segment"
+              :items="segments"
+              value="value"
+              item-text="description"
+              label="Segmento"
+              required
+              dense
+              outlined
+            />
+          </v-col>
+          <v-col cols="4" class="pt-0 pl-2">
+            <v-select
+              v-model="project.product.type.id"
+              :items="products"
+              value="value"
+              item-value="id"
+              item-text="description"
+              label="Tipo do Produto"
+              required
+              dense
+              outlined
+            />
+          </v-col>
+          <v-col cols="4" class="pt-0 pl-2">
+            <v-select
+              v-model="project.innovationPhase"
+              :items="innovationPhases"
+              value="value"
+              item-text="description"
+              label="Fase da Cadeia de Inovação"
+              required
+              dense
+              outlined
+            />
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
 
-        <v-flex sm2>
-          <v-text-field
-            type="date"
-            v-model="project.serviceOrder.begin"
-            label="Data de Início"
-            :rules="startRule"
-            required
-          ></v-text-field>
-        </v-flex>
+    <v-row class="pa-0">
+      <v-col class="pa-0">
+        <v-text-field
+          v-model="project.title"
+          label="Título do Projeto"
+          counter="200"
+          maxlenght="200"
+          :rules="titleRule"
+          required
+          outlined
+          dense
+        />
+      </v-col>
+    </v-row>
 
-        <v-flex sm2>
-          <v-text-field
-            type="number"
-            v-model="project.duration"
-            label="Duração"
-            suffix="meses"
-            :rules="durationRule"
-            required
-          ></v-text-field>
-        </v-flex>
-
-        <v-flex xs5 md3 sm12>
-          <v-text-field
-            v-model="project.serviceOrder.order"
-            label="Ordem de Serviço (ODS)"
-            :rules="serviceOrderRule"
-            required
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
-
-      <v-layout row>
-        <v-flex xs12>
-          <v-text-field
-            v-model="project.title"
-            label="Título do Projeto"
-            counter="200"
-            maxlenght="200"
-            :rules="titleRule"
-            required
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
-
-      <v-layout row>
-        <v-flex sm2>
-          <v-select
-            v-model="project.segment"
-            :items="segments"
-            value="value"
-            item-text="description"
-            label="Segmento"
-            required
-          ></v-select>
-        </v-flex>
-        <v-flex sm6>
-          <v-select
-            v-model="project.innovationPhase"
-            :items="innovationPhases"
-            value="value"
-            item-text="description"
-            label="Fase da Cadeia de Inovação"
-            required
-          ></v-select>
-        </v-flex>
-        <v-flex sm5>
-          <v-select
-            v-model="project.product.type.id"
-            :items="products"
-            value="value"
-            item-value="id"
-            item-text="description"
-            label="Tipo do Produto"
-            required
-          ></v-select>
-        </v-flex>
-        <v-flex xs5 sm6>
-          <v-select
-            v-model="project.sharingType"
-            :items="sharingTypes"
-            value="value"
-            item-text="description"
-            label="Tipo de Compartilhamento"
-            required
-          ></v-select>
-        </v-flex>
-      </v-layout>
-    </v-container>
+    <v-row class="pa-0">
+      <v-col class="pa-0">
+        <v-select
+          v-model="project.sharingType"
+          :items="sharingTypes"
+          value="value"
+          item-text="description"
+          label="Tipo de Compartilhamento"
+          required
+          dense
+          outlined
+        />
+      </v-col>
+    </v-row>
   </v-form>
 </template>
 
 <style>
 .radioBox {
-  border: 2px solid #9e9e9e;
-  border-radius: 15px;
-  padding: 5px;
-  height: 95px;
-  width: 310px;
+  border: 1.5px solid #9e9e9e;
+  border-radius: 10px;
+  padding-left: 5px;
+  height: 70%;
+  width: 100%;
 }
-.container-margin {
-  margin-right: 5px;
+.radio {
+  padding-top: 3%;
 }
 </style>
 
@@ -148,7 +163,7 @@ const ProjectsRepository = RepositoryFactory.getProjectRepository();
 export default class ProjectBasicInfomationComponent extends Vue {
   @Prop()
   project: Project;
-
+  v = () => {};
   aneelIdRule = [(v: string) => !!v || 'Campo obrigatório'];
   serviceOrderRule = [(v: string) => !!v || 'Campo obrigatório'];
   titleRule = [
@@ -163,7 +178,6 @@ export default class ProjectBasicInfomationComponent extends Vue {
   startRule = [(v: Date) => !!v || 'Campo obrigatório'];
   othertopicRule = [(v: any) => !!v || 'Campo obrigatório'];
   othersubtopicRule = [(v: any) => !!v || 'Campo obrigatório'];
-
 
   types = [];
   innovationPhases = [
@@ -226,7 +240,6 @@ export default class ProjectBasicInfomationComponent extends Vue {
       })
       .catch((error) => console.log(error));
   }
- 
 }
 </script>
 

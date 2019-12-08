@@ -10,7 +10,7 @@ import EnterpriseRegister from '@/modules/enterprise/enterprise-register/Enterpr
 import MemberList from '@/modules/member/member-list/MemberList.vue';
 import MemberRegister from '@/modules/member/member-register/MemberRegister.vue';
 
-import ProjectInfo from '@/modules/project/project-info/ProjectInfo.vue';
+import ProjectInfoView from '@/modules/project/project-info/ProjectInfoView.vue';
 import ProjectCharts from '@/modules/project/project-charts/ProjectCharts.vue';
 import ProjectEnterprises from '@/modules/project/project-enterprises/ProjectEnterprises.vue';
 import ProjectMembers from '@/modules/project/project-members/ProjectMembers.vue';
@@ -36,7 +36,7 @@ export default new Router({
     {
       path: '/project/:id', component: RootArea,
       children: [
-        { path: 'info', component: ProjectInfo },
+        { path: 'info', component: ProjectInfoView },
         { path: 'enterprises', component: ProjectEnterprises },
         { path: 'members', component: ProjectMembers },
         { path: 'charts', component: ProjectCharts },
