@@ -1,27 +1,24 @@
 <template>
-  <div>
-    <v-form>
-      <v-container style="padding:5px;margin:0px;">
-        <v-layout>
-          <v-flex xs12 md4>
-            <v-text-field
-              v-for="category in accountingCategories"
-              v-bind:key="category.id"
-              v-model="category.value"
-              :label="category.description"
-              prefix="R$"
-              value="10000"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-        <div>
-          <div class="mt-2">
-            <h4>O Valor Total Consolidado é de R$ {{ total }}</h4>
-          </div>
-        </div>
-      </v-container>
-    </v-form>
-  </div>
+  <v-form>
+    <v-row>
+      <v-col cols="4" v-for="category in accountingCategories" v-bind:key="category.id">
+        <v-text-field
+          v-model="category.value"
+          :label="category.description"
+          prefix="R$"
+          outlined
+          dense
+          placeholder="10000"
+          v-on:change="calculateAccountsValue()"
+        />
+      </v-col>
+    </v-row>
+    <div>
+      <div class="mt-2">
+        <h4>O Valor Total Consolidado é de R$ {{ total }}</h4>
+      </div>
+    </div>
+  </v-form>
 </template>
 
 
@@ -49,14 +46,6 @@ export default class ProjectCardComponent extends Vue {
   @Watch('project.type')
   onProjectTypeChange(value: ProjectType, oldValue: ProjectType) {
     this.fetchData(value);
-  }
-
-  @Watch('accountingCategories')
-  onAccountingCategoriesChange(
-    value: AccountCategory,
-    oldValue: AccountCategory
-  ) {
-    this.calculateAccountsValue();
   }
 
   fetchData(value: ProjectType) {

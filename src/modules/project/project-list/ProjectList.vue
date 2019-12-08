@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout row class="row-padding">
+    <v-row class="ma-1">
       <div>
         <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
       </div>
@@ -8,23 +8,25 @@
       <div>
         <v-btn color="primary" @click.stop="dialog = true">Novo</v-btn>
       </div>
-    </v-layout>
-    <v-card class="table-position">
-      <v-data-table
-        :headers="headers"
-        :items="projects"
-        :search="search"
-        :page.sync="page"
-        :items-per-page="itemsPerPage"
-        height="450"
-        hide-default-footer
-        @page-count="pageCount = $event"
-        @click:row="goToProject"
-      ></v-data-table>
-      <div>
-        <v-pagination v-model="page" :length="pageCount"></v-pagination>
-      </div>
-    </v-card>
+    </v-row>
+    <v-row class="ma-1">
+      <v-card>
+        <v-data-table
+          :headers="headers"
+          :items="projects"
+          :search="search"
+          :page.sync="page"
+          :items-per-page="itemsPerPage"
+          height="100%"
+          hide-default-footer
+          @page-count="pageCount = $event"
+          @click:row="goToProject"
+        ></v-data-table>
+        <div>
+          <v-pagination v-model="page" :length="pageCount"></v-pagination>
+        </div>
+      </v-card>
+    </v-row>
     <project-register-dialog v-model="dialog" />
   </div>
 </template>
@@ -50,7 +52,7 @@ export default class ProjectListView extends Vue {
   search: string = '';
   page: number = 1;
   pageCount: number = 0;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 8;
 
   headers = [
     { text: 'Código ANEEL', value: 'aneelId', width: '1%' },
