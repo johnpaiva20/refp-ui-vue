@@ -9,9 +9,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
 
-import NewTextField from './workspace/components/NewTextFiled.vue';
-Vue.component('teste', NewTextField);
-
 Vue.filter('formatDate', function (value: Date) {
   if (value) {
     return moment(String(value)).format('DD/MM/YYYY')

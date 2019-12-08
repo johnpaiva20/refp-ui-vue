@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Toolbar :collapse.sync="collapsed" />
+    <Toolbar :collapse.sync="collapsed" :actionsCollapsed.sync="actionsCollapsed" />
     <SideBar :collapsed="collapsed" @modelSelected="modelSelected" />
+    <ActionsSideBar :actionsCollapsed="actionsCollapsed" />
     <v-content>
       <!-- <v-expansion-panels accordion>
         <v-expansion-panel v-for="(item,i) in 1" :key="i">
@@ -10,7 +11,7 @@
             <project-info-card :project="value" />
           </v-expansion-panel-content>
         </v-expansion-panel>
-      </v-expansion-panels> -->
+      </v-expansion-panels>-->
       <v-container fluid class="ma-0 container">
         <v-fade-transition mode="out-in">
           <router-view></router-view>
@@ -29,12 +30,14 @@
 <script>
 import Toolbar from './Toolbar';
 import SideBar from './SideBar';
+import ActionsSideBar from './ActionsSideBar';
 import { ProjectInfoCardComponent } from '../../modules/project/project-info';
 import { Project } from '../models';
 export default {
   components: {
     Toolbar,
     SideBar,
+    ActionsSideBar,
     'project-info-card': ProjectInfoCardComponent,
   },
   watch: {
@@ -45,6 +48,7 @@ export default {
   data() {
     return {
       collapsed: false,
+      actionsCollapsed: false,
       project: false,
       root: false,
       model: {
