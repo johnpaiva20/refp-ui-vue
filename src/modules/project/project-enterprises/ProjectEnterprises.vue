@@ -25,27 +25,18 @@
         :headers="headers"
         :items="enterprises"
         :search="search"
-        hide-actions
-        :pagination.sync="pagination"
+        :page.sync="page"
+            :items-per-page="itemsPerPage"
+            hide-default-footer
+            @page-count="pageCount = $event"
+            @click:row="goToProject"
+            height="450"
+    
       >
-        <template v-slot:items="props">
-          <td>{{ props.item.id }}</td>
-          <td>{{ props.item.trade }}</td>
-          <td>{{ props.item.company }}</td>
-          <td>{{ props.item.cnpj }}</td>
-          <td>{{ props.item.initials}}</td>
-        </template>
-        <template v-slot:no-results>
-          <v-alert
-            :value="true"
-            color="error"
-            icon="warning"
-          >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
-        </template>
       </v-data-table>
-      <div class="text-xs-right pt-2">
-        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-      </div>
+      <div>
+            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+          </div>
     </v-card>
   </div>
 </template>

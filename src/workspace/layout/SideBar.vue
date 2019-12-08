@@ -23,57 +23,24 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { menuItens } from '../router/router';
 @Component({})
 export default class SideBar extends Vue {
   @Prop()
   collapsed: Boolean;
 
   itens: any = [];
-  menuItens = {
-    personal: [
-      { id: 1, title: 'Projetos', icon: 'tst-project', path: 'projects' },
-      { id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
-      { id: 3, title: 'Membros', icon: 'people', path: 'members' },
-      // { id: 4, title: "Auditoria", icon: " inbox ", path: "members" },
-      // {
-      //   id: 5,
-      //   title: "Contabilidade",
-      //   icon: "monetization_on",
-      //   path: "members"
-      // }
-    ],
-    project: [
-      { id: 1, title: 'Informações', icon: 'info', path: 'info' },
-      //{ id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
-      // { id: 3, title: "Membros", icon: "people", path: "members" },
-      {
-        id: 4,
-        title: 'Despesas',
-        icon: 'monetization_on',
-        path: 'expenses',
-      },
-      { id: 5, title: 'Documentos', icon: 'folder', path: 'documents' },
-      { id: 6, title: 'Gráficos', icon: 'insert_chart', path: 'charts' },
-      // { id: 7, title: "Finalizar Projeto", icon: "cancel", path: "terminate" }
-      {
-        id: 8,
-        title: 'Voltar',
-        icon: 'arrow_back_ios',
-        path: '/personal/projects',
-      },
-    ],
-  };
 
   beforeMount() {
-    this.itens = this.menuItens.personal;
+    this.itens = menuItens.personal;
   }
 
   @Watch('$route', { immediate: true, deep: true })
   handlerRoute(to: any) {
     if (to.params && new RegExp(/\bproject\b/).test(to.path)) {
-      this.itens = this.menuItens.project;
+      this.itens = menuItens.project;
     } else {
-      this.itens = this.menuItens.personal;
+      this.itens = menuItens.personal;
     }
   }
 
@@ -84,7 +51,6 @@ export default class SideBar extends Vue {
     } else {
       this.$router.push({ path: item.path });
     }
-    this.$emit('modelSelected', item);
   }
 }
 </script>

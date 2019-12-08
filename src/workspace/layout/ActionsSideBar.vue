@@ -1,6 +1,6 @@
 <template>
-  <v-navigation-drawer v-model="show" app absolute temporary right width="300">
-    <v-app-bar fixed app :clipped-left="true" extended extension-height="7">
+  <v-navigation-drawer class="primary" v-model="show" app temporary right width="300">
+    <v-toolbar flat color="primary">
       <v-spacer></v-spacer>
       <v-btn
         icon
@@ -8,9 +8,9 @@
         v-bind:key="item.id"
         v-on:click="handle(item.action)"
       >
-        <v-icon class="primary--text">{{item.icon}}</v-icon>
+        <v-icon class="white--text">{{item.icon}}</v-icon>
       </v-btn>
-    </v-app-bar>
+    </v-toolbar>
   </v-navigation-drawer>
 </template>
 

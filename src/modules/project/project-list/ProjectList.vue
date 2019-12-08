@@ -23,7 +23,7 @@
             hide-default-footer
             @page-count="pageCount = $event"
             @click:row="goToProject"
-            height="450"
+            height="430"
           ></v-data-table>
           <div>
             <v-pagination v-model="page" :length="pageCount"></v-pagination>

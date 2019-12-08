@@ -22,9 +22,9 @@
             :items-per-page="itemsPerPage"
             hide-default-footer
             @page-count="pageCount = $event"
-            height="450"
+             height="430"
           ></v-data-table>
-          <div class="text-xs-right pt-2">
+          <div>
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
           </div>
         </v-card>

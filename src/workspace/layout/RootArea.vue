@@ -1,7 +1,8 @@
 <template>
   <v-content>
     <Toolbar :collapse.sync="collapsed" :actionsCollapsed.sync="actionsCollapsed" />
-    <SideBar :collapsed="collapsed" @modelSelected="modelSelected" />
+    <ActionsSideBar :actionsCollapsed="actionsCollapsed" />
+    <SideBar :collapsed.sync="collapsed" />
     <!-- <v-expansion-panels accordion>
         <v-expansion-panel v-for="(item,i) in 1" :key="i">
           <v-expansion-panel-header>Item</v-expansion-panel-header>
@@ -10,18 +11,22 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>-->
-    <v-container fluid class="ma-0 container">
+    <v-container fluid class="ma-0 p-2 container">
+      <label class="pageTitle">{{model.title}}</label>
       <v-fade-transition mode="out-in">
         <router-view></router-view>
       </v-fade-transition>
     </v-container>
   </v-content>
-  <!-- <ActionsSideBar :actionsCollapsed="actionsCollapsed" /> -->
 </template>
 
 <style>
 .container {
   max-width: 100% !important;
+}
+.pageTitle {
+  color: #3e8f52;
+  font-size: 30px;
 }
 </style>
 
@@ -54,6 +59,7 @@ export default class RooArea extends Vue {
 
   @Watch('$route', { immediate: true, deep: true })
   handlerRoute(to: any) {
+    this.model.title = to.name
     if (
       to.params &&
       (new RegExp(/\bproject\b/).test(to.path) &&
@@ -63,10 +69,6 @@ export default class RooArea extends Vue {
     } else {
       this.project = false;
     }
-  }
-
-  modelSelected(model: any) {
-    this.model.title = model.title;
   }
 }
 </script>

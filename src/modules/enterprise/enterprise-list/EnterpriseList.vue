@@ -22,15 +22,15 @@
             :items-per-page="itemsPerPage"
             hide-default-footer
             @page-count="pageCount = $event"
-            height="450"
+            height="430"
           />
-          <div class="text-xs-right pt-2">
+          <div>
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
           </div>
         </v-card>
       </v-col>
     </v-row>
-  <enterprise-register-dialog v-model="dialog"/>
+    <enterprise-register-dialog v-model="dialog" />
   </div>
 </template>
 
@@ -41,20 +41,20 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
-import EnterpriseRegisterView from '../enterprise-register/EnterpriseRegister.vue'
+import EnterpriseRegisterView from '../enterprise-register/EnterpriseRegister.vue';
 const EnterprisesRepository = RepositoryFactory.getEnterpriseRepository();
 
 @Component({
-  components:{
-    'enterprise-register-dialog':EnterpriseRegisterView
-  }
+  components: {
+    'enterprise-register-dialog': EnterpriseRegisterView,
+  },
 })
 export default class EnterpriseListView extends Vue {
   search: string = '';
   page: number = 1;
   pageCount: number = 0;
   itemsPerPage: number = 8;
-   dialog: boolean = false;
+  dialog: boolean = false;
 
   headers = [
     { text: 'Código da Empresa', value: 'id' },
