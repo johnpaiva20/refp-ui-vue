@@ -23,54 +23,58 @@
 }
 </style>
 
- <script>
-export default {
-  data() {
-    return {
-      collapse: Boolean,
-      actionsCollapsed: Boolean,
-      toolbarItens: [
-        {
-          id: 2,
-          description: 'notifications',
-          icon: 'notifications',
-          action: 'notifications',
-        },
-        {
-          id: 1,
-          description: 'logout',
-          icon: 'power_settings_new',
-          action: 'logout',
-        },
-      ],
-    };
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch('logout').then(() => {
-        this.$router.push('/');
-      });
+
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+@Component({})
+export default class Toolbar extends Vue {
+  
+  collapse: boolean;
+  actionsCollapsed: boolean;
+  toolbarItens = [
+    // {
+    //   id: 2,
+    //   description: 'notifications',
+    //   icon: 'notifications',
+    //   action: 'notifications',
+    // },
+    {
+      id: 1,
+      description: 'logout',
+      icon: 'power_settings_new',
+      action: 'logout',
     },
-    collapseDrawer() {
-      this.collapse = !this.collapse;
-      this.$emit('update:collapse', this.collapse);
-    },
-    collapseActionsDrawer() {
-      this.actionsCollapsed = !this.actionsCollapsed;
-      this.$emit('update:actionsCollapsed', this.actionsCollapsed);
-    },
-    handle(action) {
-      switch (action) {
-        case 'logout':
-          this.logout();
-          break;
-        case 'notifications':
-          this.collapseActionsDrawer();
-          break;
-      }
-    },
-  },
-};
+  ];
+
+  logout() {
+    this.$store.dispatch('logout').then(() => {
+      this.$router.push('/');
+    });
+  }
+
+  collapseDrawer() {
+    this.collapse = !this.collapse;
+    this.$emit('update:collapse', this.collapse);
+  }
+
+  collapseActionsDrawer() {
+    this.actionsCollapsed = !this.actionsCollapsed;
+    this.$emit('update:actionsCollapsed', this.actionsCollapsed);
+  }
+
+  handle(action: string) {
+    switch (action) {
+      case 'logout':
+        this.logout();
+        break;
+      case 'notifications':
+        this.collapseActionsDrawer();
+        break;
+    }
+  }
+}
 </script>
+
 
 

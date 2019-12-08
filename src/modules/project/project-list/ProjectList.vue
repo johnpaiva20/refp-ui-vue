@@ -1,31 +1,35 @@
 <template>
   <div>
     <v-row class="ma-1">
-      <div>
+      <v-col cols="3" class="ma-0 pa-0">
         <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
-      </div>
+      </v-col>
+
       <v-spacer></v-spacer>
-      <div>
+      <v-col sm="1" class="ma-0 pa-0 pl-5">
         <v-btn color="primary" @click.stop="dialog = true">Novo</v-btn>
-      </div>
+      </v-col>
     </v-row>
+
     <v-row class="ma-1">
-      <v-card>
-        <v-data-table
-          :headers="headers"
-          :items="projects"
-          :search="search"
-          :page.sync="page"
-          :items-per-page="itemsPerPage"
-          height="100%"
-          hide-default-footer
-          @page-count="pageCount = $event"
-          @click:row="goToProject"
-        ></v-data-table>
-        <div>
-          <v-pagination v-model="page" :length="pageCount"></v-pagination>
-        </div>
-      </v-card>
+      <v-col cols="12" class="ma-0 pa-0">
+        <v-card>
+          <v-data-table
+            :headers="headers"
+            :items="projects"
+            :search="search"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            hide-default-footer
+            @page-count="pageCount = $event"
+            @click:row="goToProject"
+            height="450"
+          ></v-data-table>
+          <div>
+            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+          </div>
+        </v-card>
+      </v-col>
     </v-row>
     <project-register-dialog v-model="dialog" />
   </div>

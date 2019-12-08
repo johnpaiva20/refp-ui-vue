@@ -1,24 +1,22 @@
 <template>
-  <div>
+  <v-content>
     <Toolbar :collapse.sync="collapsed" :actionsCollapsed.sync="actionsCollapsed" />
     <SideBar :collapsed="collapsed" @modelSelected="modelSelected" />
-    <v-content>
-      <!-- <v-expansion-panels accordion>
+    <!-- <v-expansion-panels accordion>
         <v-expansion-panel v-for="(item,i) in 1" :key="i">
           <v-expansion-panel-header>Item</v-expansion-panel-header>
           <v-expansion-panel-content>
             <project-info-card :project="value" />
           </v-expansion-panel-content>
         </v-expansion-panel>
-      </v-expansion-panels>-->
-      <v-container fluid class="ma-0 container">
-        <v-fade-transition mode="out-in">
-          <router-view></router-view>
-        </v-fade-transition>
-      </v-container>
-    </v-content>
-    <!-- <ActionsSideBar :actionsCollapsed="actionsCollapsed" /> -->
-  </div>
+    </v-expansion-panels>-->
+    <v-container fluid class="ma-0 container">
+      <v-fade-transition mode="out-in">
+        <router-view></router-view>
+      </v-fade-transition>
+    </v-container>
+  </v-content>
+  <!-- <ActionsSideBar :actionsCollapsed="actionsCollapsed" /> -->
 </template>
 
 <style>
@@ -27,51 +25,48 @@
 }
 </style>
 
-<script>
-import Toolbar from './Toolbar';
-import SideBar from './SideBar';
-import ActionsSideBar from './ActionsSideBar';
+
+<script lang="ts">
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { ProjectInfoCardComponent } from '../../modules/project/project-info';
+import SideBar from './SideBar.vue';
+import Toolbar from './Toolbar.vue';
 import { Project } from '../models';
-export default {
+import ActionsSideBar from './ActionsSideBar.vue';
+
+@Component({
   components: {
     Toolbar,
     SideBar,
     ActionsSideBar,
     'project-info-card': ProjectInfoCardComponent,
   },
-  watch: {
-    $route(to) {
-      this.handlerRoute(to);
-    },
-  },
-  data() {
-    return {
-      collapsed: false,
-      actionsCollapsed: false,
-      project: false,
-      root: false,
-      model: {
-        title: '',
-      },
-      value: new Project(),
-    };
-  },
-  methods: {
-    handlerRoute(to) {
-      if (
-        to.params &&
-        (new RegExp(/\bproject\b/).test(to.path) &&
-          !new RegExp(/\binfo\b/).test(to.path))
-      ) {
-        this.project = true;
-      } else {
-        this.project = false;
-      }
-    },
-    modelSelected(model) {
-      this.model.title = model.title;
-    },
-  },
-};
+})
+export default class RooArea extends Vue {
+  collapsed: Boolean = false;
+  actionsCollapsed: Boolean = false;
+  project: Boolean = false;
+  root: Boolean = false;
+  model = {
+    title: '',
+  };
+  value: Project = new Project();
+
+  @Watch('$route', { immediate: true, deep: true })
+  handlerRoute(to: any) {
+    if (
+      to.params &&
+      (new RegExp(/\bproject\b/).test(to.path) &&
+        !new RegExp(/\binfo\b/).test(to.path))
+    ) {
+      this.project = true;
+    } else {
+      this.project = false;
+    }
+  }
+
+  modelSelected(model: any) {
+    this.model.title = model.title;
+  }
+}
 </script>

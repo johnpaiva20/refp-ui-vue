@@ -1,85 +1,127 @@
 <template>
-  <div class="divPrincipal">
-    <h1 class="tituloTelaCadastro">Cadastro de Empresa</h1>
-    <b-row>
-      <b-col md="4">
-        <b-form-group id="fieldset-1" label="CNPJ" label-for="input-2">
-          <b-form-input id="input-2" v-model="enterprise.cnpj"></b-form-input>
-        </b-form-group>
-      </b-col>
-
-      <b-col md="4">
-        <b-form-group id="fieldset-1" label="Razão Social" label-for="input-3">
-          <b-form-input id="input-3" v-model="enterprise.company"></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
-
-    <b-row>
-      <b-col md="10">
-        <b-form-group id="fieldset-1" label="Nome Fantasia" label-for="input-4">
-          <b-form-input id="input-4" v-model="enterprise.trade"></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col md="2">
-        <b-form-group id="fieldset-1" label="Sigla" label-for="input-5">
-          <b-form-input id="input-5" v-model="enterprise.initials"></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
-    <b-row>
-      <div class="divBtn">
-        <v-btn color="success" @click="cancel()">Voltar</v-btn>
-        <v-btn color="success" @click="save()">Cadastrar</v-btn>
-      </div>
-    </b-row>
-  </div>
+  <v-dialog v-model="show" persistent max-width="600px">
+    <v-card>
+      <v-card-title class="headline primary white--text" primary-title>
+        Cadastro de Empresa
+        <v-spacer></v-spacer>
+        <v-btn icon @click="close()">
+          <v-icon class="white--text">close</v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-text class="pa-0">
+        <v-form class="ma-5">
+          <v-row>
+             <v-col cols="5" class="pa-0 pr-1">
+              <v-text-field
+                v-model="enterprise.cnpj"
+                label="CNPJ"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            
+               <v-col cols="3" class="pa-0 pr-1">
+              <v-text-field
+                v-model="enterprise.trade"
+                label="Sigla"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+           
+            <v-col cols="9" class="pa-0">
+              <v-text-field
+                v-model="enterprise.company"
+                label="Razão Social"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+          </v-row>
+           <v-row>
+            <v-col cols="12" class="pa-0 pr-1">
+              <v-text-field
+                v-model="enterprise.trade"
+                label="Nome Fantasia"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+            </v-row>
+        </v-form>
+      </v-card-text>
+       <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="close()">Cancelar</v-btn>
+          <v-btn color="primary" @click="save()">Salvar</v-btn>
+        </v-card-actions>
+    </v-card>
+    <!-- <v-snackbar
+      v-model="snackbar"
+      :bottom="true"
+      :multi-line="true"
+      :right="true"
+      :timeout="3000"
+      :vertical="false"
+      color="error"
+    >{{snackbar.message}}</v-snackbar>-->
+  </v-dialog>
 </template>
 
 <style>
-.divPrincipal {
-  margin-top: 90px;
-  margin-left: 15px;
-  margin-right: 15px;
-}
-.tituloTelaCadastro {
-  margin-left: 395px;
-  margin-bottom: 20px;
-  color: #bdd7c5;
-}
-.divBtn {
-  margin-left: 450px;
-  margin-top: 30px;
-}
 </style>
 
 
-<script>
+
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
-const EnterprisesRepository = RepositoryFactory.get('enterprises');
-export default {
-  data() {
-    return {
-      enterprise: {
-        id: null,
-        trade: '',
-        company: '',
-        cnpj: '',
-        initials: '',
-      },
-    };
-  },
-  methods: {
-    cancel() {
-      this.$router.push('/personal/enterprises');
-    },
-    save() {
-      EnterprisesRepository.createEnterprise(this.enterprise)
-        .then(() => {
-          this.$router.push({ path: `/personal/enterprises` });
-        })
-        .catch((error) => console.log('Error: ' + error));
-    },
-  },
-};
+import { Enterprise } from '../../../workspace/models/Enterprise';
+const EnterprisesRepository = RepositoryFactory.getEnterpriseRepository();
+
+interface Snackbar {
+  show: boolean;
+  message: string;
+}
+
+@Component({})
+export default class EnterpriseRegisterView extends Vue {
+  @Prop()
+  value: boolean;
+
+  enterprise: Enterprise = new Enterprise();
+
+  snackbar: Snackbar = { show: false, message: '' };
+
+  get show() {
+    return this.value;
+  }
+
+  set show(value) {
+    this.$emit('input', value);
+  }
+
+  cancel() {
+    this.$router.push('/personal/enterprises');
+  }
+
+  save() {
+    EnterprisesRepository.createEnterprise(this.enterprise)
+      .then(() => {
+        this.$router.push({ path: `/personal/enterprises` });
+        this.close()
+      })
+      .catch((error) => console.log('Error: ' + error));
+  }
+
+  close() {
+    this.show = false;
+  }
+}
 </script>

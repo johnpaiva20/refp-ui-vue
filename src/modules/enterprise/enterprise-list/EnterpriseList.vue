@@ -1,119 +1,83 @@
 <template>
   <div>
-    <v-layout row class="row-padding">
-      <div class="search-field">
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          label="Pesquisar"
-          outline
-          single-line
-          hide-details
-        ></v-text-field>
-      </div>
-      <v-spacer></v-spacer>
-      <div>
-        <v-btn color="primary" to="/personal/enterprises/register">Novo</v-btn>
-      </div>
-    </v-layout>
+    <v-row class="ma-1">
+      <v-col cols="3" class="ma-0 pa-0">
+        <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
+      </v-col>
 
-    <v-card class="table-position">
-      <v-data-table
-        :headers="headers"
-        :items="enterprises"
-        :search="search"
-        hide-actions
-        :pagination.sync="pagination"
-      >
-        <template v-slot:items="props">
-          <td>{{ props.item.id }}</td>
-          <td>{{ props.item.trade }}</td>
-          <td>{{ props.item.company }}</td>
-          <td>{{ props.item.cnpj }}</td>
-          <td>{{ props.item.initials}}</td>
-        </template>
-        <template v-slot:no-results>
-          <v-alert
-            :value="true"
-            color="error"
-            icon="warning"
-          >Sua pesquisa por "{{ search }}" não encontrou resultados.</v-alert>
-        </template>
-        <template v-slot:no-data>
-          <v-alert :value="true" color="primary" icon="info">Nenhuma Empresa cadastrada</v-alert>
-        </template>
-      </v-data-table>
-      <div class="text-xs-right pt-2">
-        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-      </div>
-    </v-card>
+      <v-spacer></v-spacer>
+      <v-col sm="1" class="ma-0 pa-0 pl-5">
+        <v-btn color="primary" @click.stop="dialog = true">Novo</v-btn>
+      </v-col>
+    </v-row>
+
+    <v-row class="ma-1">
+      <v-col cols="12" class="ma-0 pa-0">
+        <v-card>
+          <v-data-table
+            :headers="headers"
+            :items="enterprises"
+            :search="search"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            hide-default-footer
+            @page-count="pageCount = $event"
+            height="450"
+          />
+          <div class="text-xs-right pt-2">
+            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  <enterprise-register-dialog v-model="dialog"/>
   </div>
 </template>
 
 <style>
-.table-position {
-  top: 30px;
-}
-
-.search-field {
-  padding-left: 5px;
-}
-
-.search-field > v-text-field {
-  width: 300px;
-}
-
-.row-padding {
-  padding-left: 10px;
-  padding-right: 10px;
-}
 </style>
 
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
-const EnterprisesRepository = RepositoryFactory.get('enterprises');
-export default {
+import EnterpriseRegisterView from '../enterprise-register/EnterpriseRegister.vue'
+const EnterprisesRepository = RepositoryFactory.getEnterpriseRepository();
+
+@Component({
+  components:{
+    'enterprise-register-dialog':EnterpriseRegisterView
+  }
+})
+export default class EnterpriseListView extends Vue {
+  search: string = '';
+  page: number = 1;
+  pageCount: number = 0;
+  itemsPerPage: number = 8;
+   dialog: boolean = false;
+
+  headers = [
+    { text: 'Código da Empresa', value: 'id' },
+    { text: 'Nome Fantasia', value: 'trade' },
+    { text: 'Razão Social', value: 'company' },
+    { text: 'CNPJ', value: 'cnpj' },
+    { text: 'Sigla', value: 'initials' },
+  ];
+  enterprises = [];
+
   created() {
     this.fetch();
-  },
-  data() {
-    return {
-      search: '',
-      pagination: {},
-      headers: [
-        { text: 'Código da Empresa', value: 'id' },
-        { text: 'Nome Fantasia', value: 'trade' },
-        { text: 'Razão Social', value: 'company' },
-        { text: 'CNPJ', value: 'cnpj' },
-        { text: 'Sigla', value: 'initials' },
-      ],
-      enterprises: [],
-    };
-  },
-  methods: {
-    async fetch() {
-      EnterprisesRepository.listEnterprises().then((response) => {
-        this.enterprises = response.data;
-      });
-    },
-    goToEnterprise() {
-      const id = this.$router.currentRoute.params.id;
-      this.$router.push({ path: `/enterprise/${id}` });
-    },
-  },
-  computed: {
-    pages() {
-      if (
-        this.pagination.rowsPerPage == null ||
-        this.pagination.totalItems == null
-      )
-        return 0;
+  }
 
-      return Math.ceil(
-        this.pagination.totalItems / this.pagination.rowsPerPage
-      );
-    },
-  },
-};
+  async fetch() {
+    EnterprisesRepository.listEnterprises().then((response) => {
+      this.enterprises = response.data;
+    });
+  }
+
+  goToEnterprise() {
+    const id = this.$router.currentRoute.params.id;
+    this.$router.push({ path: `/enterprise/${id}` });
+  }
+}
 </script>
