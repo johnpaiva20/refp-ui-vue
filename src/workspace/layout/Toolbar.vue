@@ -10,13 +10,8 @@
       width="100px"
     ></b-img>
     <v-spacer></v-spacer>
-    <v-btn
-      icon
-      v-for="item in toolbarItens"
-      v-bind:key="item.id"
-      v-on:click="handle(item.action)"
-    >
-      <v-icon  class="primary--text">{{item.icon}}</v-icon>
+    <v-btn icon v-for="item in toolbarItens" v-bind:key="item.id" v-on:click="handle(item.action)">
+      <v-icon class="primary--text">{{item.icon}}</v-icon>
     </v-btn>
     <v-progress-linear slot="extension" :size="100" :indeterminate="false"></v-progress-linear>
   </v-app-bar>
@@ -33,13 +28,14 @@ export default {
   data() {
     return {
       collapse: Boolean,
+      actionsCollapsed: Boolean,
       toolbarItens: [
-        // {
-        //   id: 2,
-        //   description: 'notifications',
-        //   icon: 'notifications',
-        //   action: 'notifications',
-        // },
+        {
+          id: 2,
+          description: 'notifications',
+          icon: 'notifications',
+          action: 'notifications',
+        },
         {
           id: 1,
           description: 'logout',
@@ -59,10 +55,17 @@ export default {
       this.collapse = !this.collapse;
       this.$emit('update:collapse', this.collapse);
     },
+    collapseActionsDrawer() {
+      this.actionsCollapsed = !this.actionsCollapsed;
+      this.$emit('update:actionsCollapsed', this.actionsCollapsed);
+    },
     handle(action) {
       switch (action) {
         case 'logout':
           this.logout();
+          break;
+        case 'notifications':
+          this.collapseActionsDrawer();
           break;
       }
     },

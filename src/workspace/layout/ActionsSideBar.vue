@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="show" absolute temporary right width="300">
+  <v-navigation-drawer v-model="show" app absolute temporary right width="300">
     <v-app-bar fixed app :clipped-left="true" extended extension-height="7">
       <v-spacer></v-spacer>
       <v-btn

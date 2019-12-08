@@ -2,7 +2,6 @@
   <div>
     <Toolbar :collapse.sync="collapsed" :actionsCollapsed.sync="actionsCollapsed" />
     <SideBar :collapsed="collapsed" @modelSelected="modelSelected" />
-    <ActionsSideBar :actionsCollapsed="actionsCollapsed" />
     <v-content>
       <!-- <v-expansion-panels accordion>
         <v-expansion-panel v-for="(item,i) in 1" :key="i">
@@ -18,6 +17,7 @@
         </v-fade-transition>
       </v-container>
     </v-content>
+    <!-- <ActionsSideBar :actionsCollapsed="actionsCollapsed" /> -->
   </div>
 </template>
 
