@@ -22,7 +22,7 @@ import { Prop } from 'vue-property-decorator';
 @Component({})
 export default class ActionsSideBar extends Vue {
   @Prop()
-  actionsCollapsed: boolean;
+  collapsed: Boolean;
 
   toolbarItens = [
     {
@@ -40,7 +40,7 @@ export default class ActionsSideBar extends Vue {
   ];
 
   get show() {
-    return this.actionsCollapsed;
+    return this.collapsed;
   }
 
   set show(value) {

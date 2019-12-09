@@ -1,7 +1,7 @@
 <template>
   <v-content>
-    <Toolbar :collapse.sync="collapsed" :actionsCollapsed.sync="actionsCollapsed" />
-    <ActionsSideBar :actionsCollapsed="actionsCollapsed" />
+    <Toolbar :collapse.sync="collapsed" :opened.sync="opened" />
+    <ActionsSideBar :collapsed.sync="opened" />
     <SideBar :collapsed.sync="collapsed" />
     <!-- <v-expansion-panels accordion>
         <v-expansion-panel v-for="(item,i) in 1" :key="i">
@@ -49,7 +49,7 @@ import ActionsSideBar from './ActionsSideBar.vue';
 })
 export default class RooArea extends Vue {
   collapsed: Boolean = false;
-  actionsCollapsed: Boolean = false;
+  opened: Boolean = false;
   project: Boolean = false;
   root: Boolean = false;
   model = {

@@ -1,5 +1,5 @@
  <template>
-  <v-navigation-drawer class="primary" app clipped :mini-variant="collapsed" width="180">
+  <v-navigation-drawer class="primary" app clipped :mini-variant="show" width="180">
     <v-list dense nav>
       <v-list-item v-for="item in itens" v-bind:key="item.id" v-on:click="goToPage(item)">
         <v-list-item-icon>
@@ -42,6 +42,14 @@ export default class SideBar extends Vue {
     } else {
       this.itens = menuItens.personal;
     }
+  }
+
+   get show() {
+    return this.collapsed;
+  }
+
+  set show(value) {
+    this.$emit('input', value);
   }
 
   goToPage(item: any) {

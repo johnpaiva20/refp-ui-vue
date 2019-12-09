@@ -10,7 +10,12 @@
       width="100px"
     ></b-img>
     <v-spacer></v-spacer>
-    <v-btn icon v-for="item in toolbarItens" v-bind:key="item.id" v-on:click.stop="handle(item.action)">
+    <v-btn
+      icon
+      v-for="item in toolbarItens"
+      v-bind:key="item.id"
+      v-on:click.stop="handle(item.action)"
+    >
       <v-icon class="primary--text">{{item.icon}}</v-icon>
     </v-btn>
     <v-progress-linear slot="extension" :size="100" :indeterminate="false"></v-progress-linear>
@@ -27,25 +32,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { toolbarItens } from '../router/router';
 @Component({})
 export default class Toolbar extends Vue {
-  
   collapse: boolean;
-  actionsCollapsed: boolean;
-  toolbarItens = [
-    {
-      id: 2,
-      description: 'notifications',
-      icon: 'notifications',
-      action: 'notifications',
-    },
-    {
-      id: 1,
-      description: 'logout',
-      icon: 'power_settings_new',
-      action: 'logout',
-    },
-  ];
+  opened: boolean;
+  toolbarItens = toolbarItens;
 
   logout() {
     this.$store.dispatch('logout').then(() => {
@@ -59,8 +51,8 @@ export default class Toolbar extends Vue {
   }
 
   collapseActionsDrawer() {
-    this.actionsCollapsed = !this.actionsCollapsed;
-    this.$emit('update:actionsCollapsed', this.actionsCollapsed);
+    this.opened = true;
+    this.$emit('update:opened', true);
   }
 
   handle(action: string) {
