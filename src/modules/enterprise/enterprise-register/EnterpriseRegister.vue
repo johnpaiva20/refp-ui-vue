@@ -107,10 +107,6 @@ export default class EnterpriseRegisterView extends Vue {
     this.$emit('input', value);
   }
 
-  cancel() {
-    this.$router.push('/personal/enterprises');
-  }
-
   save() {
     EnterprisesRepository.createEnterprise(this.enterprise)
       .then(() => {

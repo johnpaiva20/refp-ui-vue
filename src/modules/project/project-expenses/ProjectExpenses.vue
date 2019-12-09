@@ -1,38 +1,35 @@
 <template>
   <div>
-    <v-layout row class="row-padding">
-      <div>
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          label="Pesquisar"
-          outline
-          single-line
-          hide-details
-          dense
-        ></v-text-field>
-      </div>
+    <v-row class="ma-1">
+      <v-col cols="3" class="ma-0 pa-0">
+        <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
+      </v-col>
+
       <v-spacer></v-spacer>
-      <div>
-        <v-btn color="primary" @click.stop="dialog = true">Adicionar</v-btn>
-      </div>
-    </v-layout>
-    <v-card class="table-position">
-      <v-data-table
-        :headers="headers"
-        :items="expenses"
-        :search="search"
-        :page.sync="page"
-        :items-per-page="itemsPerPage"
-        height="450"
-        hide-default-footer
-        @page-count="pageCount = $event"
-        @click:row="openExpense"
-      ></v-data-table>
-      <div>
-        <v-pagination v-model="page" :length="pageCount"></v-pagination>
-      </div>
-    </v-card>
+      <v-col sm="1" class="ma-0 pa-0 pl-5">
+        <v-btn color="primary" @click.stop="dialog = true">Novo</v-btn>
+      </v-col>
+    </v-row>
+    <v-row class="ma-1">
+      <v-col cols="12" class="ma-0 pa-0">
+        <v-card >
+          <v-data-table
+            :headers="headers"
+            :items="expenses"
+            :search="search"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            hide-default-footer
+            @page-count="pageCount = $event"
+            @click:row="openExpense"
+            height="430"
+          ></v-data-table>
+          <div>
+            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 

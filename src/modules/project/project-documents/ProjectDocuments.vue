@@ -1,26 +1,31 @@
 <template>
   <div>
-    <v-row class="ma-1">
-      <div>
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          label="Pesquisar"
-          outline
-          single-line
-          hide-details
-          dense
-        ></v-text-field>
-      </div>
-    </v-row>
+    <v-row>
+      <v-col cols="6" class="pb-0">
+        <v-row class="ma-1">
+          <v-col cols="6" class="ma-0 pa-0">
+            <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
+          </v-col>
+        </v-row>
 
-    <v-row class="ma-1">
-      <v-col cols="7">
-        <v-btn class="float-right" color="primary" @click.stop="dialog = true">Adicionar</v-btn>
-        <documents-expansion />
+        <v-row class="ma-1">
+          <v-col cols="12" class="ma-0 pa-0">
+            <v-btn class="float-right" color="primary" @click.stop="dialog = true">Adicionar</v-btn>
+            <documents-expansion />
+          </v-col>
+          <v-spacer></v-spacer>
+        </v-row>
       </v-col>
-      <v-spacer></v-spacer>
-      <iframe width="40%" height="500px" src="http://www.africau.edu/images/default/sample.pdf" />
+
+      <v-col cols="6" class="pl-0 pb-0">
+        <v-col cols="12" class="ma-0 pa-0">
+          <iframe
+            width="100%"
+            height="510px"
+            src="http://www.africau.edu/images/default/sample.pdf"
+          />
+        </v-col>
+      </v-col>
     </v-row>
   </div>
 </template>

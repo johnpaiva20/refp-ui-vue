@@ -22,7 +22,7 @@
             :items-per-page="itemsPerPage"
             hide-default-footer
             @page-count="pageCount = $event"
-             height="430"
+            height="430"
           ></v-data-table>
           <div>
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -30,41 +30,34 @@
         </v-card>
       </v-col>
     </v-row>
+    <member-register-dialog v-model="dialog" />
   </div>
 </template>
 
 <style>
-.table-position {
-  top: 30px;
-}
-
-.search-field {
-  padding-left: 5px;
-}
-
-.search-field > v-text-field {
-  width: 300px;
-}
-
-.row-padding {
-  padding-left: 10px;
-  padding-right: 10px;
-}
 </style>
 
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
+import MemberRegisterView from '../member-register/MemberRegister.vue';
+import { Member } from '../../../workspace/models/Member';
 const MemberRepository = RepositoryFactory.getMemberRepository();
-@Component({})
+
+@Component({
+  components: {
+    'member-register-dialog': MemberRegisterView,
+  },
+})
 export default class MemberListView extends Vue {
-  
-   search: string = '';
+  search: string = '';
   page: number = 1;
   pageCount: number = 0;
   itemsPerPage: number = 8;
   isLoading: boolean = false;
+  dialog: boolean = false;
+
   headers = [
     { text: 'Código do Membro', value: 'id' },
     { text: 'Nome', value: 'name' },
