@@ -18,29 +18,16 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-
+import { toolbarItens } from '../router/router';
 @Component({})
 export default class ActionsSideBar extends Vue {
   @Prop()
-  collapsed: Boolean;
+  value: boolean;
 
-  toolbarItens = [
-    {
-      id: 2,
-      description: 'notifications',
-      icon: 'notifications',
-      action: 'notifications',
-    },
-    {
-      id: 1,
-      description: 'logout',
-      icon: 'power_settings_new',
-      action: 'logout',
-    },
-  ];
+  toolbarItens = toolbarItens;
 
   get show() {
-    return this.collapsed;
+    return this.value;
   }
 
   set show(value) {

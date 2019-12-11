@@ -1,8 +1,6 @@
 <template>
   <v-content>
-    <Toolbar :collapse.sync="collapsed" :opened.sync="opened" />
-    <ActionsSideBar :collapsed.sync="opened" />
-    <SideBar :collapsed.sync="collapsed" />
+    <Toolbar />
     <!-- <v-expansion-panels accordion>
         <v-expansion-panel v-for="(item,i) in 1" :key="i">
           <v-expansion-panel-header>Item</v-expansion-panel-header>
@@ -26,7 +24,7 @@
 }
 .pageTitle {
   color: #3e8f52;
-  font-size: 30px;
+  font-size: 25px;
 }
 </style>
 
@@ -42,14 +40,11 @@ import ActionsSideBar from './ActionsSideBar.vue';
 @Component({
   components: {
     Toolbar,
-    SideBar,
-    ActionsSideBar,
     'project-info-card': ProjectInfoCardComponent,
   },
 })
 export default class RooArea extends Vue {
-  collapsed: Boolean = false;
-  opened: Boolean = false;
+
   project: Boolean = false;
   root: Boolean = false;
   model = {

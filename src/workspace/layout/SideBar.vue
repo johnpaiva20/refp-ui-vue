@@ -27,7 +27,7 @@ import { menuItens } from '../router/router';
 @Component({})
 export default class SideBar extends Vue {
   @Prop()
-  collapsed: Boolean;
+  value: boolean;
 
   itens: any = [];
 
@@ -44,8 +44,8 @@ export default class SideBar extends Vue {
     }
   }
 
-   get show() {
-    return this.collapsed;
+  get show() {
+    return this.value;
   }
 
   set show(value) {

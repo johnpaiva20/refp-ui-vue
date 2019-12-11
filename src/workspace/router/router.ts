@@ -81,12 +81,12 @@ export const menuItens = {
 };
 
 export const toolbarItens = [
-  // {
-  //   id: 2,
-  //   description: 'notifications',
-  //   icon: 'notifications',
-  //   action: 'notifications',
-  // },
+  {
+    id: 2,
+    description: 'notifications',
+    icon: 'notifications',
+    action: 'notifications',
+  },
   {
     id: 1,
     description: 'logout',
