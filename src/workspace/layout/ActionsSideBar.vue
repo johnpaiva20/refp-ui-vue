@@ -11,6 +11,7 @@
         <v-icon class="white--text">{{item.icon}}</v-icon>
       </v-btn>
     </v-toolbar>
+    <h1>{{component}} Leonad</h1>
   </v-navigation-drawer>
 </template>
 
@@ -24,6 +25,9 @@ export default class ActionsSideBar extends Vue {
   @Prop()
   value: boolean;
 
+  @Prop()
+  model: string;
+
   toolbarItens = toolbarItens;
 
   get show() {
@@ -32,6 +36,39 @@ export default class ActionsSideBar extends Vue {
 
   set show(value) {
     this.$emit('input', value);
+  }
+
+  get component() {
+    return this.model;
+  }
+
+  set component(value) {
+    this.$emit('input', value);
+  }
+
+  logout() {
+    this.$store.dispatch('logout').then(() => {
+      this.$router.push('/');
+    });
+  }
+
+  collapseActionsDrawer(model: string) {
+    console.log(model);
+    this.model = model
+  }
+
+  handle(action: string) {
+    switch (action) {
+      case 'logout':
+        this.logout();
+        break;
+      case 'notifications':
+        this.collapseActionsDrawer('notifications');
+        break;
+      case 'settings':
+        this.collapseActionsDrawer('settings');
+        break;
+    }
   }
 }
 </script>

@@ -25,7 +25,7 @@
       <v-progress-linear slot="extension" :size="100" :indeterminate="false"></v-progress-linear>
     </v-app-bar>
     <sidebar v-model="collapse" />
-    <actions-sidebar v-model="opened" />
+    <actions-sidebar v-model="opened" :model="model" />
   </nav>
 </template>
 
@@ -37,8 +37,6 @@
   font-size: 15px;
 }
 </style>
-
-
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
@@ -55,6 +53,7 @@ export default class Toolbar extends Vue {
   collapse: Boolean | null = null;
   opened: Boolean | null = null;
   toolbarItens = toolbarItens;
+  model: string | null = null;
 
   logout() {
     this.$store.dispatch('logout').then(() => {
@@ -66,7 +65,8 @@ export default class Toolbar extends Vue {
     this.collapse = !this.collapse;
   }
 
-  collapseActionsDrawer() {
+  collapseActionsDrawer(model: string) {
+    this.model = model;
     this.opened = !this.opened;
   }
 
@@ -76,7 +76,10 @@ export default class Toolbar extends Vue {
         this.logout();
         break;
       case 'notifications':
-        this.collapseActionsDrawer();
+        this.collapseActionsDrawer('notifications');
+        break;
+      case 'settings':
+        this.collapseActionsDrawer('settings');
         break;
     }
   }
