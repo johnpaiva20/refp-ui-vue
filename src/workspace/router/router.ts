@@ -83,19 +83,19 @@ export const menuItens = {
 export const toolbarItens = [
   // {
   //   id: 3,
-  //   desription: 'settings_applications',
+  //   desription: 'Configurações',
   //   icon: 'settings_applications',
   //   action: 'settings',
   // },
   // {
   //   id: 2,
-  //   description: 'notifications',
+  //   description: 'Notificações',
   //   icon: 'notifications',
   //   action: 'notifications',
   // },
   {
     id: 1,
-    description: 'logout',
+    description: 'Logout',
     icon: 'power_settings_new',
     action: 'logout',
   },

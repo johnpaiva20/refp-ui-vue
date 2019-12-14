@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="6" class="pb-0">
+      <v-col cols="6" class="pb-0 pt-0">
         <v-row class="ma-1">
           <v-col cols="6" class="ma-0 pa-0">
             <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
@@ -17,7 +17,7 @@
         </v-row>
       </v-col>
 
-      <v-col cols="6" class="pl-0 pb-0">
+      <v-col cols="6" class="pl-0 pb-0 pt-0">
         <v-col cols="12" class="ma-0 pa-0">
           <iframe
             width="100%"

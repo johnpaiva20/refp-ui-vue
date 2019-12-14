@@ -177,6 +177,7 @@ export default class ProjectCardComponent extends Vue {
   }
 
   close() {
+    console.log(this.$children.length)
     this.show = false;
     this.project = new Project(
       new ProjectType('PD'),

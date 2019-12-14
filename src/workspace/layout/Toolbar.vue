@@ -14,14 +14,20 @@
       <v-col cols="3" class="mr-10">
         <label class="label">Ricardo Lourenço de Souza</label>
       </v-col>
-      <v-btn
-        icon
-        v-for="item in toolbarItens"
-        v-bind:key="item.id"
-        v-on:click.stop="handle(item.action)"
-      >
-        <v-icon class="primary--text">{{item.icon}}</v-icon>
-      </v-btn>
+
+      <v-tooltip v-for="item in toolbarItens"  v-bind:key="item.id" bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            icon
+            v-on="on"
+            v-on:click.stop="handle(item.action)"
+          >
+            <v-icon class="primary--text">{{item.icon}}</v-icon>
+          </v-btn>
+        </template>
+        <span>{{item.description}}</span>
+      </v-tooltip>
+
       <v-progress-linear slot="extension" :size="100" :indeterminate="false"></v-progress-linear>
     </v-app-bar>
     <sidebar v-model="collapse" />

@@ -1,5 +1,5 @@
 <template>
-  <v-form class="ma-5">
+  <v-form  class="ma-5">
     <v-row>
       <v-col cols="3" sm="3" class="pt-0 pl-0 pb-0">
         <v-radio-group v-model="project.type.id" label="Tipo de Projeto" class="radioBox ma-0">
