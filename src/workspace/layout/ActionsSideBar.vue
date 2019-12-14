@@ -12,15 +12,27 @@
       </v-btn>
     </v-toolbar>
     <h1 class="white--text">{{component}}</h1>
+    <notification-list/>
   </v-navigation-drawer>
 </template>
+
+<style scoped>
+.backgroud{
+  background-color: #fafafa
+}
+</style>
 
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { toolbarItens } from '../router/router';
-@Component({})
+import NotificationListComponent from './NotificationListComponent.vue'
+@Component({
+  components:{
+    'notification-list':NotificationListComponent
+  }
+})
 export default class ActionsSideBar extends Vue {
   @Prop()
   value: boolean;

@@ -30,7 +30,7 @@
 
       <v-progress-linear slot="extension" :size="100" :indeterminate="false"></v-progress-linear>
     </v-app-bar>
-    <sidebar v-model="collapse" />
+    <menu-sidebar v-model="collapse" />
     <actions-sidebar v-model="opened" :model="model" />
   </nav>
 </template>
@@ -51,7 +51,7 @@ import SideBar from './SideBar.vue';
 import ActionsSideBar from './ActionsSideBar.vue';
 @Component({
   components: {
-    sidebar: SideBar,
+    'menu-sidebar': SideBar,
     'actions-sidebar': ActionsSideBar,
   },
 })

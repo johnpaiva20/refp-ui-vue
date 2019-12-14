@@ -51,12 +51,11 @@
       </v-card-text>
     </v-card>
     <v-snackbar
-      v-model="snackbar"
-      :bottom="true"
-      :multi-line="true"
-      :right="true"
+      v-model="snackbar.show"
+      bottom
+      multi-line
+      right
       :timeout="3000"
-      :vertical="false"
       color="error"
     >{{snackbar.message}}</v-snackbar>
   </v-dialog>
@@ -154,9 +153,11 @@ export default class ProjectCardComponent extends Vue {
       this.e1 = n - 1;
     }
   }
+
   isLastStep() {
     return this.e1 === this.steps.length;
   }
+  
   isFirstStep() {
     return this.e1 === 1;
   }
@@ -177,7 +178,6 @@ export default class ProjectCardComponent extends Vue {
   }
 
   close() {
-    console.log(this.$children.length)
     this.show = false;
     this.project = new Project(
       new ProjectType('PD'),
