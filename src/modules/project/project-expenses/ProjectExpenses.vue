@@ -4,7 +4,6 @@
       <v-col cols="3" class="ma-0 pa-0">
         <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
       </v-col>
-
       <v-spacer></v-spacer>
       <v-col sm="1" class="ma-0 pa-0 pl-5">
         <v-btn color="primary" @click.stop="dialog = true">Novo</v-btn>
@@ -12,7 +11,7 @@
     </v-row>
     <v-row class="ma-1">
       <v-col cols="12" class="ma-0 pa-0">
-        <v-card >
+        <v-card>
           <v-data-table
             :headers="headers"
             :items="expenses"

@@ -11,7 +11,7 @@
         <v-icon class="white--text">{{item.icon}}</v-icon>
       </v-btn>
     </v-toolbar>
-    <h1>{{component}} Leonad</h1>
+    <h1 class="white--text">{{component}}</h1>
   </v-navigation-drawer>
 </template>
 
@@ -53,8 +53,7 @@ export default class ActionsSideBar extends Vue {
   }
 
   collapseActionsDrawer(model: string) {
-    console.log(model);
-    this.model = model
+    this.model = model;
   }
 
   handle(action: string) {

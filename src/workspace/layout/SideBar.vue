@@ -33,6 +33,7 @@ export default class SideBar extends Vue {
 
   beforeMount() {
     this.itens = menuItens.personal;
+    this.handlerRoute(this.$router.currentRoute)
   }
 
   @Watch('$route', { immediate: true, deep: true })
@@ -53,12 +54,7 @@ export default class SideBar extends Vue {
   }
 
   goToPage(item: any) {
-    if (new RegExp(/\bregister\b/).test(this.$router.currentRoute.path)) {
-      this.$router.back();
-      this.$router.push({ path: item.path });
-    } else {
-      this.$router.push({ path: item.path });
-    }
+    this.$router.push({ path: item.path });
   }
 }
 </script>
