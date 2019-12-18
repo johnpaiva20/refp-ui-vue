@@ -1,36 +1,64 @@
 <template>
   <div class="background">
-    <div class="login-form-container">
-      <div class="divLogo">
-        <b-img
-          class="logo"
-          src="https://static.wixstatic.com/media/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.png/v1/fill/w_141,h_36,al_c,q_80,usm_0.66_1.00_0.01/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.webp"
-          fluid
-          alt="Responsive image"
-        ></b-img>
-      </div>
-      <b-form>
-        <b-form-group id="input-group-1" label="Usuário/Email" label-for="input-1">
-          <b-form-input id="input-1" v-model="form.username" type="text" required></b-form-input>
-        </b-form-group>
-
-        <b-form-group id="input-group-2" label="Senha" label-for="input-2">
-          <b-form-input id="input-2" v-model="form.password" type="password" required></b-form-input>
-        </b-form-group>
-      </b-form>
-      <v-btn
-        :loading="loading"
-        :disabled="loading"
-        block
-        color="#3e8f52"
-        class="white--text"
-        v-on:click="login()"
-      >Entrar</v-btn>
-      <div>
-        <h6 class="version">Versão {{appVersion}}</h6>
-      </div>
-
-    </div>
+    <v-card raised  max-width="600" height="420" max-height="450" elevation="12">
+      <v-container>
+        <v-row>
+          <v-col cols="3" class="pb-0 pr-0 pt-0">
+            <h6 class="version text-left">Versão {{appVersion}}</h6>
+          </v-col>
+        </v-row>
+        <v-row class="justify-center">
+          <b-img
+            src="https://static.wixstatic.com/media/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.png/v1/fill/w_141,h_36,al_c,q_80,usm_0.66_1.00_0.01/2e3c1d_01c80b05edac4ad89bee60d42f622cba~mv2.webp"
+            fluid
+            alt="Responsive image"
+            width="150px"
+          ></b-img>
+        </v-row>
+        <v-row class="justify-center mt-12">
+          <v-col>
+            <v-form>
+              <v-text-field
+                label="Usuário/Email"
+                placeholder="Usuário/Email"
+                v-model="form.username"
+                type="text"
+                required
+                outlined
+                dense
+              ></v-text-field>
+              <v-text-field
+                label="Senha"
+                placeholder="Senha"
+                v-model="form.password"
+                type="password"
+                required
+                outlined
+                dense
+              ></v-text-field>
+              <v-btn
+                :loading="loading"
+                :disabled="loading"
+                block
+                color="primary"
+                class="white--text"
+                v-on:click="login()"
+              >Entrar</v-btn>
+            </v-form>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-btn  text small>Esqueceu sua senha ?</v-btn>
+          </v-col>
+        </v-row>
+         <v-row>
+          <v-col >
+            <h6 class="enterprise text-right">ToStringTech © Copyright 2019.</h6>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
     <v-snackbar
       v-model="snackbar.show"
       :bottom="true"
@@ -48,32 +76,12 @@
   padding: 45px;
 }
 
-.login-form-container {
-  width: 500px;
-  height: 450px;
-  background-color: white;
-  border-radius: 20px;
-  position: relative;
-  top: 20px;
-  left: 420px;
-  padding: 45px;
-}
-
-.btn-login {
-  color: white;
-}
-
 .version {
   color: #3e8f52;
 }
-.divLogo {
-  margin-left: 25%;
-  margin-top: 20px;
-  height: 100px;
-}
-.logo {
-  height: 50px;
-  width: 180px;
+
+.enterprise{
+  font-size: 11px
 }
 </style>
 

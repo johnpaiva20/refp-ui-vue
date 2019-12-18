@@ -1,24 +1,24 @@
 <template>
-  <v-navigation-drawer class="primary" v-model="show" app temporary right width="300">
+  <v-navigation-drawer class="primary" v-model="show" app temporary right width="400">
     <v-toolbar flat color="primary">
+      <v-toolbar-title class="white--text">{{component}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
         icon
         v-for="item in toolbarItens"
         v-bind:key="item.id"
-        v-on:click="handle(item.action)"
+        v-on:click="handle(item)"
       >
         <v-icon class="white--text">{{item.icon}}</v-icon>
       </v-btn>
     </v-toolbar>
-    <h1 class="white--text">{{component}}</h1>
-    <notification-list/>
+    <notification-list />
   </v-navigation-drawer>
 </template>
 
 <style scoped>
-.backgroud{
-  background-color: #fafafa
+.backgroud {
+  background-color: #fafafa;
 }
 </style>
 
@@ -27,11 +27,11 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { toolbarItens } from '../router/router';
-import NotificationListComponent from './NotificationListComponent.vue'
+import NotificationListComponent from './NotificationListComponent.vue';
 @Component({
-  components:{
-    'notification-list':NotificationListComponent
-  }
+  components: {
+    'notification-list': NotificationListComponent,
+  },
 })
 export default class ActionsSideBar extends Vue {
   @Prop()
@@ -68,16 +68,17 @@ export default class ActionsSideBar extends Vue {
     this.model = model;
   }
 
-  handle(action: string) {
-    switch (action) {
+  handle(item: any) {
+    let description =item.description
+    switch (item.action) {
       case 'logout':
         this.logout();
         break;
       case 'notifications':
-        this.collapseActionsDrawer('notifications');
+        this.collapseActionsDrawer(description);
         break;
       case 'settings':
-        this.collapseActionsDrawer('settings');
+        this.collapseActionsDrawer(description);
         break;
     }
   }

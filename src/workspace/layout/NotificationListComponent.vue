@@ -1,5 +1,5 @@
 <template>
-  <v-alert border="left" color="indigo" dense dismissible dark>I'm an alert with a border left type info</v-alert>
+  <v-alert border="left" color="#bfbfbf" dense dismissible dark>I'm an alert with a border left type info</v-alert>
 </template>
 
 <style lang="scss">

@@ -11,17 +11,17 @@
         width="100px"
       ></b-img>
       <v-spacer></v-spacer>
-      <v-col cols="3" class="mr-10">
-        <label class="label">Ricardo Lourenço de Souza</label>
+
+      <v-col cols="3" class="mr-5">
+        <label class="text-end label d-block primary--text">Ricardo Lourenço de Souza</label>
+        <label class="text-end d-block primary--text secondary-label">Diretor Geral</label>
       </v-col>
 
-      <v-tooltip v-for="item in toolbarItens"  v-bind:key="item.id" bottom>
+      <div class="line mr-5"></div>
+
+      <v-tooltip v-for="item in toolbarItens" v-bind:key="item.id" bottom>
         <template v-slot:activator="{ on }">
-          <v-btn
-            icon
-            v-on="on"
-            v-on:click.stop="handle(item.action)"
-          >
+          <v-btn icon v-on="on" v-on:click.stop="handle(item)">
             <v-icon class="primary--text">{{item.icon}}</v-icon>
           </v-btn>
         </template>
@@ -41,6 +41,15 @@
 }
 .label {
   font-size: 15px;
+}
+.secondary-label {
+  font-size: 12px;
+}
+.line {
+  border-style: solid;
+  border-left-width: 1px;
+  border-color: #3e8f52;
+  height: 50px;
 }
 </style>
 
@@ -76,16 +85,17 @@ export default class Toolbar extends Vue {
     this.opened = !this.opened;
   }
 
-  handle(action: string) {
-    switch (action) {
+  handle(item: any) {
+    let description = item.description;
+    switch (item.action) {
       case 'logout':
         this.logout();
         break;
       case 'notifications':
-        this.collapseActionsDrawer('notifications');
+        this.collapseActionsDrawer(description);
         break;
       case 'settings':
-        this.collapseActionsDrawer('settings');
+        this.collapseActionsDrawer(description);
         break;
     }
   }
