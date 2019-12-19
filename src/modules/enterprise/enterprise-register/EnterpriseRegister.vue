@@ -9,30 +9,17 @@
         </v-btn>
       </v-card-title>
       <v-card-text class="pa-0">
-        <v-form class="ma-5">
+        <v-form ref="form" class="ma-5">
           <v-row>
-             <v-col cols="5" class="pa-0 pr-1">
-              <v-text-field
-                v-model="enterprise.cnpj"
-                label="CNPJ"
-                required
-                outlined
-                dense
-              />
+            <v-col cols="5" class="pa-0 pr-1">
+              <v-text-field v-model="enterprise.cnpj" label="CNPJ" required outlined dense />
             </v-col>
           </v-row>
           <v-row>
-            
-               <v-col cols="3" class="pa-0 pr-1">
-              <v-text-field
-                v-model="enterprise.trade"
-                label="Sigla"
-                required
-                outlined
-                dense
-              />
+            <v-col cols="3" class="pa-0 pr-1">
+              <v-text-field v-model="enterprise.initials" label="Sigla" required outlined dense />
             </v-col>
-           
+
             <v-col cols="9" class="pa-0">
               <v-text-field
                 v-model="enterprise.company"
@@ -43,7 +30,7 @@
               />
             </v-col>
           </v-row>
-           <v-row>
+          <v-row>
             <v-col cols="12" class="pa-0 pr-1">
               <v-text-field
                 v-model="enterprise.trade"
@@ -53,14 +40,14 @@
                 dense
               />
             </v-col>
-            </v-row>
+          </v-row>
         </v-form>
       </v-card-text>
-       <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="close()">Cancelar</v-btn>
-          <v-btn color="primary" @click="save()">Salvar</v-btn>
-        </v-card-actions>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" text @click="close()">Cancelar</v-btn>
+        <v-btn color="primary" @click="save()">Salvar</v-btn>
+      </v-card-actions>
     </v-card>
     <!-- <v-snackbar
       v-model="snackbar"
@@ -83,6 +70,10 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
 import { Enterprise } from '../../../workspace/models/Enterprise';
+export type VForm = Vue & {
+  validate: () => boolean;
+  reset: () => boolean;
+};
 const EnterprisesRepository = RepositoryFactory.getEnterpriseRepository();
 
 interface Snackbar {
@@ -95,7 +86,11 @@ export default class EnterpriseRegisterView extends Vue {
   @Prop()
   value: boolean;
 
-  enterprise: Enterprise = new Enterprise();
+  @Prop()
+  edit: boolean;
+
+  @Prop()
+  enterprise: Enterprise;
 
   snackbar: Snackbar = { show: false, message: '' };
 
@@ -107,11 +102,23 @@ export default class EnterpriseRegisterView extends Vue {
     this.$emit('input', value);
   }
 
+  get isEditMode() {
+    return this.edit;
+  }
+
+  set isEditMode(value) {
+    this.$emit('input', value);
+  }
+
+  get form() {
+    return this.$refs.form as VForm;
+  }
+
   save() {
     EnterprisesRepository.createEnterprise(this.enterprise)
       .then(() => {
-        this.$router.push({ path: `/personal/enterprises` });
-        this.close()
+        this.$parent.$emit('added');
+        this.close();
       })
       .catch((error) => console.log('Error: ' + error));
   }

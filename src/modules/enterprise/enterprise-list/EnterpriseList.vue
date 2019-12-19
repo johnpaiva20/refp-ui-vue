@@ -7,7 +7,7 @@
 
       <v-spacer></v-spacer>
       <v-col sm="1" class="ma-0 pa-0 pl-5">
-        <v-btn color="primary" @click.stop="dialog = true">Novo</v-btn>
+        <v-btn color="primary" @click.stop="newEnterprise">Novo</v-btn>
       </v-col>
     </v-row>
 
@@ -23,6 +23,7 @@
             hide-default-footer
             @page-count="pageCount = $event"
             height="430"
+            @click:row="openEnterprise"
           />
           <div>
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -30,7 +31,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <enterprise-register-dialog v-model="dialog" />
+    <enterprise-register-dialog v-model="dialog"  v-bind:edit="edit" v-bind:enterprise="enterprise" />
   </div>
 </template>
 
@@ -42,6 +43,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { RepositoryFactory } from '@/repositories/RepositoryFactory';
 import EnterpriseRegisterView from '../enterprise-register/EnterpriseRegister.vue';
+import { Enterprise } from '../../../workspace/models/Enterprise';
 const EnterprisesRepository = RepositoryFactory.getEnterpriseRepository();
 
 @Component({
@@ -55,6 +57,9 @@ export default class EnterpriseListView extends Vue {
   pageCount: number = 0;
   itemsPerPage: number = 8;
   dialog: boolean = false;
+  edit: boolean = false;
+
+  enterprise: Enterprise = new Enterprise();
 
   headers = [
     { text: 'Código da Empresa', value: 'id' },
@@ -69,15 +74,31 @@ export default class EnterpriseListView extends Vue {
     this.fetch();
   }
 
+  mounted() {
+    this.$on('added', () => {
+      this.fetch();
+    });
+  }
+
   async fetch() {
     EnterprisesRepository.listEnterprises().then((response) => {
       this.enterprises = response.data;
     });
   }
 
-  goToEnterprise() {
-    const id = this.$router.currentRoute.params.id;
-    this.$router.push({ path: `/enterprise/${id}` });
+  openDialog() {
+    this.dialog = true;
+  }
+
+  newEnterprise() {
+    this.enterprise = new Enterprise();
+    this.openDialog();
+  }
+
+  openEnterprise(enterprise: Enterprise) {
+    this.edit = true;
+    this.enterprise = enterprise;
+    this.openDialog();
   }
 }
 </script>
