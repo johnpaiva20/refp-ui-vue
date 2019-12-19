@@ -83,6 +83,7 @@ interface Snackbar {
 
 @Component({})
 export default class EnterpriseRegisterView extends Vue {
+  
   @Prop()
   value: boolean;
 
