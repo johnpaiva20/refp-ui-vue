@@ -10,53 +10,57 @@
       </v-card-title>
       <v-card-text class="pa-0">
         <v-form class="ma-5">
-          <v-file-input multiple label="Anexar Documento" outlined dense></v-file-input>
-          <v-col cols="2" class="pt-0 pl-2 pr-0">
-            <v-text-field type="date" label="Data" required outlined dense />
-          </v-col>
-          <v-col cols="4" class="pa-0">
-            <v-select
-              :items="segments"
-              :value="value"
-              item-text="description"
-              label="Tipo de Documento"
-              required
-              dense
-              outlined
-            />
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-textarea label="Justificativa do gasto" auto-grow outlined></v-textarea>
-          </v-col>
-          <v-col cols="3" class="pa-0">
-            <v-text-field
-              label="Número do Documento"
-              :rules="aneelIdRule"
-              required
-              outlined
-              dense
-            />
-          </v-col>
-          <v-col cols="4" class="pa-0">
-            <v-select
-              :items="segments"
-              :value="value"
-              item-text="description"
-              label="Rubrica"
-              required
-              dense
-              outlined
-            />
-          </v-col>
-           <v-col cols="3" class="pa-0">
-            <v-text-field
-              label="Valor"
-              :rules="aneelIdRule"
-              required
-              outlined
-              dense
-            />
-          </v-col>
+          <v-row>
+            <v-col cols="4" class="pa-0">
+              <v-select
+                :items="segments"
+                :value="value"
+                item-text="description"
+                label="Rubrica"
+                required
+                dense
+                outlined
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="2" class="pa-0 mr-2">
+              <v-text-field type="date" label="Data" required outlined dense />
+            </v-col>
+            <v-col cols="6" class="pa-0 mr-2">
+              <v-text-field
+                label="Número do Documento"
+                :rules="aneelIdRule"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+            <v-col class="pa-0">
+              <v-select
+                :items="segments"
+                :value="value"
+                item-text="description"
+                label="Tipo de Documento"
+                required
+                dense
+                outlined
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col class="pa-0">
+              <v-textarea label="Justificativa do gasto" auto-grow outlined></v-textarea>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6" class="pa-0 mr-2">
+              <v-file-input multiple label="Anexar Documento" outlined dense></v-file-input>
+            </v-col>
+            <v-col cols="4" class="pa-0">
+              <v-text-field label="Valor" :rules="aneelIdRule" required outlined dense />
+            </v-col>
+          </v-row>
         </v-form>
       </v-card-text>
       <v-card-actions>
