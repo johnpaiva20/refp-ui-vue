@@ -97,12 +97,12 @@ export const toolbarItens = [
     icon: 'power_settings_new',
     action: LOGOUT,
   },
-  {
-    id: 2,
-    description: 'Notificações',
-    icon: 'notifications',
-    action: 'notifications',
-  },
+  // {
+  //   id: 2,
+  //   description: 'Notificações',
+  //   icon: 'notifications',
+  //   action: 'notifications',
+  // },
   // {
   //   id: 3,
   //   description: 'Configurações',
