@@ -57,7 +57,9 @@ export default class SideBar extends Vue {
     if (item.action === SET_PERSONAL) {
       store.commit(SET_PERSONAL);
     }
-    this.$router.push({ path: item.path });
+    this.$router.push({ path: item.path }).catch((error) => {
+      console.error(error);
+    });
   }
 }
 </script>
