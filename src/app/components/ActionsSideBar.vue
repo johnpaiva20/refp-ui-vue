@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer class="primary" v-model="show" app temporary right width="400">
+  <v-navigation-drawer  v-model="show" app temporary right width="400">
     <v-toolbar flat color="primary">
       <v-toolbar-title class="white--text">{{component}}</v-toolbar-title>
       <v-spacer></v-spacer>
