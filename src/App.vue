@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import api from './workspace/api/api.config';
-import router from './workspace/router/router';
+import api from '@/common/api.service';
+import router from '@/app/navigator';
 @Component({})
 export default class App extends Vue {
   created() {
