@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show" persistent max-width="800px">
+  <v-dialog v-model="show" persistent max-width="900px">
     <v-card>
       <v-card-title class="headline primary white--text" primary-title>
         Cadastro de Membro
@@ -10,50 +10,64 @@
       </v-card-title>
       <v-card-text class="pa-0">
         <v-form class="ma-5">
-        <v-row class="mb-2">
-          <v-col cols="12" class="pa-0 pr-1">
-            <v-avatar size="160" color="primary">
-              <v-icon dark>mdi-account-circle</v-icon>
-            </v-avatar>
-          </v-col>
-        </v-row>
-          <v-row>
-            <v-col cols="12" class="pa-0 pr-1">
-              <v-text-field v-model="member.name" label="Nome Completo" required outlined dense />
+          <v-row class="mb-2">
+            <v-col class="pa-0 pr-1">
+              <v-avatar size="160" color="primary">
+                <v-icon dark>mdi-account-circle</v-icon>
+              </v-avatar>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="4" class="pa-0 pr-1">
-              <v-radio-group v-model="member.brazilian" label="Brasileiro?" class="ma-0 pa-0" row>
-                <v-radio color="primary" label="Sim" value="S"></v-radio>
-                <v-radio color="primary" label="Não" value="N"></v-radio>
-              </v-radio-group>
-            </v-col>
+            <v-col cols="9" class="pa-0 pr-1">
+              <v-row>
+                <v-col cols="5" class="pa-0 pr-1">
+                  <v-radio-group
+                    v-model="member.brazilian"
+                    label="Brasileiro?"
+                    class="ma-0 pa-0"
+                    row
+                  >
+                    <v-radio color="primary" label="Sim" value="S"></v-radio>
+                    <v-radio color="primary" label="Não" value="N"></v-radio>
+                  </v-radio-group>
+                </v-col>
+              </v-row>
 
-            <v-col cols="3" class="pa-0 pr-1">
-              <v-text-field
-                v-model="member.company"
-                :label="member.brazilian=='S'?'CPF':'Documento'"
-                required
-                outlined
-                dense
-              />
-            </v-col>
-            <v-col cols="5" class="pa-0">
-              <v-text-field v-model="member.email" label="Email" required outlined dense />
+              <v-row>
+                <v-col cols="12" class="pa-0 pr-1">
+                  <v-text-field
+                    v-model="member.name"
+                    label="Nome Completo"
+                    required
+                    outlined
+                    dense
+                  />
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col cols="9" class="pa-0 pr-1">
+                  <v-text-field
+                    v-model="member.company"
+                    :label="member.brazilian=='S'?'CPF':'Documento'"
+                    required
+                    outlined
+                    dense
+                  />
+                </v-col>
+                <v-col cols="3" class="pa-0 pr-1">
+                  <v-text-field
+                    v-model="member.trade"
+                    label="Data de Nascimento"
+                    type="date"
+                    required
+                    outlined
+                    dense
+                  />
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
+
           <v-row>
-            <v-col cols="3" class="pa-0 pr-1">
-              <v-text-field
-                v-model="member.trade"
-                label="Data de Nascimento"
-                type="date"
-                required
-                outlined
-                dense
-              />
-            </v-col>
             <v-col cols="4" class="pa-0">
               <v-select
                 v-model="member.nomination"
@@ -65,6 +79,12 @@
                 dense
                 outlined
               />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="5" class="pa-0">
+              <v-text-field v-model="member.email" label="Email" required outlined dense />
             </v-col>
           </v-row>
         </v-form>

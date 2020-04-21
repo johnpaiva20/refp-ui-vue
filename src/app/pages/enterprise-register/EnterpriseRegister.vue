@@ -2,7 +2,7 @@
   <v-dialog v-model="show" persistent max-width="600px">
     <v-card>
       <v-card-title class="headline primary white--text" primary-title>
-        {{isEditMode+" ->"+ show }}
+        {{title}}
         <v-spacer></v-spacer>
         <v-btn icon @click="close()">
           <v-icon class="white--text">close</v-icon>
@@ -89,6 +89,8 @@ export default class EnterpriseRegisterView extends Vue {
 
   @Prop()
   enterprise: Enterprise;
+
+  title: String = !this.isEditMode ? 'Cadastro de Empresa' : 'Editar Empresa';
 
   snackbar: Snackbar = { show: false, message: '' };
 
