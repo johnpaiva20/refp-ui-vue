@@ -39,7 +39,7 @@ export default new Router({
         { path: 'enterprises', component: ProjectEnterprises, name: 'Empresas' },
         { path: 'members', component: ProjectMembers, name: 'Membros' },
         { path: 'charts', component: ProjectCharts, name: 'Gráficos' },
-        { path: 'expenses', component: ProjectExpenses, name: 'Despesas' },
+        { path: 'expenses', component: ProjectExpenses, name: 'Despesas do Projeto' },
         { path: 'documents', component: ProjectDocuments, name: 'Documentos' },
         { path: 'terminate', component: ProjectTerminate, name: 'Finalizar Projeto' },
       ],
@@ -97,12 +97,12 @@ export const toolbarItens = [
     icon: 'power_settings_new',
     action: LOGOUT,
   },
-  // {
-  //   id: 2,
-  //   description: 'Notificações',
-  //   icon: 'notifications',
-  //   action: 'notifications',
-  // },
+  {
+    id: 2,
+    description: 'Notificações',
+    icon: 'notifications',
+    action: 'notifications',
+  },
   // {
   //   id: 3,
   //   description: 'Configurações',

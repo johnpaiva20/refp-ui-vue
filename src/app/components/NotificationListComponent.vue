@@ -5,7 +5,7 @@
 
       <v-divider v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
 
-      <v-list-item v-else :key="item.title">
+      <v-list-item v-else :key="item.id" @click="()=>{}">
         <v-list-item-avatar>
           <v-img :src="item.avatar"></v-img>
         </v-list-item-avatar>
@@ -26,7 +26,80 @@
 import { Component, Vue } from 'vue-property-decorator';
 @Component({})
 export default class NotificationListComponent extends Vue {
-  items = [];
+  items = [
+    { header: 'Hoje' },
+    {
+      id: 1,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    {
+      id: 2,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    {
+      id: 3,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    {
+      id: 4,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    {
+      id: 5,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    {
+      id: 6,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    { header: 'Ontem' },
+    {
+      id: 7,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    {
+      id: 8,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    {
+      id: 9,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+    {
+      id: 10,
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+      title: 'Nova Despesa ',
+      subtitle:
+        "<span class='text--primary'>José</span> &mdash; Nova despesa com viagem",
+    },
+  ];
 }
 </script>
 

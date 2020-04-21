@@ -66,6 +66,7 @@ export default class ActionsSideBar extends Vue {
 
   collapseActionsDrawer(model: string) {
     this.model = model;
+     this.show = !this.show;
   }
 
   handle(item: any) {

@@ -22,7 +22,9 @@
       <v-tooltip v-for="item in toolbarItens" v-bind:key="item.id" bottom>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on" v-on:click.stop="handle(item)">
-            <v-icon class="primary--text">{{item.icon}}</v-icon>
+            <v-badge color="red" overlap>
+              <v-icon class="primary--text">{{item.icon}}</v-icon>
+            </v-badge>
           </v-btn>
         </template>
         <span>{{item.description}}</span>
@@ -70,15 +72,17 @@ import { LOGOUT } from '../../domain/store/actions.type';
 export default class Toolbar extends Vue {
   collapse: Boolean | null = null;
   opened: Boolean | null = null;
-  toolbarItens = toolbarItens.sort((a, b) => {
-    if (a.id > b.id) {
-      return 1;
-    } else if (a.id < b.id) {
-      return -1;
-    } else {
-      return 0;
-    }
-  }).reverse();
+  toolbarItens = toolbarItens
+    .sort((a, b) => {
+      if (a.id > b.id) {
+        return 1;
+      } else if (a.id < b.id) {
+        return -1;
+      } else {
+        return 0;
+      }
+    })
+    .reverse();
   model: string | null = null;
 
   get isLoading() {
