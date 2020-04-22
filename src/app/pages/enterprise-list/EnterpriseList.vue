@@ -22,6 +22,7 @@
             :items-per-page="itemsPerPage"
             hide-default-footer
             @page-count="pageCount = $event"
+            :loading="isLoading"
             height="430"
             @click:row="openEnterprise"
           />
@@ -31,7 +32,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <enterprise-register-dialog v-model="dialog"  :edit="edit" :enterprise="enterprise" />
+    <enterprise-register-dialog v-model="dialog" :edit="edit" :enterprise="enterprise" />
   </div>
 </template>
 
@@ -43,7 +44,9 @@
 import { Component, Vue } from 'vue-property-decorator';
 import EnterpriseRegisterView from '../enterprise-register/EnterpriseRegister.vue';
 import { Enterprise } from '@/domain/entities';
-
+import { FETCH_ENTERPRISES } from '../../../domain/store/actions.type';
+import store from '@/domain/store';
+import { AxiosResponse } from 'axios';
 @Component({
   components: {
     'enterprise-register-dialog': EnterpriseRegisterView,
@@ -68,6 +71,10 @@ export default class EnterpriseListView extends Vue {
   ];
   enterprises = [];
 
+  get isLoading() {
+    return this.$store.state.enterprise.isLoadingenterprises;
+  }
+
   created() {
     this.fetch();
   }
@@ -79,9 +86,14 @@ export default class EnterpriseListView extends Vue {
   }
 
   async fetch() {
-    // EnterprisesRepository.listEnterprises().then((response) => {
-    //   this.enterprises = response.data;
-    // });
+    store
+      .dispatch(FETCH_ENTERPRISES)
+      .then((response: AxiosResponse) => {
+        this.enterprise = response.data;
+      })
+      .catch((error) => {
+        console.log('Error Loading EnterpriseS ' + error);
+      });
   }
 
   openDialog() {

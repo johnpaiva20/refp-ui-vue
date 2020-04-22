@@ -6,8 +6,9 @@ export default class MemberRepository {
   listMembers() {
     return api.get(`${resource}`);
   }
+
   createMember(member: Member) {
     return api.post(`${resource}`, member);
-
   }
+  
 };

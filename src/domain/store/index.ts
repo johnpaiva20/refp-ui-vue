@@ -4,6 +4,8 @@ import application from './application.module';
 import project from './project.module';
 import auth from './auth.module';
 import user from './user.module';
+import enterprise from './enterprise.module';
+import expense from './expense.module';
 import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
@@ -16,6 +18,8 @@ export default new Vuex.Store({
     application,
     project,
     user,
-    auth
+    auth,
+    enterprise,
+    expense
   }
 });

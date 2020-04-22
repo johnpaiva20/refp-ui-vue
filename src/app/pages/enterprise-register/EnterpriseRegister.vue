@@ -49,15 +49,14 @@
         <v-btn color="primary" @click="save()">Salvar</v-btn>
       </v-card-actions>
     </v-card>
-    <!-- <v-snackbar
-      v-model="snackbar"
-      :bottom="true"
-      :multi-line="true"
-      :right="true"
+    <v-snackbar
+      v-model="snackbar.show"
+      bottom
+      multi-line
+      right
       :timeout="3000"
-      :vertical="false"
-      color="error"
-    >{{snackbar.message}}</v-snackbar>-->
+      :color="snackbar.color"
+    >{{snackbar.message}}</v-snackbar>
   </v-dialog>
 </template>
 
@@ -69,15 +68,14 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Enterprise } from '@/domain/entities';
+import store from '@/domain/store';
+import { AxiosResponse } from 'axios';
+import { SAVE_ENTERPRISE } from '../../../domain/store/actions.type';
+import Snackbar from '../../utils/snackbar';
 export type VForm = Vue & {
   validate: () => boolean;
   reset: () => boolean;
 };
-
-interface Snackbar {
-  show: boolean;
-  message: string;
-}
 
 @Component({})
 export default class EnterpriseRegisterView extends Vue {
@@ -92,7 +90,7 @@ export default class EnterpriseRegisterView extends Vue {
 
   title: String = !this.isEditMode ? 'Cadastro de Empresa' : 'Editar Empresa';
 
-  snackbar: Snackbar = { show: false, message: '' };
+  snackbar: Snackbar = { show: false, message: '', color: 'info' };
 
   get show() {
     return this.value;
@@ -118,13 +116,28 @@ export default class EnterpriseRegisterView extends Vue {
     return this.edit === false ? 'Cadastro de Empresa' : 'Edit Item';
   }
 
-  save() {
-    // EnterprisesRepository.createEnterprise(this.enterprise)
-    //   .then(() => {
-    //     this.$parent.$emit('added');
-    //     this.close();
-    //   })
-    //   .catch((error) => console.log('Error: ' + error));
+  async save() {
+    store
+      .dispatch(SAVE_ENTERPRISE, this.enterprise)
+      .then((response: AxiosResponse) => {
+        if (response.status == 201) {
+          this.snackbar = {
+            show: true,
+            message: 'Empresa criada com sucesso',
+            color: 'success',
+          };
+          this.close();
+        } else {
+          this.snackbar = {
+            show: true,
+            message: response.data.message,
+            color: 'info',
+          };
+        }
+      })
+      .catch((error) => {
+        this.snackbar = { show: true, message: error.message, color: 'error' };
+      });
   }
 
   close() {

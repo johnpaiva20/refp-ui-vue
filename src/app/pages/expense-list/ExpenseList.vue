@@ -16,12 +16,13 @@
         <v-card>
           <v-data-table
             :headers="headers"
-            :items="members"
+            :items="expenses"
             :search="search"
             :page.sync="page"
             :items-per-page="itemsPerPage"
             hide-default-footer
             @page-count="pageCount = $event"
+           :loading="isLoading"
             height="430"
           ></v-data-table>
           <div>
@@ -43,18 +44,19 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import ExpenseRegisterView from '../expenses-register/ExpensesRegister.vue';
-
+import store from '@/domain/store';
+import { AxiosResponse } from 'axios';
+import { FETCH_EXPENSES } from '../../../domain/store/actions.type';
 @Component({
-  components:{
-    'expense-register-dialog':ExpenseRegisterView
-  }
+  components: {
+    'expense-register-dialog': ExpenseRegisterView,
+  },
 })
 export default class ExpenseList extends Vue {
   search: string = '';
   page: number = 1;
   pageCount: number = 0;
   itemsPerPage: number = 8;
-  isLoading: boolean = false;
   dialog: boolean = false;
 
   headers = [
@@ -64,20 +66,26 @@ export default class ExpenseList extends Vue {
     { text: 'Titulação', value: 'role' },
     { text: 'CPF', value: 'cpf' },
   ];
-  members = [];
+  expenses = [];
+
+  get isLoading() {
+    return this.$store.state.expense.isLoadingeExpenses;
+  }
 
   created() {
     this.fetch();
   }
 
   async fetch() {
-    // this.isLoading = true;
-    // const { data } = await MemberRepository.listMembers();
-    // this.isLoading = false;
-    // this.members = data;
+    store
+      .dispatch(FETCH_EXPENSES)
+      .then((response: AxiosResponse) => {
+        this.expenses = response.data;
+      })
+      .catch((error) => {
+        console.log('Error Loading Expenses ' + error);
+      });
   }
-
- 
 }
 </script>
 

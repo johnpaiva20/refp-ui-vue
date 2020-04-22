@@ -7,3 +7,4 @@ export * from './Enterprise';
 export * from './AccountCategory';
 export * from './ProjectEnterprise';
 export * from './Member';
+export * from './Expense';

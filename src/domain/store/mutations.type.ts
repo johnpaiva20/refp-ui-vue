@@ -1,8 +1,20 @@
-export const FETCH_PROJECTS_END = 'setProjects';
-export const FETCH_PROJECTS_START = 'setProjectsLoading';
-export const START_LOADING = 'startLoading';
-export const STOP_LOADING = 'stopLoading'
-export const SET_PROJECT = 'setProjectArea'
-export const SET_PERSONAL = 'setPersonalArea'
-export const OPEN_ACTIONS_SIDEBAR = 'openActionsSidebar'
-export const CLOSE_ACTIONS_SIDEBAR = 'closeActionsSidebar'
+export const FETCH_PROJECTS_END = 'FETCH_PROJECTS_END';
+export const FETCH_PROJECTS_START = 'FETCH_PROJECTS_START';
+
+export const FETCH_ENTERPRISES_START = 'FETCH_ENTERPRISES_START';
+export const FETCH_ENTERPRISES_END = 'FETCH_ENTERPRISES_END';
+
+export const FETCH_EXPENSE_START = 'FETCH_EXPENSE_START';
+export const FETCH_EXPENSE_END = 'FETCH_EXPENSE_END';
+
+export const FETCH_MEMBERS_START = 'FETCH_MEMBERS_START';
+export const FETCH_MEMBERS_END = 'FETCH_MEMBERS_END';
+
+export const START_LOADING = 'START_LOADING';
+export const STOP_LOADING = 'STOP_LOADING'
+
+export const SET_PROJECT = 'SET_PROJECT'
+export const SET_PERSONAL = 'SET_PERSONAL'
+
+export const OPEN_ACTIONS_SIDEBAR = 'OPEN_ACTIONS_SIDEBAR'
+export const CLOSE_ACTIONS_SIDEBAR = 'CLOSE_ACTIONS_SIDEBAR'

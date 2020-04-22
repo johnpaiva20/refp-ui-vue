@@ -1,5 +1,18 @@
-export const FETCH_PROJECTS = 'fetchProjects';
-export const FETCH_PROJECT = 'fetchProject';
-export const SAVE_PROJECT = 'saveProject';
-export const LOGIN = 'login';
-export const LOGOUT = 'logout'
+export const FETCH_PROJECTS = 'FETCH_PROJECTS';
+export const FETCH_PROJECT = 'FETCH_PROJECT';
+export const SAVE_PROJECT = 'SAVE_PROJECT';
+
+export const FETCH_EXPENSES = 'FETCH_EXPENSES';
+export const FETCH_EXPENSE = 'FETCH_EXPENSE';
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+
+export const FETCH_ENTERPRISES = 'FETCH_ENTERPRISES';
+export const FETCH_ENTERPRISE = 'FETCH_ENTERPRISE';
+export const SAVE_ENTERPRISE = 'SAVE_ENTERPRISE';
+
+export const FETCH_MEMBERS = 'FETCH_MEMBERS';
+export const FETCH_MEMBER = 'FETCH_MEMBER';
+export const SAVE_MEMBER = 'SAVE_MEMBER';
+
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT'
