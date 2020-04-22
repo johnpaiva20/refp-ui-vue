@@ -13,7 +13,6 @@ export class Project {
     id!: number;
     title!: string;
     aneelId!: string;
-    duration!: number;
     status!: ProjectStatusEnum;
     segment!: string;
     innovationPhase!: string

@@ -41,7 +41,7 @@
           <v-col cols="2" class="pt-0 pl-2 pr-0">
             <v-text-field
               type="number"
-              v-model="project.duration"
+              v-model="project.serviceOrder.duration"
               label="Duração"
               suffix="meses"
               :rules="durationRule"
