@@ -33,20 +33,30 @@ export default class ProjectInfoView extends Vue {
       .dispatch(FETCH_PROJECT, id)
       .then((response: AxiosResponse) => {
         this.project = response.data;
+
+        let end = moment(this.project.serviceOrder.begin).add(
+          this.project.serviceOrder.duration,
+          'months'
+        );
+
+        this.project.serviceOrder.end = end.toDate();
+
         let remaning = moment(moment.now()).diff(
           this.project.serviceOrder.end,
           'months',
           true
         );
+
         let complete = moment(this.project.serviceOrder.end).diff(
           this.project.serviceOrder.begin,
           'months',
           true
         );
-        this.project.topic = new Topic()
-        this.project.subtopic = new Subtopic()
+
+        this.project.topic = new Topic();
+        this.project.subtopic = new Subtopic();
         let sum = remaning + complete;
-        this.project.progress = 10;
+        this.project.progress = sum;
       })
       .catch((error) => {
         console.log('Error ' + error);

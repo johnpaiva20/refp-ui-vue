@@ -40,10 +40,10 @@ const mutations = {
     [STOP_LOADING]() {
         state.isLoading = false;
     },
-    [SET_PROJECT]() {
+    [SET_PROJECT](state: { isProject: boolean }) {
         state.isProject = true;
     },
-    [SET_PERSONAL]() {
+    [SET_PERSONAL](state: { isProject: boolean }) {
         state.isProject = false;
     },
     [OPEN_ACTIONS_SIDEBAR](){

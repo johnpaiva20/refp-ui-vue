@@ -25,7 +25,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { menuItens } from '@/app/navigator';
 import store from '../../domain/store';
-import { SET_PERSONAL } from '../../domain/store/mutations.type';
+import { SET_PERSONAL, SET_PROJECT } from '../../domain/store/mutations.type';
 @Component({})
 export default class SideBar extends Vue {
   @Prop()
@@ -57,6 +57,7 @@ export default class SideBar extends Vue {
     if (item.action === SET_PERSONAL) {
       store.commit(SET_PERSONAL);
     }
+
     this.$router.push({ path: item.path }).catch((error) => {
       console.error(error);
     });
