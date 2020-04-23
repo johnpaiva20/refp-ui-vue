@@ -22,7 +22,7 @@
             :items-per-page="itemsPerPage"
             hide-default-footer
             @page-count="pageCount = $event"
-           :loading="isLoading"
+            :loading="isLoading"
             height="430"
           ></v-data-table>
           <div>
@@ -47,6 +47,7 @@ import ExpenseRegisterView from '../expenses-register/ExpensesRegister.vue';
 import store from '@/domain/store';
 import { AxiosResponse } from 'axios';
 import { FETCH_EXPENSES } from '../../../domain/store/actions.type';
+import { Expense } from '../../../domain/entities';
 @Component({
   components: {
     'expense-register-dialog': ExpenseRegisterView,
@@ -66,7 +67,8 @@ export default class ExpenseList extends Vue {
     { text: 'Titulação', value: 'role' },
     { text: 'CPF', value: 'cpf' },
   ];
-  expenses = [];
+
+  expenses: Expense[] = [];
 
   get isLoading() {
     return this.$store.state.expense.isLoadingeExpenses;
@@ -80,7 +82,9 @@ export default class ExpenseList extends Vue {
     store
       .dispatch(FETCH_EXPENSES)
       .then((response: AxiosResponse) => {
-        this.expenses = response.data;
+        if (response.status === 200) {
+          this.expenses = response.data;
+        }
       })
       .catch((error) => {
         console.log('Error Loading Expenses ' + error);

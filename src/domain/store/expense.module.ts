@@ -1,11 +1,11 @@
 import { Pageable } from '@/data/helpers/pageable';
 import ExpenseService from '@/data/services/expenseService';
-import { Enterprise, Expense } from '../entities';
+import { Expense } from '../entities';
 import { FETCH_EXPENSE, FETCH_EXPENSES, SAVE_EXPENSE } from './actions.type';
-import { FETCH_EXPENSE_END, FETCH_EXPENSE_START, FETCH_PROJECTS_END, FETCH_PROJECTS_START, START_LOADING, STOP_LOADING } from './mutations.type';
+import { FETCH_EXPENSE_END, FETCH_EXPENSE_START, START_LOADING, STOP_LOADING } from './mutations.type';
 
 interface EXPENSE_STATE {
-    expenses: Enterprise[],
+    expenses: Expense[],
     isLoadingeExpenses: boolean,
     expensesCount: number,
     enterpriseSelected: Expense | null,
@@ -34,11 +34,11 @@ const getters = {
 
 const actions = {
     async [FETCH_EXPENSES](context: any, pageable?: Pageable) {
-        context.commit(FETCH_PROJECTS_START, { isLoadingProjects: true });
+        context.commit(FETCH_EXPENSE_START, { isLoadingeExpenses: true });
         context.commit(START_LOADING);
         try {
             const response = await expenseService.listExpenses(pageable);
-            context.commit(FETCH_PROJECTS_END, { projects: response.data, isLoadingeExpenses: false });
+            context.commit(FETCH_EXPENSE_END, { expenses: response.data, isLoadingeExpenses: false });
             context.commit(STOP_LOADING);
             return response;
         }

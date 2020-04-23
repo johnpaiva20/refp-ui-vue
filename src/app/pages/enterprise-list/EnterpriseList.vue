@@ -53,10 +53,12 @@ import { AxiosResponse } from 'axios';
   },
 })
 export default class EnterpriseListView extends Vue {
+  
   search: string = '';
-  page: number = 1;
+  page: number = 0;
   pageCount: number = 0;
   itemsPerPage: number = 8;
+  
   dialog: boolean = false;
   edit: boolean = false;
 
@@ -69,7 +71,8 @@ export default class EnterpriseListView extends Vue {
     { text: 'CNPJ', value: 'cnpj' },
     { text: 'Sigla', value: 'initials' },
   ];
-  enterprises = [];
+
+  enterprises: Enterprise[] = [];
 
   get isLoading() {
     return this.$store.state.enterprise.isLoadingenterprises;
@@ -89,7 +92,7 @@ export default class EnterpriseListView extends Vue {
     store
       .dispatch(FETCH_ENTERPRISES)
       .then((response: AxiosResponse) => {
-        this.enterprise = response.data;
+        this.enterprises = response.data;
       })
       .catch((error) => {
         console.log('Error Loading EnterpriseS ' + error);

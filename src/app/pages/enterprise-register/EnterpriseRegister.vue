@@ -46,7 +46,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="primary" text @click="close()">Cancelar</v-btn>
-        <v-btn color="primary" @click="save()">Salvar</v-btn>
+        <v-btn color="primary" @click="save()">{{saveButton}}</v-btn>
       </v-card-actions>
     </v-card>
     <v-snackbar
@@ -90,6 +90,8 @@ export default class EnterpriseRegisterView extends Vue {
 
   title: String = !this.isEditMode ? 'Cadastro de Empresa' : 'Editar Empresa';
 
+  saveButton: String = !this.isEditMode ? 'Salvar' : 'Atualizar';
+
   snackbar: Snackbar = { show: false, message: '', color: 'info' };
 
   get show() {
@@ -117,27 +119,35 @@ export default class EnterpriseRegisterView extends Vue {
   }
 
   async save() {
-    store
-      .dispatch(SAVE_ENTERPRISE, this.enterprise)
-      .then((response: AxiosResponse) => {
-        if (response.status == 201) {
+    if (!this.isEditMode) {
+      store
+        .dispatch(SAVE_ENTERPRISE, this.enterprise)
+        .then((response: AxiosResponse) => {
+          if (response.status == 201) {
+            this.snackbar = {
+              show: true,
+              message: 'Empresa criada com sucesso',
+              color: 'success',
+            };
+            this.close();
+          } else {
+            this.snackbar = {
+              show: true,
+              message: response.data.message,
+              color: 'info',
+            };
+          }
+        })
+        .catch((error) => {
           this.snackbar = {
             show: true,
-            message: 'Empresa criada com sucesso',
-            color: 'success',
+            message: error.message,
+            color: 'error',
           };
-          this.close();
-        } else {
-          this.snackbar = {
-            show: true,
-            message: response.data.message,
-            color: 'info',
-          };
-        }
-      })
-      .catch((error) => {
-        this.snackbar = { show: true, message: error.message, color: 'error' };
-      });
+        });
+    } else {
+      this.close();
+    }
   }
 
   close() {
