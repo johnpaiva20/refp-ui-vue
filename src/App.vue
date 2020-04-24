@@ -1,18 +1,36 @@
 <template>
   <v-app>
-   <router-view/>
+    <router-view />
   </v-app>
 </template>
 
-<script>
-
-export default {
-  name: "App",
-  components: {
-  },
-  data() {
-    return {
-      //
-    };
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import api from '@/common/api.service';
+import router from '@/app/navigator';
+@Component({})
+export default class App extends Vue {
+  created() {
+    api.interceptors.response.use(undefined, function(err) {
+      return new Promise(function(resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+        }
+        throw err;
+      });
+    });
+    api.interceptors.request.use(
+      function(config) {
+        let token = localStorage.getItem('token');
+        if (token) {
+          config.headers.Authorization = `${token}`;
+        }
+        return config;
+      },
+      function(error) {
+        return Promise.reject(error);
+      }
+    );
   }
-};
+}
+</script>
+
