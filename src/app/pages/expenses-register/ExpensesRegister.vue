@@ -13,13 +13,14 @@
           <v-row>
             <v-col class="pa-0 mr-2" cols="8">
               <v-autocomplete
+                v-model="expense.project"
                 outlined
                 dense
                 label="Projeto"
                 :items="projects"
                 item-text="title"
                 item-value="id"
-                 :loading="isLoading"
+                :loading="isLoading"
               >
                 <template v-slot:no-data>
                   <v-list-item>
@@ -33,7 +34,8 @@
             </v-col>
             <v-col class="pa-0">
               <v-select
-                :items="segments"
+                v-model="expense.accountCategory"
+                :items="accountCategories"
                 :value="value"
                 item-text="description"
                 label="Rubrica"
@@ -45,14 +47,28 @@
           </v-row>
           <v-row>
             <v-col cols="2" class="pa-0 mr-2">
-              <v-text-field type="date" label="Data" required outlined dense />
+              <v-text-field
+                v-model="expense.data"
+                type="date"
+                label="Data"
+                required
+                outlined
+                dense
+              />
             </v-col>
             <v-col cols="6" class="pa-0 mr-2">
-              <v-text-field label="Número do Documento" required outlined dense />
+              <v-text-field
+                label="Número do Documento"
+                v-model="expense.documentNumber"
+                required
+                outlined
+                dense
+              />
             </v-col>
             <v-col class="pa-0">
               <v-select
-                :items="segments"
+                v-model="expense.documentType"
+                :items="documentTypes"
                 :value="value"
                 item-text="description"
                 label="Tipo de Documento"
@@ -64,15 +80,20 @@
           </v-row>
           <v-row>
             <v-col class="pa-0">
-              <v-textarea label="Justificativa do gasto" auto-grow outlined></v-textarea>
+              <v-textarea
+                label="Justificativa do gasto"
+                v-model="expense.justification"
+                auto-grow
+                outlined
+              ></v-textarea>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="6" class="pa-0 mr-2">
-              <v-file-input multiple label="Anexar Documento" outlined dense></v-file-input>
+              <v-file-input multiple label="Anexar Documento" v-model="expense.file" outlined dense></v-file-input>
             </v-col>
             <v-col cols="4" class="pa-0">
-              <v-text-field label="Valor" required outlined dense />
+              <v-text-field label="Valor" v-model="expense.value" required outlined dense />
             </v-col>
           </v-row>
         </v-form>
@@ -83,15 +104,15 @@
         <v-btn color="primary" @click="save()">Salvar</v-btn>
       </v-card-actions>
     </v-card>
-    <!-- <v-snackbar
-      v-model="snackbar"
+    <v-snackbar
+      v-model="snackbar.show"
       :bottom="true"
       :multi-line="true"
       :right="true"
       :timeout="3000"
       :vertical="false"
-      color="error"
-    >{{snackbar.message}}</v-snackbar>-->
+      :color="snackbar.color"
+    >{{snackbar.message}}</v-snackbar>
   </v-dialog>
 </template> 
 
@@ -102,14 +123,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import store from '../../../domain/store';
-import { FETCH_PROJECTS } from '../../../domain/store/actions.type';
-import { Project } from '../../../domain/entities';
+import {
+  FETCH_PROJECTS,
+  SAVE_EXPENSE,
+} from '../../../domain/store/actions.type';
+import { Project, Expense } from '../../../domain/entities';
 import { AxiosResponse } from 'axios';
-
-interface Snackbar {
-  show: boolean;
-  message: string;
-}
+import Snackbar from '../../utils/snackbar';
 
 @Component({})
 export default class ExpenseRegisterView extends Vue {
@@ -117,7 +137,14 @@ export default class ExpenseRegisterView extends Vue {
   value: boolean;
 
   projects: Project[] = [];
-  segments = [{ value: 'N', description: 'Nota Fiscal' }];
+
+  documentTypes = [{ value: 'N', description: 'Nota Fiscal' }];
+
+  accountCategories = [{ value: 'V', description: 'Viagens' }];
+
+  snackbar: Snackbar = { show: false, message: '', color: 'error' };
+
+  expense: Expense = new Expense();
 
   created() {
     this.fetchProjects();
@@ -142,15 +169,37 @@ export default class ExpenseRegisterView extends Vue {
     this.$emit('input', value);
   }
 
-  save() {}
+  save() {
+    store
+      .dispatch(SAVE_EXPENSE, this.expense)
+      .then((response: AxiosResponse) => {
+        if (response.status == 201) {
+          this.snackbar = {
+            show: true,
+            message: 'Despesa Criada com sucesso',
+            color: 'success',
+          };
+          
+          this.close();
+        } else {
+          this.snackbar = {
+            show: true,
+            message: response.data.message,
+            color: 'info',
+          };
+        }
+      })
+      .catch((error) => {
+        this.snackbar = { show: true, message: error.message, color: 'error' };
+      });
+  }
 
   close() {
     this.show = false;
   }
 
-   get isLoading() {
+  get isLoading() {
     return this.$store.state.project.isLoadingProjects;
   }
-
 }
 </script>

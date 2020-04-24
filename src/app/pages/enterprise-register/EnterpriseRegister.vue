@@ -129,7 +129,10 @@ export default class EnterpriseRegisterView extends Vue {
               message: 'Empresa criada com sucesso',
               color: 'success',
             };
-            this.close();
+            this.$parent.$emit('add');
+            if (this.snackbar.show) {
+              this.close();
+            }
           } else {
             this.snackbar = {
               show: true,

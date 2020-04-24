@@ -24,7 +24,12 @@
             @page-count="pageCount = $event"
             :loading="isLoading"
             height="430"
-          ></v-data-table>
+          >
+           <template v-slot:item.data="{ item }">
+              <span>{{item.data|formatDate}}</span>
+            </template>
+          
+          </v-data-table>
           <div>
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
           </div>
@@ -61,17 +66,22 @@ export default class ExpenseList extends Vue {
   dialog: boolean = false;
 
   headers = [
-    { text: 'Código do Membro', value: 'id' },
-    { text: 'Nome', value: 'name' },
-    { text: 'Função', value: 'degree' },
-    { text: 'Titulação', value: 'role' },
-    { text: 'CPF', value: 'cpf' },
+    { text: 'Código da Despesa', value: 'id' },
+    { text: 'Número do Documento', value: 'documentNumber' },
+    { text: 'Data do Documento', value: 'data' },
+     { text: 'Valor da Despesa', value: 'value' },
   ];
 
   expenses: Expense[] = [];
 
   get isLoading() {
     return this.$store.state.expense.isLoadingeExpenses;
+  }
+
+   mounted() {
+    this.$on('added', () => {
+      this.fetch();
+    });
   }
 
   created() {
