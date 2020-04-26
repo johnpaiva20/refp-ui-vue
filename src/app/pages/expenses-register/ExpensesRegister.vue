@@ -140,7 +140,14 @@ export default class ExpenseRegisterView extends Vue {
 
   documentTypes = [{ value: 'N', description: 'Nota Fiscal' }];
 
-  accountCategories = [{ value: 'V', description: 'Viagens' }];
+  accountingCategories = [
+    { value: 'RN', description: 'Recursos Humanos' },
+    { value: 'MC', description: 'Materiais de Consumo' },
+    { value: 'MP', description: 'Materiais Permanentes e Equipamentos' },
+    { value: 'ST', description: 'Serviços de Terceiros' },
+    { value: 'VD', description: 'Viagens e Diárias' },
+    { value: 'OU', description: 'Outros' },
+  ];
 
   snackbar: Snackbar = { show: false, message: '', color: 'error' };
 
