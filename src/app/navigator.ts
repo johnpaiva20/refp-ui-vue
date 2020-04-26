@@ -67,8 +67,8 @@ export const menuItens =
       path: 'expenses'
     },
     { id: 6, title: 'Informações', icon: 'info', path: 'info', isProject: true },
-    { id: 7, title: 'Empresas', icon: 'business', path: 'enterprises', isProject: true },
-    { id: 8, title: 'Membros', icon: 'people', path: 'members', isProject: true },
+    // { id: 7, title: 'Empresas', icon: 'business', path: 'enterprises', isProject: true },
+    // { id: 8, title: 'Membros', icon: 'people', path: 'members', isProject: true },
     {
       id: 9,
       title: 'Despesas',
@@ -78,7 +78,7 @@ export const menuItens =
     },
     { id: 10, title: 'Documentos', icon: 'folder', path: 'documents', isProject: true },
     { id: 11, title: 'Gráficos', icon: 'insert_chart', path: 'charts', isProject: true },
-    { id: 12, title: 'Finalizar Projeto', icon: 'cancel', path: 'terminate', isProject: true },
+    //{ id: 12, title: 'Finalizar Projeto', icon: 'cancel', path: 'terminate', isProject: true },
     {
       id: 13,
       title: 'Voltar',

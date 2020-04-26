@@ -17,15 +17,18 @@
             :items="expenses"
             :search="search"
             :page.sync="page"
-            :items-per-page="itemsPerPage"
             hide-default-footer
             @page-count="pageCount = $event"
             @click:row="openExpense"
             height="430"
-          ></v-data-table>
-          <div>
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
-          </div>
+          >
+            <template slot="footer">
+              <td>
+                <strong>Total</strong>
+              </td>
+              <td class="text-xs-right">{{ 0 }}</td>
+            </template>
+          </v-data-table>
         </v-card>
       </v-col>
     </v-row>
@@ -43,7 +46,6 @@ export default class ProjectListView extends Vue {
   search: string = '';
   page: number = 1;
   pageCount: number = 0;
-  itemsPerPage: number = 10;
 
   expenses = [];
 

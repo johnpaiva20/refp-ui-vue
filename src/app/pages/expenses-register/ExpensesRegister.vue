@@ -25,7 +25,7 @@
                 <template v-slot:no-data>
                   <v-list-item>
                     <v-list-item-title>
-                      Procure por projetos
+                      Procure por
                       <strong>Projetos</strong>
                     </v-list-item-title>
                   </v-list-item>
@@ -35,7 +35,7 @@
             <v-col class="pa-0">
               <v-select
                 v-model="expense.accountCategory"
-                :items="accountCategories"
+                :items="accountingCategories"
                 :value="value"
                 item-text="description"
                 label="Rubrica"
@@ -79,6 +79,27 @@
             </v-col>
           </v-row>
           <v-row>
+            <v-col cols="6" class="pa-0 mr-2">
+              <v-text-field
+                label="Beneficiado"
+                v-model="expense.receiver.name"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+            <v-col cols="5" class="pa-0 mr-2">
+              <v-text-field
+                label="CNPJ/CPF"
+                v-model="expense.receiver.documentNumber"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
             <v-col class="pa-0">
               <v-textarea
                 label="Justificativa do gasto"
@@ -93,7 +114,7 @@
               <v-file-input multiple label="Anexar Documento" v-model="expense.file" outlined dense></v-file-input>
             </v-col>
             <v-col cols="4" class="pa-0">
-              <v-text-field label="Valor" v-model="expense.value" required outlined dense />
+              <v-text-field label="Valor" type="number" v-model="expense.value" required outlined dense />
             </v-col>
           </v-row>
         </v-form>
@@ -186,7 +207,7 @@ export default class ExpenseRegisterView extends Vue {
             message: 'Despesa Criada com sucesso',
             color: 'success',
           };
-          
+
           this.close();
         } else {
           this.snackbar = {
