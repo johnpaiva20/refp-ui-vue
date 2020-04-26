@@ -6,14 +6,14 @@ import { FETCH_ENTERPRISES_END, FETCH_ENTERPRISES_START, START_LOADING, STOP_LOA
 
 interface ENTERPRISE_STATE {
     enterprises: Enterprise[],
-    isLoadingenterprises: boolean,
+    isLoadingEnterprises: boolean,
     enterprisesCount: number,
     enterpriseSelected: Enterprise | null,
 }
 
 const state: ENTERPRISE_STATE = {
     enterprises: [],
-    isLoadingenterprises: false,
+    isLoadingEnterprises: false,
     enterprisesCount: 0,
     enterpriseSelected: null,
 };
@@ -27,8 +27,8 @@ const getters = {
     enterprises(state: { enterprises: Enterprise[]; }) {
         return state.enterprises;
     },
-    isLoadingenterprises(state: { isLoadingenterprises: boolean; }) {
-        return state.isLoadingenterprises;
+    isLoadingEnterprises(state: { isLoadingEnterprises: boolean; }) {
+        return state.isLoadingEnterprises;
     },
 };
 
@@ -38,7 +38,7 @@ const actions = {
         context.commit(START_LOADING);
         try {
             const response = await enterpriseService.listEnterprises(pageable);
-            context.commit(FETCH_ENTERPRISES_END, { projects: response.data, isLoadingenterprises: false });
+            context.commit(FETCH_ENTERPRISES_END, { projects: response.data, isLoadingEnterprises: false });
             context.commit(STOP_LOADING);
             return response;
         }
@@ -73,13 +73,13 @@ const actions = {
 };
 
 const mutations = {
-    [FETCH_ENTERPRISES_START](state: { isLoadingenterprises: boolean; }) {
-        state.isLoadingenterprises = true;
+    [FETCH_ENTERPRISES_START](state: { isLoadingEnterprises: boolean; }) {
+        state.isLoadingEnterprises = true;
     },
-    [FETCH_ENTERPRISES_END](state: { enterprises: any; enterprisesCount: any; isLoadingenterprises: boolean; }, { enterprises, enterprisesCount }: any) {
+    [FETCH_ENTERPRISES_END](state: { enterprises: any; enterprisesCount: any; isLoadingEnterprises: boolean; }, { enterprises, enterprisesCount }: any) {
         state.enterprises = enterprises;
         state.enterprisesCount = enterprisesCount;
-        state.isLoadingenterprises = false;
+        state.isLoadingEnterprises = false;
     },
 };
 

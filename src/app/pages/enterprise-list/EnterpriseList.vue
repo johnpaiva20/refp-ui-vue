@@ -75,7 +75,7 @@ export default class EnterpriseListView extends Vue {
   enterprises: Enterprise[] = [];
 
   get isLoading() {
-    return this.$store.state.enterprise.isLoadingenterprises;
+    return this.$store.state.enterprise.isLoadingEnterprises;
   }
 
   created() {
