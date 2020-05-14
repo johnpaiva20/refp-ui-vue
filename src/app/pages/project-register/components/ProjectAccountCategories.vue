@@ -34,7 +34,14 @@ export default class ProjectCardComponent extends Vue {
   project: Project;
 
   total = 0;
-  accountingCategories = [];
+  accountingCategories = [
+    { id: 'RN', description: 'Recursos Humanos' },
+    { id: 'MC', description: 'Materiais de Consumo' },
+    { id: 'MP', description: 'Materiais Permanentes e Equipamentos' },
+    { id: 'ST', description: 'Serviços de Terceiros' },
+    { id: 'VD', description: 'Viagens e Diárias' },
+    { id: 'OU', description: 'Outros' },
+  ];
   currencyMask = '###.###.###.###,##';
 
   created() {
