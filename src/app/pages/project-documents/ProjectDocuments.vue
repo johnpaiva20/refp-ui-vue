@@ -3,15 +3,18 @@
     <v-row>
       <v-col cols="6" class="pb-0 pt-0">
         <v-row class="ma-1">
-          <v-col cols="6" class="ma-0 pa-0">
+          <v-col cols="12" class="ma-0 pa-0">
             <v-text-field v-model="search" append-icon="search" label="Pesquisar" outlined dense></v-text-field>
           </v-col>
         </v-row>
 
         <v-row class="ma-1">
-          <v-col cols="12" class="ma-0 pa-0">
-            <v-btn class="float-right" color="primary" @click.stop="dialog = true">Adicionar</v-btn>
+          <v-col cols="10" class="ma-0 pa-0">
+            <v-file-input multiple label="Anexar Documento" @click.stop="dialog = true"></v-file-input>
             <documents-expansion />
+          </v-col>
+          <v-col cols="2" class="ma-0 pa-0">
+            <v-btn color="success" dark>Salvar</v-btn>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -34,16 +37,16 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import { DocumentsExpansionComponent } from './components';
+import Vue from "vue";
+import Component from "vue-class-component";
+import { DocumentsExpansionComponent } from "./components";
 @Component({
   components: {
-    'documents-expansion': DocumentsExpansionComponent,
-  },
+    "documents-expansion": DocumentsExpansionComponent
+  }
 })
 export default class ProjectDocumentsListView extends Vue {
-  search: string = '';
+  search: string = "";
 }
 </script>
 
