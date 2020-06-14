@@ -1,7 +1,7 @@
 import { Pageable } from '@/data/helpers/pageable';
 import EnterpriseService from '@/data/services/enterpriseService';
 import { Enterprise } from '../entities';
-import { FETCH_ENTERPRISE, FETCH_ENTERPRISES, SAVE_ENTERPRISE } from './actions.type';
+import { FETCH_ENTERPRISE, FETCH_ENTERPRISES, SAVE_ENTERPRISE, FETCH_PROJECT_ENTERPRISES } from './actions.type';
 import { FETCH_ENTERPRISES_END, FETCH_ENTERPRISES_START, START_LOADING, STOP_LOADING } from './mutations.type';
 
 interface ENTERPRISE_STATE {
@@ -9,6 +9,7 @@ interface ENTERPRISE_STATE {
     isLoadingEnterprises: boolean,
     enterprisesCount: number,
     enterpriseSelected: Enterprise | null,
+    projectEnterprises: Enterprise[]
 }
 
 const state: ENTERPRISE_STATE = {
@@ -16,6 +17,7 @@ const state: ENTERPRISE_STATE = {
     isLoadingEnterprises: false,
     enterprisesCount: 0,
     enterpriseSelected: null,
+    projectEnterprises:[]
 };
 
 const enterpriseService = new EnterpriseService();
@@ -29,6 +31,9 @@ const getters = {
     },
     isLoadingEnterprises(state: { isLoadingEnterprises: boolean; }) {
         return state.isLoadingEnterprises;
+    },
+    projectEnterprises(state: { projectEnterprises: Enterprise[]; }) {
+        return state.projectEnterprises;
     },
 };
 
@@ -51,6 +56,17 @@ const actions = {
         context.commit(START_LOADING);
         try {
             const response = await enterpriseService.getEnterpriseById(id);
+            context.commit(STOP_LOADING);
+            return response;
+        } catch (error) {
+            context.commit(STOP_LOADING);
+            throw new Error(error);
+        }
+    },
+    async [FETCH_PROJECT_ENTERPRISES](context: any, id: number) {
+        context.commit(START_LOADING);
+        try {
+            const response = await enterpriseService.getEnterpriseByProjectId(id);
             context.commit(STOP_LOADING);
             return response;
         } catch (error) {

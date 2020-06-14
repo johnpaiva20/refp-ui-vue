@@ -1,9 +1,13 @@
 import { Pageable } from '../helpers/pageable';
 import { Enterprise } from '@/domain/entities';
 import EnterpriseRepository from '../repositories/EnterpriseRepository';
+import ProjectRespository from '../repositories/ProjectsRepository';
 
 export default class EnterpriseService {
     enterpriseRespository: EnterpriseRepository = new EnterpriseRepository();
+
+    projectRepository:ProjectRespository = new ProjectRespository();
+    
     createEnterprise(enterprise: Enterprise) {
         return this.enterpriseRespository.createEnterprise(enterprise);
     }
@@ -13,4 +17,9 @@ export default class EnterpriseService {
     listEnterprises(pageable: Pageable | undefined) {
         return this.enterpriseRespository.listEnterprises();
     }
+
+    getEnterpriseByProjectId(id: number) {
+        return this.projectRepository.listProjectEnterprises(id);
+    }
+
 }

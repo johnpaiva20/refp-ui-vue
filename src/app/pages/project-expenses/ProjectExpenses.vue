@@ -26,12 +26,16 @@
               <td>
                 <strong>Total</strong>
               </td>
-              <td class="text-xs-right">{{ 0 }}</td>
+              <td class="text-xs-right">{{ this.sum() }}</td>
+              <td>
+                <v-btn color="primary"  :href="report()" >Imprimir relatorio</v-btn>
+              </td>
             </template>
           </v-data-table>
         </v-card>
       </v-col>
     </v-row>
+      <expense-register-dialog v-model="dialog" />
   </div>
 </template>
 
@@ -39,15 +43,25 @@
 </style>
 
 <script lang="ts">
+import ExpenseRegisterView from '../expenses-register/ExpensesRegister.vue';
 import Vue from 'vue';
 import Component from 'vue-class-component';
-@Component({})
+import { Expense } from '../../../domain/entities';
+import store from '@/domain/store';
+import { AxiosResponse } from 'axios';
+import { FETCH_PROJECT_EXPENSES } from '../../../domain/store/actions.type';
+const baseURL = `${process.env.VUE_APP_BASE_API_URL}`;
+@Component({
+   components: {
+    'expense-register-dialog': ExpenseRegisterView,
+  },
+})
 export default class ProjectListView extends Vue {
   search: string = '';
   page: number = 1;
   pageCount: number = 0;
-
-  expenses = [];
+  dialog: boolean = false;
+  expenses: Expense[] = [];
 
   headers = [
     { text: 'Data', value: 'aneelId', width: '1%' },
@@ -57,6 +71,37 @@ export default class ProjectListView extends Vue {
     { text: 'Valor', value: 'serviceOrder', width: '1%' },
   ];
 
+  created() {
+    this.fetch();
+  }
+
+  async fetch() {
+    var projectId = this.$route.params.id;
+    store
+      .dispatch(FETCH_PROJECT_EXPENSES, projectId)
+      .then((response: AxiosResponse) => {
+        this.expenses = response.data;
+      })
+      .catch((error) => {
+        console.log('Error Loading Projects ' + error);
+      });
+  }
+
   openExpense(value: any) {}
+
+  sum() {
+    var sum = 0;
+    this.expenses.forEach((e) => {
+      sum += e.value;
+    });
+    return sum;
+  }
+
+  report(){
+    var projectId = this.$route.params.id;
+    var reportUrl = baseURL+`/report?projetoId=${projectId}`
+    console.log(baseURL+`/report?projetoId=${projectId}`)
+    return reportUrl;
+  }
 }
 </script>
