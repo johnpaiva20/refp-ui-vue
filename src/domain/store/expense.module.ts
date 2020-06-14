@@ -1,7 +1,7 @@
 import { Pageable } from '@/data/helpers/pageable';
 import ExpenseService from '@/data/services/expenseService';
 import { Expense } from '../entities';
-import { FETCH_EXPENSE, FETCH_EXPENSES, SAVE_EXPENSE } from './actions.type';
+import { FETCH_EXPENSE, FETCH_EXPENSES, SAVE_EXPENSE, FETCH_PROJECT_EXPENSES } from './actions.type';
 import { FETCH_EXPENSE_END, FETCH_EXPENSE_START, START_LOADING, STOP_LOADING } from './mutations.type';
 
 interface EXPENSE_STATE {
@@ -9,6 +9,7 @@ interface EXPENSE_STATE {
     isLoadingeExpenses: boolean,
     expensesCount: number,
     enterpriseSelected: Expense | null,
+    projectsExpenses: Expense[];
 }
 
 const state: EXPENSE_STATE = {
@@ -16,6 +17,7 @@ const state: EXPENSE_STATE = {
     isLoadingeExpenses: false,
     expensesCount: 0,
     enterpriseSelected: null,
+    projectsExpenses: [],
 };
 
 const expenseService = new ExpenseService();
@@ -29,6 +31,9 @@ const getters = {
     },
     isLoadingeExpenses(state: { isLoadingeExpenses: boolean; }) {
         return state.isLoadingeExpenses;
+    },
+    projectsExpenses(state: { projectsExpenses: Expense[]; }) {
+        return state.projectsExpenses;
     },
 };
 
@@ -51,6 +56,17 @@ const actions = {
         context.commit(START_LOADING);
         try {
             const response = await expenseService.getExpensesById(id);
+            context.commit(STOP_LOADING);
+            return response;
+        } catch (error) {
+            context.commit(STOP_LOADING);
+            throw new Error(error);
+        }
+    },
+    async [FETCH_PROJECT_EXPENSES](context: any, id: number) {
+        context.commit(START_LOADING);
+        try {
+            const response = await expenseService.getExpensesByProjectId(id);
             context.commit(STOP_LOADING);
             return response;
         } catch (error) {
