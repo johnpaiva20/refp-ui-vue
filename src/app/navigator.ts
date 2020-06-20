@@ -29,7 +29,8 @@ export default new Router({
         { path: 'members', component: MemberList, name: 'Lista de Membros' },
         { path: 'auditorship', component: ProjectList, name: 'Auditoria' },
         { path: 'accounting', component: ProjectList, name: 'Contabilidade' },
-        { path: 'expenses', component: ExpenseList, name: 'Despesas' }
+        { path: 'expenses', component: ExpenseList, name: 'Despesas' },
+        { path: 'reports', component: ExpenseList, name: 'Relatorios' }
       ],
     },
     {
@@ -86,6 +87,12 @@ export const menuItens =
       path: '/personal/projects',
       action: SET_PERSONAL,
       isProject: true
+    },
+    {
+      id: 14,
+      title: 'Relatórios',
+      icon: 'assignment',
+      path: 'reports'
     },
   ];
 

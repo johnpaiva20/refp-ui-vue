@@ -26,16 +26,19 @@
               <td>
                 <strong>Total</strong>
               </td>
-              <td class="text-xs-right">{{ this.sum() }}</td>
+              <td class="text-xs-right">R${{ this.sum() }}</td>
               <td>
                 <v-btn color="primary"  :href="report()" >Imprimir relatorio</v-btn>
               </td>
+            </template>
+             <template v-slot:item.data="{ item }">
+              <span>{{item.data|formatDate}}</span>
             </template>
           </v-data-table>
         </v-card>
       </v-col>
     </v-row>
-      <expense-register-dialog v-model="dialog" />
+      <expense-register-dialog v-model="dialog" isProject=false />
   </div>
 </template>
 
@@ -63,12 +66,12 @@ export default class ProjectListView extends Vue {
   dialog: boolean = false;
   expenses: Expense[] = [];
 
-  headers = [
-    { text: 'Data', value: 'aneelId', width: '1%' },
-    { text: 'Tipo do Documento', value: 'title', width: '1%' },
-    { text: 'Número do Documento', value: 'start', width: '1%' },
-    { text: 'Beneficiado', value: 'duration', width: '1%' },
-    { text: 'Valor', value: 'serviceOrder', width: '1%' },
+ headers = [
+    { text: 'Código da Despesa', value: 'id' },
+    { text: 'Data', value: 'data',  },
+    { text: 'Número do Documento', value: 'documentNumber',  },
+    { text: 'Beneficiado', value: 'receiver.name',  },
+    { text: 'Valor R$', value: 'value', },
   ];
 
   created() {
@@ -83,7 +86,7 @@ export default class ProjectListView extends Vue {
         this.expenses = response.data;
       })
       .catch((error) => {
-        console.log('Error Loading Projects ' + error);
+        console.log('Error Loading Projects expenses ' + error);
       });
   }
 

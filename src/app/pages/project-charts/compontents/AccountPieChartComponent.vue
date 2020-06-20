@@ -1,6 +1,6 @@
 <template>
   <v-card width="380" height="300">
-    <v-card-title class="headline primary white--text" primary-title>Previsto X Realizado</v-card-title>
+    <v-card-title class="headline primary white--text" primary-title>Despesas consolidadas</v-card-title>
     <v-card-text>
       <apexchart type="pie" width="380" :options="chartOptions" :series="series" />
     </v-card-text>

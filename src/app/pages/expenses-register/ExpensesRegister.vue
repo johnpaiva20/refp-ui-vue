@@ -11,7 +11,7 @@
       <v-card-text class="pa-0">
         <v-form class="ma-5">
           <v-row>
-            <v-col class="pa-0 mr-2" cols="8">
+            <v-col class="pa-0 mr-2" cols="8" v-if="!isProject">
               <v-autocomplete
                 v-model="expense.project"
                 outlined
@@ -111,10 +111,24 @@
           </v-row>
           <v-row>
             <v-col cols="6" class="pa-0 mr-2">
-              <v-file-input multiple label="Anexar Documento" v-model="expense.file" outlined dense></v-file-input>
+              <v-file-input
+                label="Anexar Documento"
+                type="file"
+                id="file"
+                ref="file"
+                outlined
+                dense
+              ></v-file-input>
             </v-col>
             <v-col cols="4" class="pa-0">
-              <v-text-field label="Valor" type="number" v-model="expense.value" required outlined dense />
+              <v-text-field
+                label="Valor"
+                type="number"
+                v-model="expense.value"
+                required
+                outlined
+                dense
+              />
             </v-col>
           </v-row>
         </v-form>
@@ -157,6 +171,9 @@ export default class ExpenseRegisterView extends Vue {
   @Prop()
   value: boolean;
 
+  @Prop()
+  isProject: boolean;
+
   projects: Project[] = [];
 
   documentTypes = [{ value: 'N', description: 'Nota Fiscal' }];
@@ -175,7 +192,12 @@ export default class ExpenseRegisterView extends Vue {
   expense: Expense = new Expense();
 
   created() {
-    this.fetchProjects();
+    if (!this.isProject) {
+      this.fetchProjects();
+    } else {
+      var projectId = this.$route.params.id;
+      this.expense.project = Number(projectId);
+    }
   }
 
   async fetchProjects() {
@@ -228,6 +250,16 @@ export default class ExpenseRegisterView extends Vue {
 
   get isLoading() {
     return this.$store.state.project.isLoadingProjects;
+  }
+
+  onFileChanged(event: any) {
+    let files: FileList = event.target.files;
+    let result: File[] = [];
+    for (var i = 0; i < files.length; i++) {
+      result.push(<File>files.item(i));
+    }
+    console.log('leo');
+    this.expense.file = result[0];
   }
 }
 </script>

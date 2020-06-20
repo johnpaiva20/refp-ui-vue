@@ -3,7 +3,7 @@
     <v-card-title
       class="headline primary white--text"
       primary-title
-    >Rubrica X Realizado Mês</v-card-title>
+    >Evolução das despesas por rubrica</v-card-title>
     <v-card-text>
     <apexchart type="line" height="350" :options="chartOptions" :series="series" />
     </v-card-text>
