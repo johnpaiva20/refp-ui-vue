@@ -116,6 +116,7 @@
                 type="file"
                 id="file"
                 ref="file"
+                @change="onAddFiles"
                 outlined
                 dense
               ></v-file-input>
@@ -165,6 +166,7 @@ import {
 import { Project, Expense } from '../../../domain/entities';
 import { AxiosResponse } from 'axios';
 import Snackbar from '../../utils/snackbar';
+import ConverterUtil from '../../../domain/utils/converter_utils';
 
 @Component({})
 export default class ExpenseRegisterView extends Vue {
@@ -175,6 +177,8 @@ export default class ExpenseRegisterView extends Vue {
   isProject: boolean;
 
   projects: Project[] = [];
+
+  current: File;
 
   documentTypes = [{ value: 'N', description: 'Nota Fiscal' }];
 
@@ -190,6 +194,8 @@ export default class ExpenseRegisterView extends Vue {
   snackbar: Snackbar = { show: false, message: '', color: 'error' };
 
   expense: Expense = new Expense();
+
+  file: File;
 
   created() {
     if (!this.isProject) {
@@ -219,7 +225,12 @@ export default class ExpenseRegisterView extends Vue {
     this.$emit('input', value);
   }
 
-  save() {
+  async save() {
+    if (this.file) {
+      await ConverterUtil.getBase64Promise(this.file).then((data) => {
+        this.expense.file = String(data);
+      });
+    }
     store
       .dispatch(SAVE_EXPENSE, this.expense)
       .then((response: AxiosResponse) => {
@@ -252,14 +263,8 @@ export default class ExpenseRegisterView extends Vue {
     return this.$store.state.project.isLoadingProjects;
   }
 
-  onFileChanged(event: any) {
-    let files: FileList = event.target.files;
-    let result: File[] = [];
-    for (var i = 0; i < files.length; i++) {
-      result.push(<File>files.item(i));
-    }
-    console.log('leo');
-    this.expense.file = result[0];
+  onAddFiles(file: any) {
+    this.file = file;
   }
 }
 </script>
