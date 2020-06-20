@@ -103,7 +103,6 @@ export default class ProjectListView extends Vue {
   report(){
     var projectId = this.$route.params.id;
     var reportUrl = baseURL+`/report?projetoId=${projectId}`
-    console.log(baseURL+`/report?projetoId=${projectId}`)
     return reportUrl;
   }
 }
