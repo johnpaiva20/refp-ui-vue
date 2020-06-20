@@ -65,11 +65,13 @@ export default class ExpenseList extends Vue {
   itemsPerPage: number = 8;
   dialog: boolean = false;
 
+
   headers = [
     { text: 'Código da Despesa', value: 'id' },
-    { text: 'Número do Documento', value: 'documentNumber' },
-    { text: 'Data do Documento', value: 'data' },
-     { text: 'Valor da Despesa', value: 'value' },
+    { text: 'Data', value: 'data',  },
+    { text: 'Número do Documento', value: 'documentNumber',  },
+    { text: 'Beneficiado', value: 'receiver.name',  },
+    { text: 'Valor R$', value: 'value', },
   ];
 
   expenses: Expense[] = [];
