@@ -18,6 +18,14 @@ export class Project {
     innovationPhase!: string
     sharingMethod!: string
     mainEnterprise!: Enterprise;
+   
+    rbMatCons!:number;
+    rbMatPerm!:number;
+    rbOutros!:number;
+    rbRH!:number;
+    rbServTerc:number;
+    rbViaDia:number;
+
     type!: ProjectTypeEnum; 
     enterprises: ProjectEnterprise[] = [];
     accountCategories: AccountCategory[] = [];

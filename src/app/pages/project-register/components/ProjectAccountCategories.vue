@@ -35,7 +35,7 @@ export default class ProjectCardComponent extends Vue {
 
   total = 0;
   accountingCategories = [
-    { id: 'RN', description: 'Recursos Humanos' },
+    { id: 'RH', description: 'Recursos Humanos' },
     { id: 'MC', description: 'Materiais de Consumo' },
     { id: 'MP', description: 'Materiais Permanentes e Equipamentos' },
     { id: 'ST', description: 'Serviços de Terceiros' },
@@ -63,10 +63,28 @@ export default class ProjectCardComponent extends Vue {
     let sum = 0;
     this.accountingCategories.forEach((e: any) => {
       if (e.value) {
+        this.setAccountCategory2Project(e.id, e.value);
         sum += parseFloat(e.value);
       }
       this.total = sum;
     });
+  }
+
+  setAccountCategory2Project(id: string, value: number) {
+    this.project.accountCategories.push({id:id,value:value})
+    if (id === 'RH') {
+      this.project.rbRH = value;
+    } else if (id === 'MC') {
+      this.project.rbMatCons = value;
+    } else if (id === 'MP') {
+      this.project.rbMatPerm = value;
+    } else if (id === 'ST') {
+      this.project.rbServTerc = value;
+    } else if (id === 'VD') {
+      this.project.rbViaDia = value;
+    } else if (id === 'OU') {
+      this.project.rbOutros = value;
+    }
   }
 }
 </script>
