@@ -71,7 +71,11 @@ export default class ProjectCardComponent extends Vue {
   }
 
   setAccountCategory2Project(id: string, value: number) {
-    this.project.accountCategories.push({id:id,value:value})
+    if(!this.project.accountCategories.some(e => e.id === id)){
+      this.project.accountCategories= this.project.accountCategories.concat({id:id,value:value})
+    }else{
+     let category = this.project.accountCategories.find(e=> e.id == id)
+    }
     if (id === 'RH') {
       this.project.rbRH = value;
     } else if (id === 'MC') {
