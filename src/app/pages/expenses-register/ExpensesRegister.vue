@@ -228,7 +228,7 @@ export default class ExpenseRegisterView extends Vue {
   async save() {
     if (this.file) {
       await ConverterUtil.getBase64Promise(this.file).then((data) => {
-        this.expense.file = String(data);
+        this.expense.image = String(data);
       });
     }
     store

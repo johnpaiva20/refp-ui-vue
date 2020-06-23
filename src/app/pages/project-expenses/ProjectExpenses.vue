@@ -28,7 +28,7 @@
               </td>
               <td class="text-xs-right">R${{ this.sum() }}</td>
               <td>
-                <v-btn color="primary"  :href="report()" >Imprimir relatorio</v-btn>
+                <v-btn color="primary"  :href="report()" >Relatório de despesas</v-btn>
               </td>
             </template>
              <template v-slot:item.data="{ item }">

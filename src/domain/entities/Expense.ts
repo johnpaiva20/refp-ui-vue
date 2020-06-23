@@ -8,6 +8,6 @@ export class Expense {
     documentType: String
     receiver: Reciver = new Reciver();
     justification: String;
-    file: String;
+    image: String;
     value: number
 }
