@@ -11,6 +11,9 @@
         <v-row class="ma-1">
           <v-col cols="10" class="ma-0 pa-0">
             <v-file-input multiple label="Anexar Documento" @click.stop="dialog = true"></v-file-input>
+            <v-select :items="items" label="Escolha o tipo do documento" outlined>
+            </v-select>
+
             <documents-expansion />
           </v-col>
           <v-col cols="2" class="ma-0 pa-0">
@@ -40,11 +43,14 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { DocumentsExpansionComponent } from "./components";
+import Vuetify from 'vuetify';
 @Component({
   components: {
     "documents-expansion": DocumentsExpansionComponent
   }
+  
 })
+
 export default class ProjectDocumentsListView extends Vue {
   search: string = "";
 }
