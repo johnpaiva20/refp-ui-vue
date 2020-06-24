@@ -2,7 +2,7 @@
   <v-dialog v-model="show" persistent max-width="600px">
     <v-card>
       <v-card-title class="headline primary white--text" primary-title>
-        {{title}}
+        {{formTitle}}
         <v-spacer></v-spacer>
         <v-btn icon @click="close()">
           <v-icon class="white--text">close</v-icon>
@@ -12,7 +12,7 @@
         <v-form ref="form" class="ma-5">
           <v-row>
             <v-col cols="5" class="pa-0 pr-1">
-              <v-text-field v-model="enterprise.cnpj" label="CNPJ" required outlined dense />
+              <v-text-field v-model="enterprise.cnpj" :disabled="isEditMode" label="CNPJ" required outlined dense />
             </v-col>
           </v-row>
           <v-row>
@@ -115,7 +115,7 @@ export default class EnterpriseRegisterView extends Vue {
   }
 
   get formTitle() {
-    return this.edit === false ? 'Cadastro de Empresa' : 'Edit Item';
+    return this.isEditMode === false ?'Cadastro de Empresa' : 'Editar Empresa';
   }
 
   async save() {
