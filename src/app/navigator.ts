@@ -88,12 +88,12 @@ export const menuItens =
       action: SET_PERSONAL,
       isProject: true
     },
-    {
+/*    {
       id: 14,
       title: 'Relatórios',
       icon: 'assignment',
       path: 'reports'
-    },
+    }*/,
   ];
 
 

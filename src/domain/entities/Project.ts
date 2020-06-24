@@ -17,7 +17,7 @@ export class Project {
     segment!: string;
     innovationPhase!: string
     sharingMethod!: string
-    mainEnterprise!: Enterprise;
+    mainEnterprise: Enterprise = new Enterprise();
    
     rbMatCons!:number;
     rbMatPerm!:number;
