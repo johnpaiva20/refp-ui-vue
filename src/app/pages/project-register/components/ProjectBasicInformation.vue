@@ -126,7 +126,7 @@
     <v-row class="pa-0">
       <v-col class="pa-0 mr-2" cols="8">
         <v-autocomplete
-          v-model="project.mainEnterprise"
+          v-model="project.mainEnterprise.id"
           outlined
           dense
           label="Empresa Proponente"
