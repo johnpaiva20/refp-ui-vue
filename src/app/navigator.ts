@@ -53,7 +53,7 @@ export const menuItens =
   [
     { id: 1, title: 'Projetos', icon: 'tst-project', path: 'projects' },
     { id: 2, title: 'Empresas', icon: 'business', path: 'enterprises' },
-    //{ id: 3, title: 'Membros', icon: 'people', path: 'members' },
+    { id: 3, title: 'Membros', icon: 'people', path: 'members' },
     // { id: 4, title: 'Auditoria', icon: ' inbox ', path: 'auditorship' },
     // {
     //   id: 5,
@@ -68,8 +68,8 @@ export const menuItens =
       path: 'expenses'
     },
     { id: 6, title: 'Informações', icon: 'info', path: 'info', isProject: true },
-    // { id: 7, title: 'Empresas', icon: 'business', path: 'enterprises', isProject: true },
-    // { id: 8, title: 'Membros', icon: 'people', path: 'members', isProject: true },
+    { id: 7, title: 'Empresas', icon: 'business', path: 'enterprises', isProject: true },
+    { id: 8, title: 'Membros', icon: 'people', path: 'members', isProject: true },
     {
       id: 9,
       title: 'Despesas',

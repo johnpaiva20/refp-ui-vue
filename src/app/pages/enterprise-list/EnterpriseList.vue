@@ -104,6 +104,7 @@ export default class EnterpriseListView extends Vue {
   }
 
   newEnterprise() {
+    this.edit = false;
     this.enterprise = new Enterprise();
     this.openDialog();
   }
