@@ -28,6 +28,8 @@ import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { toolbarItens } from '@/app/navigator';
 import NotificationListComponent from './NotificationListComponent.vue';
+import store from '@/domain/store';
+import { LOGOUT } from '../../domain/store/actions.type';
 @Component({
   components: {
     'notification-list': NotificationListComponent,
@@ -59,7 +61,7 @@ export default class ActionsSideBar extends Vue {
   }
 
   logout() {
-    this.$store.dispatch('logout').then(() => {
+    store.dispatch(LOGOUT).then(() => {
       this.$router.push('/');
     });
   }
@@ -72,7 +74,7 @@ export default class ActionsSideBar extends Vue {
   handle(item: any) {
     let description =item.description
     switch (item.action) {
-      case 'logout':
+      case LOGOUT:
         this.logout();
         break;
       case 'notifications':
