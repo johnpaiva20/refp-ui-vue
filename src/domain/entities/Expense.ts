@@ -1,13 +1,20 @@
 import { Reciver } from './Reciver';
 
 export class Expense {
-    project: number;
-    accountCategory: String;
-    data: Date;
+    id:number
     documentNumber: String
+    recipient:String ;
+    cpfCnpj:String;
     documentType: String
-    receiver: Reciver = new Reciver();
-    justification: String;
-    image: String;
-    value: number
+    justify: String ;
+    value: number ;
+    data: Date;
+    expenseType: String;
+    status:boolean = false;
+    image: String = '';
+    projResource: Projeto = new Projeto();
+}
+
+class Projeto{
+    codigo:number
 }

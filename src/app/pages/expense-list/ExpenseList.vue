@@ -70,7 +70,7 @@ export default class ExpenseList extends Vue {
     { text: 'Código da Despesa', value: 'id' },
     { text: 'Data', value: 'data',  },
     { text: 'Número do Documento', value: 'documentNumber',  },
-    { text: 'Beneficiado', value: 'receiver.name',  },
+    { text: 'Beneficiado', value: 'recipient',  },
     { text: 'Valor R$', value: 'value', },
   ];
 
