@@ -13,7 +13,7 @@
           <v-row>
             <v-col class="pa-0 mr-2" cols="8" v-if="!isProject">
               <v-autocomplete
-                v-model="expense.project"
+                v-model="expense.projResource.codigo"
                 outlined
                 dense
                 label="Projeto"
@@ -34,7 +34,7 @@
             </v-col>
             <v-col class="pa-0">
               <v-select
-                v-model="expense.accountCategory"
+                v-model="expense.expenseType"
                 :items="accountingCategories"
                 :value="value"
                 item-text="description"
@@ -82,7 +82,7 @@
             <v-col cols="6" class="pa-0 mr-2">
               <v-text-field
                 label="Beneficiado"
-                v-model="expense.receiver.name"
+                v-model="expense.recipient"
                 required
                 outlined
                 dense
@@ -91,7 +91,7 @@
             <v-col cols="5" class="pa-0 mr-2">
               <v-text-field
                 label="CNPJ/CPF"
-                v-model="expense.receiver.documentNumber"
+                v-model="expense.cpfCnpj"
                 required
                 outlined
                 dense
@@ -103,7 +103,7 @@
             <v-col class="pa-0">
               <v-textarea
                 label="Justificativa do gasto"
-                v-model="expense.justification"
+                v-model="expense.justify"
                 auto-grow
                 outlined
               ></v-textarea>
@@ -181,10 +181,10 @@ export default class ExpenseRegisterView extends Vue {
 
   current: File;
 
-  documentTypes = [{ value: 'N', description: 'Nota Fiscal' }];
+  documentTypes = [{ value: 'NF', description: 'Nota Fiscal' }];
 
   accountingCategories = [
-    { value: 'RN', description: 'Recursos Humanos' },
+    { value: 'RH', description: 'Recursos Humanos' },
     { value: 'MC', description: 'Materiais de Consumo' },
     { value: 'MP', description: 'Materiais Permanentes e Equipamentos' },
     { value: 'ST', description: 'Serviços de Terceiros' },
@@ -203,7 +203,7 @@ export default class ExpenseRegisterView extends Vue {
       this.fetchProjects();
     } else {
       var projectId = this.$route.params.id;
-      this.expense.project = Number(projectId);
+      this.expense.projResource.codigo = Number(projectId);
     }
   }
 
@@ -252,6 +252,7 @@ export default class ExpenseRegisterView extends Vue {
         }
       })
       .catch((error) => {
+        console.log(error)
         this.snackbar = { show: true, message: error.message, color: 'error' };
       });
   }
