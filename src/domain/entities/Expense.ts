@@ -6,8 +6,8 @@ export class Expense {
     recipient:String ;
     cpfCnpj:String;
     documentType: String
-    justify: String = '';
-    value: number = 0;
+    justify: String ;
+    value: number ;
     data: Date;
     expenseType: String;
     status:boolean = false;
