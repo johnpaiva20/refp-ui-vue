@@ -119,6 +119,7 @@
                 @change="onAddFiles"
                 outlined
                 dense
+                accept="image/jpeg"
               ></v-file-input>
             </v-col>
             <v-col cols="4" class="pa-0">
@@ -228,7 +229,7 @@ export default class ExpenseRegisterView extends Vue {
   async save() {
     if (this.file) {
       await ConverterUtil.getBase64Promise(this.file).then((data) => {
-        this.expense.image = String(data);
+        this.expense.image = 'data:image/jpeg;base64,'+ String(data);
       });
     }
     store

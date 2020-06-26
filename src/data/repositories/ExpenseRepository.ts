@@ -1,6 +1,5 @@
-import api from '../../common/api.service';
-import { Enterprise } from '@/domain/entities/Enterprise';
 import { Expense } from '@/domain/entities';
+import api from '../../common/api.service';
 const resource = 'expenses';
 export default class ExpensesRepository {
 
@@ -9,7 +8,8 @@ export default class ExpensesRepository {
     }
 
     createExpenses(expense: Expense) {
-        return api.post(`${resource}`, expense);
+        return api.post(`${resource}`,
+            expense);
     }
 
     getExpensesById(id: number) {
