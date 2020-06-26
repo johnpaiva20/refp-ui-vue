@@ -27,18 +27,33 @@
                 <strong>Total</strong>
               </td>
               <td class="text-xs-right">R${{ this.sum() }}</td>
-              <td>
-                <v-btn color="primary"  :href="report()" >Relatório de despesas</v-btn>
+              <td v-if="this.expenses.length>0">
+                <v-btn  color="primary" :href="report()">Relatório de despesas</v-btn>
               </td>
+              <div>
+                <v-pagination v-model="page" :length="pageCount"></v-pagination>
+              </div>
             </template>
-             <template v-slot:item.data="{ item }">
+            <template v-slot:item.data="{ item }">
               <span>{{item.data|formatDate}}</span>
+            </template>
+            <template v-slot:item.actions="{item}">
+              <td>
+                <v-btn
+                  v-if="item.image != null && item.image != ''  "
+                  text
+                  small
+                  color="primary"
+                  target="_blank" rel="noopener noreferrer"
+                  :href="item.image"
+                >Anexo</v-btn>
+              </td>
             </template>
           </v-data-table>
         </v-card>
       </v-col>
     </v-row>
-      <expense-register-dialog v-model="dialog" isProject=false />
+    <expense-register-dialog v-model="dialog" isProject="false" />
   </div>
 </template>
 
@@ -55,7 +70,7 @@ import { AxiosResponse } from 'axios';
 import { FETCH_PROJECT_EXPENSES } from '../../../domain/store/actions.type';
 const baseURL = `${process.env.VUE_APP_BASE_API_URL}`;
 @Component({
-   components: {
+  components: {
     'expense-register-dialog': ExpenseRegisterView,
   },
 })
@@ -63,15 +78,17 @@ export default class ProjectListView extends Vue {
   search: string = '';
   page: number = 1;
   pageCount: number = 0;
+  itemsPerPage: number = 8;
   dialog: boolean = false;
   expenses: Expense[] = [];
 
- headers = [
+  headers = [
     { text: 'Código da Despesa', value: 'id' },
-    { text: 'Data', value: 'data',  },
-    { text: 'Número do Documento', value: 'documentNumber',  },
-    { text: 'Beneficiado', value: 'recipient',  },
-    { text: 'Valor R$', value: 'value', },
+    { text: 'Data', value: 'data' },
+    { text: 'Número do Documento', value: 'documentNumber' },
+    { text: 'Beneficiado', value: 'recipient' },
+    { text: 'Valor R$', value: 'value' },
+    { text: '', value: 'actions', sortable: false },
   ];
 
   created() {
@@ -79,6 +96,7 @@ export default class ProjectListView extends Vue {
   }
 
   async fetch() {
+    
     var projectId = this.$route.params.id;
     store
       .dispatch(FETCH_PROJECT_EXPENSES, projectId)
@@ -100,9 +118,9 @@ export default class ProjectListView extends Vue {
     return sum;
   }
 
-  report(){
+  report() {
     var projectId = this.$route.params.id;
-    var reportUrl = baseURL+`/report?projetoId=${projectId}`
+    var reportUrl = baseURL + `/report?projetoId=${projectId}`;
     return reportUrl;
   }
 }

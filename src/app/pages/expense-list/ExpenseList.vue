@@ -25,10 +25,22 @@
             :loading="isLoading"
             height="430"
           >
-           <template v-slot:item.data="{ item }">
+            <template v-slot:item.data="{ item }">
               <span>{{item.data|formatDate}}</span>
             </template>
-          
+            <template v-slot:item.actions="{item}">
+              <td>
+                <v-btn
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  v-if="item.image != null && item.image != ''  "
+                  text
+                  small
+                  color="primary"
+                  :href="item.image"
+                >Anexo</v-btn>
+              </td>
+            </template>
           </v-data-table>
           <div>
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -65,13 +77,13 @@ export default class ExpenseList extends Vue {
   itemsPerPage: number = 8;
   dialog: boolean = false;
 
-
   headers = [
     { text: 'Código da Despesa', value: 'id' },
-    { text: 'Data', value: 'data',  },
-    { text: 'Número do Documento', value: 'documentNumber',  },
-    { text: 'Beneficiado', value: 'recipient',  },
-    { text: 'Valor R$', value: 'value', },
+    { text: 'Data', value: 'data' },
+    { text: 'Número do Documento', value: 'documentNumber' },
+    { text: 'Beneficiado', value: 'recipient' },
+    { text: 'Valor R$', value: 'value' },
+    { text: '', value: 'actions', sortable: false },
   ];
 
   expenses: Expense[] = [];
@@ -80,7 +92,7 @@ export default class ExpenseList extends Vue {
     return this.$store.state.expense.isLoadingeExpenses;
   }
 
-   mounted() {
+  mounted() {
     this.$on('added', () => {
       this.fetch();
     });
