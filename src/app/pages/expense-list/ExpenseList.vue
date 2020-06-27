@@ -83,7 +83,7 @@ export default class ExpenseList extends Vue {
     { text: 'Número do Documento', value: 'documentNumber' },
     { text: 'Beneficiado', value: 'recipient' },
     { text: 'Valor R$', value: 'value' },
-    { text: 'Nota de Despesa', value: 'actions', sortable: false },
+    { text: 'Nota da Despesa', value: 'actions', sortable: false },
   ];
 
   expenses: Expense[] = [];
