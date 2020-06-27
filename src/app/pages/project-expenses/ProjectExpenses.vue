@@ -88,7 +88,7 @@ export default class ProjectListView extends Vue {
     { text: 'Número do Documento', value: 'documentNumber' },
     { text: 'Beneficiado', value: 'recipient' },
     { text: 'Valor R$', value: 'value' },
-    { text: '', value: 'actions', sortable: false },
+    { text: 'Nota da Despesa', value: 'actions', sortable: false },
   ];
 
   created() {
