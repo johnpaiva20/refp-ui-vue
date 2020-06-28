@@ -37,7 +37,7 @@ export default class ProjectInfoView extends Vue {
         let end = moment(this.project.serviceOrder.begin).add(
           this.project.serviceOrder.duration,
           'months'
-        );
+        ).add('day',1);
 
         this.project.serviceOrder.end = end.toDate();
 
