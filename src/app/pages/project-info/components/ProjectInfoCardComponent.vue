@@ -76,7 +76,7 @@
               :width="15"
               :value="project.progress"
               color="primary"
-            >{{ project.progress }}% Concluído</v-progress-circular>
+            >{{ project.progress.toFixed(2) }}% Concluído</v-progress-circular>
           </v-flex>
         </v-row>
         <v-row>
@@ -89,7 +89,7 @@
         </v-row>
         <v-row>
           <v-flex shrink pt-0>
-            <v-col v-if="project.topic">
+            <v-col v-if="project.topic.description">
               <v-row>
                 <v-flex shrink pa-0>
                   <v-col class="pt-0 pb-0">

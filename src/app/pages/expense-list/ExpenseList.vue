@@ -78,7 +78,8 @@ export default class ExpenseList extends Vue {
   dialog: boolean = false;
 
   headers = [
-    { text: 'Código da Despesa', value: 'id' },
+    { text: 'Código ANEEL', value: 'projResource.codigoAneel' },
+    { text: 'Título do Projeto', value: 'projResource.titulo' },
     { text: 'Data', value: 'data' },
     { text: 'Número do Documento', value: 'documentNumber' },
     { text: 'Beneficiado', value: 'recipient' },

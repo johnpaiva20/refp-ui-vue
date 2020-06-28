@@ -9,8 +9,11 @@
           <label class="labelConfirmation">Título do Projeto</label>
           <h6>{{project.title||"Não Informado"}}</h6>
 
-          <label class="labelConfirmation">Tema</label>
-          <h6>{{project.topic.id||"Não Informado"}}</h6>
+          <label v-if="project.topic.id" class="labelConfirmation">Tema</label>
+          <h6 v-if="project.topic.id">{{project.topic.id||"Não Informado"}}</h6>
+
+          <label v-if="project.mainEnterprise.id" class="labelConfirmation">Empresa Proponente</label>
+          <h6 v-if="project.mainEnterprise.id">{{project.mainEnterprise.id||"Não Informado"}}</h6>
 
           <label class="labelConfirmation">Segmento</label>
           <h6>{{project.segment||"Não Informado"}}</h6>
@@ -27,8 +30,8 @@
           <label></label>
           <h6></h6>
 
-          <label class="labelConfirmation">Subtema</label>
-          <h6>{{project.subtopic.id||"Não Informado"}}</h6>
+          <label v-if="project.subtopic.id" class="labelConfirmation">Subtema</label>
+          <h6  v-if="project.subtopic.id">{{project.subtopic.id||"Não Informado"}}</h6>
 
           <label class="labelConfirmation">Produto</label>
           <h6>{{project.product.type.id||"Não Informado"}}</h6>
