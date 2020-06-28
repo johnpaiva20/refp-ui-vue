@@ -17,4 +17,6 @@ export class Expense {
 
 class Projeto{
     codigo:number
+    codigoAneel:String
+    titulo:String
 }

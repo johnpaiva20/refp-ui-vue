@@ -83,7 +83,7 @@ export default class ProjectListView extends Vue {
   expenses: Expense[] = [];
 
   headers = [
-    { text: 'Código da Despesa', value: 'id' },
+    //{ text: 'Código da Despesa', value: 'id' },
     { text: 'Data', value: 'data' },
     { text: 'Número do Documento', value: 'documentNumber' },
     { text: 'Beneficiado', value: 'recipient' },

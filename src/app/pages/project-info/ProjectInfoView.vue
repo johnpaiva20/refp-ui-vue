@@ -10,7 +10,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { ProjectStatusEnum } from '@/domain/enums';
-import { Project, Topic, Subtopic } from '@/domain/entities';
+import { Project, Topic, Subtopic, Enterprise } from '@/domain/entities';
 import { ProjectInfoCardComponent } from './components';
 import store from '@/domain/store';
 import { AxiosResponse } from 'axios';
@@ -55,8 +55,13 @@ export default class ProjectInfoView extends Vue {
 
         this.project.topic = new Topic();
         this.project.subtopic = new Subtopic();
+        if(this.project.mainEnterprise ==null){
+          this.project.mainEnterprise = new Enterprise()
+
+        }
         let sum = remaning + complete;
         this.project.progress = sum;
+        console.log(this.project)
       })
       .catch((error) => {
         console.log('Error ' + error);
