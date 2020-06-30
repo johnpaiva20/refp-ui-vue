@@ -13,7 +13,7 @@
       <v-spacer></v-spacer>
 
       <v-col cols="3" class="mr-5">
-        <label class="text-end label d-block primary--text">{{getUser||'Usuário Teste'}}</label>
+        <label class="text-end label d-block primary--text">{{getUser||'Usuário Admin'}}</label>
         <label class="text-end d-block primary--text secondary-label">Diretor Geral</label>
       </v-col>
 

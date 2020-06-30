@@ -1,6 +1,12 @@
 <template>
   <v-card height="350">
+    <v-card-title
+      class="headline primary white--text"
+      primary-title
+    >Evolução das despesas por rubrica</v-card-title>
+    <v-card-text>
     <apexchart type="line" height="350" :options="chartOptions" :series="series" />
+    </v-card-text>
   </v-card>
 </template>
 

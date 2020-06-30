@@ -59,6 +59,10 @@ export default class ProjectRespository {
     return api.get(`${resource}/${id}/enterprises`);
   }
 
+  listProjectExpenses(id: number) {
+    return api.get(`${resource}/${id}/expenses`);
+  }
+
   listProjectMembers(id: number) {
     return api.get(`${resource}/${id}/members`);
   }

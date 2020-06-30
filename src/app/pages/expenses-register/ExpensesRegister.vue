@@ -11,9 +11,9 @@
       <v-card-text class="pa-0">
         <v-form class="ma-5">
           <v-row>
-            <v-col class="pa-0 mr-2" cols="8">
+            <v-col class="pa-0 mr-2" cols="8" v-if="!isProject">
               <v-autocomplete
-                v-model="expense.project"
+                v-model="expense.projResource.codigo"
                 outlined
                 dense
                 label="Projeto"
@@ -25,7 +25,7 @@
                 <template v-slot:no-data>
                   <v-list-item>
                     <v-list-item-title>
-                      Procure por projetos
+                      Procure por
                       <strong>Projetos</strong>
                     </v-list-item-title>
                   </v-list-item>
@@ -34,8 +34,8 @@
             </v-col>
             <v-col class="pa-0">
               <v-select
-                v-model="expense.accountCategory"
-                :items="accountCategories"
+                v-model="expense.expenseType"
+                :items="accountingCategories"
                 :value="value"
                 item-text="description"
                 label="Rubrica"
@@ -79,10 +79,31 @@
             </v-col>
           </v-row>
           <v-row>
+            <v-col cols="6" class="pa-0 mr-2">
+              <v-text-field
+                label="Beneficiado"
+                v-model="expense.recipient"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+            <v-col cols="5" class="pa-0 mr-2">
+              <v-text-field
+                label="CNPJ/CPF"
+                v-model="expense.cpfCnpj"
+                required
+                outlined
+                dense
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
             <v-col class="pa-0">
               <v-textarea
                 label="Justificativa do gasto"
-                v-model="expense.justification"
+                v-model="expense.justify"
                 auto-grow
                 outlined
               ></v-textarea>
@@ -90,10 +111,26 @@
           </v-row>
           <v-row>
             <v-col cols="6" class="pa-0 mr-2">
-              <v-file-input multiple label="Anexar Documento" v-model="expense.file" outlined dense></v-file-input>
+              <v-file-input
+                label="Anexar Documento"
+                type="file"
+                id="file"
+                ref="file"
+                @change="onAddFiles"
+                outlined
+                dense
+                accept="image/jpeg"
+              ></v-file-input>
             </v-col>
             <v-col cols="4" class="pa-0">
-              <v-text-field label="Valor" v-model="expense.value" required outlined dense />
+              <v-text-field
+                label="Valor"
+                type="number"
+                v-model="expense.value"
+                required
+                outlined
+                dense
+              />
             </v-col>
           </v-row>
         </v-form>
@@ -130,24 +167,44 @@ import {
 import { Project, Expense } from '../../../domain/entities';
 import { AxiosResponse } from 'axios';
 import Snackbar from '../../utils/snackbar';
+import ConverterUtil from '../../../domain/utils/converter_utils';
 
 @Component({})
 export default class ExpenseRegisterView extends Vue {
   @Prop()
   value: boolean;
 
+  @Prop()
+  isProject: boolean;
+
   projects: Project[] = [];
 
-  documentTypes = [{ value: 'N', description: 'Nota Fiscal' }];
+  current: File;
 
-  accountCategories = [{ value: 'V', description: 'Viagens' }];
+  documentTypes = [{ value: 'NF', description: 'Nota Fiscal' }];
+
+  accountingCategories = [
+    { value: 'RH', description: 'Recursos Humanos' },
+    { value: 'MC', description: 'Materiais de Consumo' },
+    { value: 'MP', description: 'Materiais Permanentes e Equipamentos' },
+    { value: 'ST', description: 'Serviços de Terceiros' },
+    { value: 'VD', description: 'Viagens e Diárias' },
+    { value: 'OU', description: 'Outros' },
+  ];
 
   snackbar: Snackbar = { show: false, message: '', color: 'error' };
 
   expense: Expense = new Expense();
 
+  file: File;
+
   created() {
-    this.fetchProjects();
+    if (!this.isProject) {
+      this.fetchProjects();
+    } else {
+      var projectId = this.$route.params.id;
+      this.expense.projResource.codigo = Number(projectId);
+    }
   }
 
   async fetchProjects() {
@@ -169,7 +226,12 @@ export default class ExpenseRegisterView extends Vue {
     this.$emit('input', value);
   }
 
-  save() {
+  async save() {
+    if (this.file) {
+      await ConverterUtil.getBase64Promise(this.file).then((data) => {
+        this.expense.image = 'data:image/jpeg;base64,'+ String(data);
+      });
+    }
     store
       .dispatch(SAVE_EXPENSE, this.expense)
       .then((response: AxiosResponse) => {
@@ -179,7 +241,7 @@ export default class ExpenseRegisterView extends Vue {
             message: 'Despesa Criada com sucesso',
             color: 'success',
           };
-          
+
           this.close();
         } else {
           this.snackbar = {
@@ -190,6 +252,7 @@ export default class ExpenseRegisterView extends Vue {
         }
       })
       .catch((error) => {
+        console.log(error)
         this.snackbar = { show: true, message: error.message, color: 'error' };
       });
   }
@@ -200,6 +263,10 @@ export default class ExpenseRegisterView extends Vue {
 
   get isLoading() {
     return this.$store.state.project.isLoadingProjects;
+  }
+
+  onAddFiles(file: any) {
+    this.file = file;
   }
 }
 </script>

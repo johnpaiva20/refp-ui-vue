@@ -2,7 +2,12 @@
   <v-form ref="basic" class="ma-5">
     <v-row>
       <v-col cols="3" sm="3" class="pt-0 pl-0 pb-0">
-        <v-radio-group v-model="project.type" label="Tipo de Projeto" class="radioBox ma-0" :value="project.type">
+        <v-radio-group
+          v-model="project.type"
+          label="Tipo de Projeto"
+          class="radioBox ma-0"
+          :value="project.type"
+        >
           <v-radio
             v-for="type in types"
             :key="type.id"
@@ -119,6 +124,30 @@
     </v-row>
 
     <v-row class="pa-0">
+      <v-col class="pa-0 mr-2" cols="8">
+        <v-autocomplete
+          v-model="project.mainEnterprise.id"
+          outlined
+          dense
+          label="Empresa Proponente"
+          :items="enterprises"
+          item-text="trade"
+          item-value="id"
+          :loading="isLoading"
+        >
+          <template v-slot:no-data>
+            <v-list-item>
+              <v-list-item-title>
+                Procure por empresas
+                <strong>Empresas</strong>
+              </v-list-item-title>
+            </v-list-item>
+          </template>
+        </v-autocomplete>
+      </v-col>
+    </v-row>
+
+    <v-row class="pa-0">
       <v-col class="pa-0">
         <v-select
           v-model="project.sharingType"
@@ -153,15 +182,24 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
-import { Topic, Subtopic, ProjectType, Project } from '@/domain/entities';
+import {
+  Topic,
+  Subtopic,
+  ProjectType,
+  Project,
+  Enterprise,
+} from '@/domain/entities';
 import { ProjectTypeEnum } from '../../../../domain/enums/ProjectTypeEnum';
+import store from '../../../../domain/store';
+import { AxiosResponse } from 'axios';
+import { FETCH_ENTERPRISES } from '../../../../domain/store/actions.type';
 
 @Component({})
 export default class ProjectBasicInfomationComponent extends Vue {
   @Prop()
   project: Project;
 
-  v: Function = () =>{};
+  v: Function = () => {};
   aneelIdRule = [(v: string) => !!v || 'Campo obrigatório'];
   serviceOrderRule = [(v: string) => !!v || 'Campo obrigatório'];
   titleRule = [
@@ -234,6 +272,27 @@ export default class ProjectBasicInfomationComponent extends Vue {
         'Compartilhado  entre  as  empresa(s)  de  energia  elétrica e entidade(s) executora(s)',
     },
   ];
+
+  enterprises: Enterprise[] = [];
+
+  created() {
+    this.fetchEnterprises();
+  }
+
+  async fetchEnterprises() {
+    store
+      .dispatch(FETCH_ENTERPRISES)
+      .then((response: AxiosResponse) => {
+        this.enterprises = response.data;
+      })
+      .catch((error) => {
+        console.log('Error Loading Enterprises ' + error);
+      });
+  }
+
+  get isLoading() {
+    return this.$store.state.enterprise.isLoadingEnterprises;
+  }
 }
 </script>
 

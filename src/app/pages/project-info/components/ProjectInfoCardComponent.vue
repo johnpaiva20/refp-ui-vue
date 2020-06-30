@@ -16,7 +16,7 @@
                 <v-flex class="float-right" shrink pa-1>
                   <v-col class="pt-0 pb-0">
                     <label class="labelConfirmation">Empresa Proponente</label>
-                    <h6>{{project.proponentCompany||"Não Informado"}}</h6>
+                    <h6>{{project.mainEnterprise.trade||"Não Informado"}}</h6>
                   </v-col>
                 </v-flex>
               </v-row>
@@ -76,7 +76,7 @@
               :width="15"
               :value="project.progress"
               color="primary"
-            >{{ project.progress }}% Concluído</v-progress-circular>
+            >{{ project.progress.toFixed(2) }}% Concluído</v-progress-circular>
           </v-flex>
         </v-row>
         <v-row>
@@ -89,7 +89,7 @@
         </v-row>
         <v-row>
           <v-flex shrink pt-0>
-            <v-col v-if="project.serviceOrder">
+            <v-col v-if="project.topic.description">
               <v-row>
                 <v-flex shrink pa-0>
                   <v-col class="pt-0 pb-0">

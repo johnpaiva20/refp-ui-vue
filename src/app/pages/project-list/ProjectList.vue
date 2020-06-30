@@ -33,6 +33,11 @@
             <template v-slot:item.serviceOrder.duration="{ item }">
               <span>{{item.serviceOrder.duration}}</span>
             </template>
+             <template v-slot:item.actions="{item}">
+              <td>
+                <v-btn text small color="primary"  :href="report(item)" >Totalização</v-btn>
+              </td>
+            </template>
           </v-data-table>
           <div>
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -60,6 +65,7 @@ import { AxiosResponse } from 'axios';
 import { SET_PROJECT } from '../../../domain/store/mutations.type';
 import DateUtils from '@/domain/utils/date_util';
 import { Watch } from 'vue-property-decorator';
+const baseURL = `${process.env.VUE_APP_BASE_API_URL}`;
 @Component({
   components: {
     'project-register-dialog': ProjectRegisterDialog,
@@ -73,10 +79,11 @@ export default class ProjectListView extends Vue {
 
   headers = [
     { text: 'Código ANEEL', value: 'aneelId', width: '1%' },
-    { text: 'Titulo', value: 'title', width: '1%' },
+    { text: 'Titulo', value: 'title', width: '60%' },
     { text: 'Data de Inicio', value: 'serviceOrder.begin', width: '1%' },
     { text: 'Duração', value: 'serviceOrder.duration', width: '1%' },
     { text: 'Ordem de Serviço', value: 'serviceOrder.number', width: '1%' },
+    { text: 'Relatório', value: 'actions', sortable: false },
   ];
 
   pluralization = {
@@ -115,6 +122,11 @@ export default class ProjectListView extends Vue {
       params: { id: project.id.toString() },
     });
   }
+report(item:Project){
+    var reportUrl = baseURL+`/totalization?projetoId=${item.id}`
+    return reportUrl;
+  }
+
 }
 </script>
 

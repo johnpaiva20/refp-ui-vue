@@ -34,15 +34,15 @@ export default class SideBar extends Vue {
   itens: any = [];
 
   beforeMount() {
-    this.itens = menuItens.filter((e) => !e.isProject);
+    this.itens = menuItens.filter((e) => e != undefined && !e.isProject);
     this.handlerRoute(this.$router.currentRoute);
   }
 
   @Watch('$route', { immediate: true, deep: true })
   handlerRoute(to: any) {
     if (this.$store.state.application.isProject)
-      this.itens = menuItens.filter((e) => e.isProject);
-    else this.itens = menuItens.filter((e) => !e.isProject);
+      this.itens = menuItens.filter((e) =>e != undefined && e.isProject);
+    else this.itens = menuItens.filter((e) =>e != undefined && !e.isProject);
   }
 
   get show() {
