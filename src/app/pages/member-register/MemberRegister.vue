@@ -130,10 +130,10 @@ export default class MemberRegisterView extends Vue {
   snackbar: Snackbar = { show: false, message: '' };
 
   nominations = [
-    { value: 'G', description: 'Doutor' },
-    { value: 'T', description: 'Transmissão' },
-    { value: 'D', description: 'Distribuição' },
-    { value: 'C', description: 'Comercialização' },
+    { value: 'D', description: 'Doutor' },
+    { value: 'M', description: 'Mestre' },
+    { value: 'E', description: 'Especialista' },
+    { value: 'G', description: 'Graduado' },
   ];
 
   get show() {
