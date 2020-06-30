@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <v-row align="center" justify="center">
-      <v-col cols="12" sm="8" md="5">
+      <v-col cols="12" sm="8" md="4">
         <v-card raised max-width="600" height="420" max-height="450" elevation="12">
           <v-container>
             <v-row>
@@ -60,7 +60,7 @@
               </v-col>
             </v-row>
           </v-container>
-        </v-card>
+         </v-card>
         <v-snackbar
           v-model="snackbar.show"
           :bottom="true"
@@ -68,8 +68,16 @@
           :timeout="snackbar.timeout"
         >{{ snackbar.message }}</v-snackbar>
       </v-col>
-    </v-row>
+    </v-row> 
+    <v-row justify="center">
+       <div class="backgroundQrCode">         
+           <v-img class="qrCode" src= "https://i.ibb.co/PDfdTNw/qrcode2.png" aspect-ratio="1.7"></v-img>
+      </div>  
+    </v-row> 
   </div>
+
+  
+
 </template>
 
 <style  >
@@ -78,6 +86,14 @@
   height: 100%;
   background-color: #3e8f52;
   padding: 45px;
+}
+.backgroundQrCode {
+  width: 5%;
+  height: 90%;
+}
+.qrCode{
+  width: 100px;
+  height: 100px;
 }
 
 .version {
@@ -127,6 +143,7 @@ export default class Login extends Vue {
   }
 
   private login() {
+    if(this.form.username === 'admin' && this.form.password === 'admin'){
     this.$router.push({ path: '/personal/projects' });
     store
       .dispatch(LOGIN, this.form)
@@ -145,6 +162,14 @@ export default class Login extends Vue {
           this.snackbar.message = 'info';
         }
       });
+    } else{
+       this.snackbar = {
+            show: true,
+            message: 'Login ou senha incorretos!',
+             timeout: 8000,
+            color: 'red',
+          };
+    }
   }
 
   get version() {
