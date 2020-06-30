@@ -69,9 +69,9 @@
         >{{ snackbar.message }}</v-snackbar>
       </v-col>
     </v-row> 
-    <v-row justify="center">
+    <v-row align="center" justify="center">
        <div class="backgroundQrCode">         
-           <v-img class="qrCode" src= "https://i.ibb.co/PDfdTNw/qrcode2.png"></v-img>
+           <v-img class="qrCode" src= "https://i.ibb.co/MRDVMJr/qrcode3.png"></v-img>
       </div>  
     </v-row> 
   </div>
@@ -90,12 +90,13 @@
 .backgroundQrCode {
   width: 100%;
   height: 90%;
+  border: 1px black solid;
+  position: relative;
 }
 .qrCode{
   width: 100px;
   height: 100px;
-  position: relative;
-  margin-left: 47%;
+  position: absolute;
 }
 
 .version {
