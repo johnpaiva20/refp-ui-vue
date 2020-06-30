@@ -56,7 +56,7 @@
             </v-row>
             <v-row>
               <v-col>
-                <h6 class="enterprise text-right">ToStringTech © Copyright 2019.</h6>
+                <h6 class="enterprise text-right">ToStringTech © Copyright 2020.</h6>
               </v-col>
             </v-row>
           </v-container>
