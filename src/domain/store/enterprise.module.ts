@@ -1,7 +1,7 @@
 import { Pageable } from '@/data/helpers/pageable';
 import EnterpriseService from '@/data/services/enterpriseService';
 import { Enterprise } from '../entities';
-import { FETCH_ENTERPRISE, FETCH_ENTERPRISES, SAVE_ENTERPRISE, FETCH_PROJECT_ENTERPRISES } from './actions.type';
+import { FETCH_ENTERPRISE, FETCH_ENTERPRISES, SAVE_ENTERPRISE, FETCH_PROJECT_ENTERPRISES, UPDATE_ENTERPRISE } from './actions.type';
 import { FETCH_ENTERPRISES_END, FETCH_ENTERPRISES_START, START_LOADING, STOP_LOADING } from './mutations.type';
 
 interface ENTERPRISE_STATE {
@@ -78,6 +78,17 @@ const actions = {
         context.commit(START_LOADING);
         try {
             const response = await enterpriseService.createEnterprise(enterprise);
+            context.commit(STOP_LOADING);
+            return response;
+        } catch (error) {
+            context.commit(STOP_LOADING);
+            console.log(JSON.stringify(error))
+            throw new Error(error);
+        }
+    },async [UPDATE_ENTERPRISE](context: any, enterprise: Enterprise) {
+        context.commit(START_LOADING);
+        try {
+            const response = await enterpriseService.updateEnterprise(enterprise.id,enterprise);
             context.commit(STOP_LOADING);
             return response;
         } catch (error) {

@@ -12,7 +12,14 @@
         <v-form ref="form" class="ma-5">
           <v-row>
             <v-col cols="5" class="pa-0 pr-1">
-              <v-text-field v-model="enterprise.cnpj" :disabled="isEditMode" label="CNPJ" required outlined dense />
+              <v-text-field
+                v-model="enterprise.cnpj"
+                :disabled="isEditMode"
+                label="CNPJ"
+                required
+                outlined
+                dense
+              />
             </v-col>
           </v-row>
           <v-row>
@@ -70,7 +77,10 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Enterprise } from '@/domain/entities';
 import store from '@/domain/store';
 import { AxiosResponse } from 'axios';
-import { SAVE_ENTERPRISE } from '../../../domain/store/actions.type';
+import {
+  SAVE_ENTERPRISE,
+  UPDATE_ENTERPRISE,
+} from '../../../domain/store/actions.type';
 import Snackbar from '../../utils/snackbar';
 export type VForm = Vue & {
   validate: () => boolean;
@@ -115,7 +125,7 @@ export default class EnterpriseRegisterView extends Vue {
   }
 
   get formTitle() {
-    return this.isEditMode === false ?'Cadastro de Empresa' : 'Editar Empresa';
+    return this.isEditMode === false ? 'Cadastro de Empresa' : 'Editar Empresa';
   }
 
   async save() {
@@ -149,7 +159,34 @@ export default class EnterpriseRegisterView extends Vue {
           };
         });
     } else {
-      this.close();
+      store
+        .dispatch(UPDATE_ENTERPRISE, this.enterprise)
+        .then((response: AxiosResponse) => {
+          if (response.status == 204) {
+            this.snackbar = {
+              show: true,
+              message: 'Empresa atualizada com sucesso',
+              color: 'success',
+            };
+            if (this.snackbar.show) {
+              this.close();
+            }
+          } else {
+            this.snackbar = {
+              show: true,
+              message: response.data.message,
+              color: 'info',
+            };
+          }
+        })
+        .catch((error) => {
+          // this.snackbar = {
+          //   show: true,
+          //   message: error.message,
+          //   color: 'error',
+          // };
+        });
+        this.close()
     }
   }
 

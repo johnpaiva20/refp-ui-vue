@@ -68,7 +68,7 @@ export const menuItens =
       path: 'expenses'
     },
     { id: 6, title: 'Informações', icon: 'info', path: 'info', isProject: true },
-    { id: 7, title: 'Empresas', icon: 'business', path: 'enterprises', isProject: true },
+   // { id: 7, title: 'Empresas', icon: 'business', path: 'enterprises', isProject: true },
     { id: 8, title: 'Membros', icon: 'people', path: 'members', isProject: true },
     {
       id: 9,
