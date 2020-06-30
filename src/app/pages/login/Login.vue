@@ -90,13 +90,11 @@
 .backgroundQrCode {
   width: 100%;
   height: 90%;
-  border: 1px black solid;
-  position: relative;
 }
 .qrCode{
   width: 100px;
   height: 100px;
-  position: absolute;
+  margin-left: 47%;
 }
 
 .version {
