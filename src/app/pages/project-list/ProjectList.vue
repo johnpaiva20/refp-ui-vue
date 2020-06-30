@@ -79,7 +79,7 @@ export default class ProjectListView extends Vue {
 
   headers = [
     { text: 'Código ANEEL', value: 'aneelId', width: '1%' },
-    { text: 'Titulo', value: 'title', width: '1%' },
+    { text: 'Titulo', value: 'title', width: '60%' },
     { text: 'Data de Inicio', value: 'serviceOrder.begin', width: '1%' },
     { text: 'Duração', value: 'serviceOrder.duration', width: '1%' },
     { text: 'Ordem de Serviço', value: 'serviceOrder.number', width: '1%' },
