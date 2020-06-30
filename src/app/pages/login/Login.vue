@@ -71,7 +71,7 @@
     </v-row> 
     <v-row justify="center">
        <div class="backgroundQrCode">         
-           <v-img class="qrCode" src= "https://i.ibb.co/PDfdTNw/qrcode2.png" aspect-ratio="1.7"></v-img>
+           <v-img class="qrCode" src= "https://i.ibb.co/PDfdTNw/qrcode2.png"></v-img>
       </div>  
     </v-row> 
   </div>
@@ -88,12 +88,14 @@
   padding: 45px;
 }
 .backgroundQrCode {
-  width: 5%;
+  width: 100%;
   height: 90%;
 }
 .qrCode{
   width: 100px;
   height: 100px;
+  position: relative;
+  margin-left: 47%;
 }
 
 .version {
