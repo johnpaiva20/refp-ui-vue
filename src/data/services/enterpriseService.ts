@@ -17,6 +17,9 @@ export default class EnterpriseService {
     listEnterprises(pageable: Pageable | undefined) {
         return this.enterpriseRespository.listEnterprises();
     }
+    updateEnterprise(id: number,enterprise: Enterprise){
+        return this.enterpriseRespository.updateEnterprise(id,enterprise);
+    }
 
     getEnterpriseByProjectId(id: number) {
         return this.projectRepository.listProjectEnterprises(id);

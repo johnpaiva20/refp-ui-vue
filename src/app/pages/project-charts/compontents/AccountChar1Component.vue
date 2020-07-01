@@ -1,11 +1,11 @@
 <template>
-  <v-card width="550" height="450">
+  <v-card width="630" height="450">
     <v-card-title
       class="headline primary white--text"
       primary-title
     >Despesas por rubrica</v-card-title>
     <v-card-text>
-      <apexchart width="500" height="350" type="bar" :options="chartOptions" :series="series" />
+      <apexchart width="590" height="350" type="bar" :options="chartOptions" :series="series" />
     </v-card-text>
   </v-card>
 </template>
@@ -29,7 +29,13 @@ export default class AccountChartComponent extends Vue {
         'Viagens e Diarias',
         'Outros',
       ],
+      
     },
+    yaxis: {
+          title: {
+            text: 'R$ (Mil)'
+          }
+        },
   };
 
   series = [
