@@ -1,5 +1,5 @@
 <template>
-  <v-card width="550" height="450">
+  <v-card width="630" height="450">
     <v-card-title
       class="headline primary white--text"
       primary-title
